@@ -62,6 +62,7 @@ namespace Dncy.Specifications.Test
                     Query.OrderByDescending(x=>x.Age).ThenByDescending(x=>x.Sort);
                 }
 
+                Query.Select(x => new UserDto {Id = x.Id, Name = x.Name});
                 Query.Take(10);
             }
         }
