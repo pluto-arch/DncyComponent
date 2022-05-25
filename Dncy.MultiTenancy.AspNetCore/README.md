@@ -5,9 +5,27 @@
 > 默认的租户数据是使用配置文件。
 
 ## 默认
-services.Configure<TenantConfigurationOptions>(configuration); // 从配置文件中读取所有租户数据
-services.AddTransient<IConnectionStringResolver, DefaultConnectionStringResolver>(); // 租户数据库连接字符串解析器，默认是从配置文件中解析
-services.AddTransient<ITenantStore, DefaultTenantStore>(); // 租户store，只读。默认是配置文件，自定义可设置从其他持久化设备读取。这里读取后的仅仅是系统运行时的租户信息，和数据库或者持久化地方的没有关系，但是需要用他们进行初始化和检查。
+```csharp
+builder.Services.Configure<TenantConfigurationOptions>(config); // 从配置文件中取租户数据 这是默认
+builder.Services.AddSingleton<ICurrentTenantAccessor, CurrentTenantAccessor>();
+builder.Services.AddTransient<ICurrentTenant, CurrentTenant>();
+
+
+builder.Services.AddTransient<IConnectionStringResolver, DefaultConnectionStringResolver>(); // 租户连接字符串解析器 默认是从配置文件中租户信息中获取
+builder.Services.AddTransient<ITenantStore, DefaultTenantStore>(); // 租户存储器 默认是从配置文件中租户信息中获取
+builder.Services.AddTransient<ITenantResolver, TenantResolver>(); // 租户解析器 再中间件中解析租户，需要配合ITenantConstruct
+builder.Services.AddTransient<ITenantConstruct, HeaderTenantConstruct>(x=>new HeaderTenantConstruct(headerDic =>
+{
+    if (headerDic.ContainsKey("tenant"))
+    {
+        return headerDic["tenant"];
+    }
+
+    return null;
+})); // 租户构建器，默认实现了从http请求头或者域名的解析构建，根据需要可以自行实现。
+
+builder.Services.AddTransient<MultiTenancyMiddleware>(); // 以服务方式注入租户中间件
+```
 
 ### 租户解析器：
 默认由从域名解析和从Http请求头解析。可自己扩展。
