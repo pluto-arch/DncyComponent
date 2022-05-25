@@ -13,11 +13,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dncy.Permission.AspNetCore"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dncy.Specifications", "Dncy.Specifications\Dncy.Specifications.csproj", "{C21CBEFA-1E5C-4977-9C27-D310913F7C28}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dncy.Tenant", "Dncy.Tenant\Dncy.Tenant.csproj", "{CAACFF7E-5CE2-4EBF-8057-E550BC8F793A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dncy.MultiTenancy", "Dncy.Tenant\Dncy.MultiTenancy.csproj", "{CAACFF7E-5CE2-4EBF-8057-E550BC8F793A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dncy.Specifications.Test", "Test\Dncy.Specifications.Test\Dncy.Specifications.Test.csproj", "{F05AF8B0-A119-4D3B-9111-4A7A264F366C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dncy.Specifications.Test", "Test\Dncy.Specifications.Test\Dncy.Specifications.Test.csproj", "{F05AF8B0-A119-4D3B-9111-4A7A264F366C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dncy.Specifications.EntityFrameworkCore", "Dncy.Specifications.EntityFrameworkCore\Dncy.Specifications.EntityFrameworkCore.csproj", "{20208E25-3D12-40BD-9A60-CFECBB119B3A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dncy.Specifications.EntityFrameworkCore", "Dncy.Specifications.EntityFrameworkCore\Dncy.Specifications.EntityFrameworkCore.csproj", "{20208E25-3D12-40BD-9A60-CFECBB119B3A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dncy.MultiTenancy.AspNetCore", "Dncy.MultiTenancy.AspNetCore\Dncy.MultiTenancy.AspNetCore.csproj", "{2CF53818-983A-4071-B3CF-BA8725A2AF1A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dncy.MultiTenancy.Test", "Test\Dncy.MultiTenancy.Test\Dncy.MultiTenancy.Test.csproj", "{CB209C5B-DD55-43CA-A1C6-164D6269A04C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +53,14 @@ Global
 		{20208E25-3D12-40BD-9A60-CFECBB119B3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{20208E25-3D12-40BD-9A60-CFECBB119B3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{20208E25-3D12-40BD-9A60-CFECBB119B3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CF53818-983A-4071-B3CF-BA8725A2AF1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CF53818-983A-4071-B3CF-BA8725A2AF1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CF53818-983A-4071-B3CF-BA8725A2AF1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CF53818-983A-4071-B3CF-BA8725A2AF1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB209C5B-DD55-43CA-A1C6-164D6269A04C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB209C5B-DD55-43CA-A1C6-164D6269A04C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB209C5B-DD55-43CA-A1C6-164D6269A04C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB209C5B-DD55-43CA-A1C6-164D6269A04C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +72,8 @@ Global
 		{CAACFF7E-5CE2-4EBF-8057-E550BC8F793A} = {70A47FF6-372D-4C66-BD87-7DB636AED154}
 		{F05AF8B0-A119-4D3B-9111-4A7A264F366C} = {83E91D5E-3638-432B-9682-21672AD37D1D}
 		{20208E25-3D12-40BD-9A60-CFECBB119B3A} = {70A47FF6-372D-4C66-BD87-7DB636AED154}
+		{2CF53818-983A-4071-B3CF-BA8725A2AF1A} = {70A47FF6-372D-4C66-BD87-7DB636AED154}
+		{CB209C5B-DD55-43CA-A1C6-164D6269A04C} = {83E91D5E-3638-432B-9682-21672AD37D1D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8F5F0788-5958-459A-B53D-296C9756B958}
