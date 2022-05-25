@@ -10,7 +10,6 @@ builder.Services.Configure<TenantConfigurationOptions>(config); // 从配置文�
 builder.Services.AddSingleton<ICurrentTenantAccessor, CurrentTenantAccessor>();
 builder.Services.AddTransient<ICurrentTenant, CurrentTenant>();
 
-
 builder.Services.AddTransient<IConnectionStringResolver, DefaultConnectionStringResolver>(); // 租户连接字符串解析器 默认是从配置文件中租户信息中获取
 builder.Services.AddTransient<ITenantStore, DefaultTenantStore>(); // 租户存储器 默认是从配置文件中租户信息中获取
 builder.Services.AddTransient<ITenantResolver, TenantResolver>(); // 租户解析器 再中间件中解析租户，需要配合ITenantConstruct
@@ -28,15 +27,6 @@ builder.Services.AddTransient<MultiTenancyMiddleware>(); // 以服务方式注�
 ```
 
 ### 租户解析器：
-默认由从域名解析和从Http请求头解析。可自己扩展。
-```csharp
-services.AddTransient<ITenantConstruct, DomainNameTenantConstruct>(x=>new DomainNameTenantConstruct(hostString=> {
-	// 这里解析hoststring，获取域名，然后根据自己规则解析
-	return tenantIdOrName;
-}));
-}));
-```
-```
 
 扩展方式：
 1. 如果是http上下文中解析，请自行创建解析器，继承自`HttpTenantConstructBase`即可，然后再容器中注入。
