@@ -5,9 +5,17 @@
 > 默认的租户数据是使用配置文件。
 
 ## 默认
-services.Configure<TenantConfigurationOptions>(configuration); // 从配置文件中读取所有租户数据
-services.AddTransient<IConnectionStringResolver, DefaultConnectionStringResolver>(); // 租户数据库连接字符串解析器，默认是从配置文件中解析
-services.AddTransient<ITenantStore, DefaultTenantStore>(); // 租户store，只读。默认是配置文件，自定义可设置从其他持久化设备读取。这里读取后的仅仅是系统运行时的租户信息，和数据库或者持久化地方的没有关系，但是需要用他们进行初始化和检查。
+```csharp
+
+ervices.Configure<TenantConfigurationOptions>(configuration);  // 从配置文件中读取所有租户数据
+
+builder.Services.AddSingleton<ICurrentTenantAccessor, CurrentTenantAccessor>(); // 租户访问器 一般不自己实现，参考IHttpContextAccessor
+builder.Services.AddTransient<ICurrentTenant, CurrentTenant>(); // 当前租户 一般也不自己实现 直接用
+
+builder.Services.AddTransient<IConnectionStringResolver, DefaultConnectionStringResolver>();  // 租户数据库连接字符串解析器，默认是从配置文件中解析
+builder.Services.AddTransient<ITenantStore, DefaultTenantStore>();// 租户store，只读。默认是配置文件，自定义可设置从其他持久化设备读取。这里读取后的仅仅是系统运行时的租户信息，和数据库或者持久化地方的没有关系，但是需要用他们进行初始化和检查。
+
+```
 
 
 
