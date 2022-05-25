@@ -19,10 +19,10 @@ public class DefaultTenantStore : ITenantStore
     public Task<TenantConfiguration> FindAsync(string name)
     {
         if (IsNullOrEmpty())
-            return null;
+            return Task.FromResult<TenantConfiguration>(default);
         var t = _tenants.FirstOrDefault(x => x.TenantName == name);
         if (t == null)
-            return null;
+            return Task.FromResult<TenantConfiguration>(default);
         return Task.FromResult(new TenantConfiguration(t.TenantId, name,t.ConnectionStrings));
     }
 
@@ -30,10 +30,10 @@ public class DefaultTenantStore : ITenantStore
     public Task<TenantConfiguration> FindAsync<Tkey>(Tkey id)
     {
         if (IsNullOrEmpty())
-            return null;
+            return Task.FromResult<TenantConfiguration>(default);
         var t = _tenants.FirstOrDefault(x => x.TenantId == id.ToString());
         if (t == null)
-            return null;
+            return Task.FromResult<TenantConfiguration>(default);
         return Task.FromResult(new TenantConfiguration(t.TenantId, t.TenantName,t.ConnectionStrings));
     }
 

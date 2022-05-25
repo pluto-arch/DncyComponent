@@ -22,7 +22,7 @@ public class TenantConfiguration
 
     public string TenantId { get; set; }
 
-    public string TenantName { get; set; } = string.Empty;
+    public string TenantName { get; set; }
 
     public Dictionary<string, string> ConnectionStrings { get; set; }
 }
