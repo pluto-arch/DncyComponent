@@ -23,17 +23,22 @@ namespace Dncy.MultiTenancy.AspNetCore
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
             var resolveResult = _tenantResolver.ResolveTenantIdOrName();
-            TenantConfiguration tenant = null;
             if (resolveResult!=null&&!string.IsNullOrEmpty(resolveResult))
             {
-                tenant = await FindAndCheckTenantAsync(resolveResult);
+                var tenant = await FindAndCheckTenantAsync(resolveResult);
                 if (tenant == null)
                 {
                     await next(context);
                 }
+                else
+                {
+                    using (_currentTenant.Change(tenant?.TenantId,tenant?.TenantName))
+                    {
+                        await next(context);
+                    }
+                }
             }
-
-            using (_currentTenant.Change(tenant?.TenantId,tenant?.TenantName))
+            else
             {
                 await next(context);
             }
