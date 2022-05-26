@@ -1,32 +1,34 @@
 ﻿using System.Linq.Expressions;
 
-namespace Dncy.Specifications;
-
-public class ParameterReplacerVisitor:ExpressionVisitor
+namespace Dncy.Specifications
 {
-    private readonly Expression newExpression;
-
-    private readonly ParameterExpression oldParameter;
-
-    private ParameterReplacerVisitor(ParameterExpression oldParameter, Expression newExpression)
+    public class ParameterReplacerVisitor:ExpressionVisitor
     {
-        this.oldParameter = oldParameter;
-        this.newExpression = newExpression;
-    }
+        private readonly Expression newExpression;
 
-    public static Expression Replace(Expression expression, ParameterExpression oldParameter,
-        Expression newExpression)
-    {
-        return new ParameterReplacerVisitor(oldParameter, newExpression).Visit(expression);
-    }
+        private readonly ParameterExpression oldParameter;
 
-    protected override Expression VisitParameter(ParameterExpression p)
-    {
-        if (p == oldParameter)
+        private ParameterReplacerVisitor(ParameterExpression oldParameter, Expression newExpression)
         {
-            return newExpression;
+            this.oldParameter = oldParameter;
+            this.newExpression = newExpression;
         }
 
-        return p;
+        public static Expression Replace(Expression expression, ParameterExpression oldParameter,
+            Expression newExpression)
+        {
+            return new ParameterReplacerVisitor(oldParameter, newExpression).Visit(expression);
+        }
+
+        protected override Expression VisitParameter(ParameterExpression p)
+        {
+            if (p == oldParameter)
+            {
+                return newExpression;
+            }
+
+            return p;
+        }
     }
 }
+

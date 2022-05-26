@@ -1,5 +1,7 @@
-﻿namespace Dncy.Specifications.Builder;
-
-public interface IOrderedSpecificationBuilder<T> : ISpecificationBuilder<T>
+﻿namespace Dncy.Specifications.Builder
 {
+    public interface IOrderedSpecificationBuilder<T> : ISpecificationBuilder<T>
+    {
+    }
 }
+

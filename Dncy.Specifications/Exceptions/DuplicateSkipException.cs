@@ -1,17 +1,21 @@
-﻿namespace Dncy.Specifications.Exceptions;
+﻿using System;
 
-public class DuplicateSkipException : Exception
+namespace Dncy.Specifications.Exceptions
 {
-    private const string message =
-        "Duplicate use of the Skip(). Ensure you don't use both Paginate() and Skip() in the same specification!";
-
-    public DuplicateSkipException()
-        : base(message)
+    public class DuplicateSkipException : Exception
     {
-    }
+        private const string message =
+            "Duplicate use of the Skip(). Ensure you don't use both Paginate() and Skip() in the same specification!";
 
-    public DuplicateSkipException(Exception innerException)
-        : base(message, innerException)
-    {
+        public DuplicateSkipException()
+            : base(message)
+        {
+        }
+
+        public DuplicateSkipException(Exception innerException)
+            : base(message, innerException)
+        {
+        }
     }
 }
+

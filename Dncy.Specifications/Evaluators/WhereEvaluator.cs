@@ -1,32 +1,37 @@
-﻿using System.Linq.Expressions;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 
-namespace Dncy.Specifications.Evaluators;
-
-public class WhereEvaluator : IEvaluator, IInMemoryEvaluator
+namespace Dncy.Specifications.Evaluators
 {
-    private WhereEvaluator() { }
-
-    public static WhereEvaluator Instance { get; } = new();
-
-    public bool IsCriteriaEvaluator { get; } = true;
-
-    public IQueryable<T> GetQuery<T>(IQueryable<T> query, ISpecification<T> specification) where T : class
+    public class WhereEvaluator : IEvaluator, IInMemoryEvaluator
     {
-        foreach (Expression<Func<T, bool>> criteria in specification.WhereExpressions)
+        private WhereEvaluator() { }
+
+        public static WhereEvaluator Instance { get; } = new WhereEvaluator();
+
+        public bool IsCriteriaEvaluator { get; } = true;
+
+        public IQueryable<T> GetQuery<T>(IQueryable<T> query, ISpecification<T> specification) where T : class
         {
-            query = query.Where(criteria);
+            foreach (Expression<Func<T, bool>> criteria in specification.WhereExpressions)
+            {
+                query = query.Where(criteria);
+            }
+
+            return query;
         }
 
-        return query;
-    }
-
-    public IEnumerable<T> Evaluate<T>(IEnumerable<T> query, ISpecification<T> specification)
-    {
-        foreach (Expression<Func<T, bool>> criteria in specification.WhereExpressions)
+        public IEnumerable<T> Evaluate<T>(IEnumerable<T> query, ISpecification<T> specification)
         {
-            query = query.Where(criteria.Compile());
-        }
+            foreach (Expression<Func<T, bool>> criteria in specification.WhereExpressions)
+            {
+                query = query.Where(criteria.Compile());
+            }
 
-        return query;
+            return query;
+        }
     }
 }
+

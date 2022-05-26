@@ -1,12 +1,14 @@
-﻿namespace Dncy.Specifications.Builder;
-
-public interface ISpecificationBuilder<T, TResult> : ISpecificationBuilder<T>
+﻿namespace Dncy.Specifications.Builder
 {
-    new Specification<T, TResult> Specification { get; }
+    public interface ISpecificationBuilder<T, TResult> : ISpecificationBuilder<T>
+    {
+        new Specification<T, TResult> Specification { get; }
+    }
+
+
+    public interface ISpecificationBuilder<T>
+    {
+        Specification<T> Specification { get; }
+    }
 }
 
-
-public interface ISpecificationBuilder<T>
-{
-    Specification<T> Specification { get; }
-}

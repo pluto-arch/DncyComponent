@@ -1,10 +1,13 @@
-﻿using System.Linq.Expressions;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 
-namespace Dncy.Specifications.EntityFrameworkCore;
-
-public static class SearchExtension
+namespace Dncy.Specifications.EntityFrameworkCore
+{
+    public static class SearchExtension
     {
         /// <summary>
         ///     Filters <paramref name="source" /> by applying an 'SQL LIKE' operation to it.
@@ -62,9 +65,16 @@ public static class SearchExtension
                 MethodCallExpression likeExpression =
                     Expression.Call(null, like, functions, expression, Expression.Constant(searchTerm));
 
+#if !NETCOREAPP3_1
                 expr = expr == null ? likeExpression : Expression.OrElse(expr, likeExpression);
+#else
+                expr = expr == null ? likeExpression : (Expression)Expression.OrElse(expr, likeExpression);
+#endif
+
             }
 
             return expr == null ? source : source.Where(Expression.Lambda<Func<T, bool>>(expr, parameter));
         }
     }
+}
+

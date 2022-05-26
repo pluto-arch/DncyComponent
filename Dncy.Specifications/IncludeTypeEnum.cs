@@ -1,7 +1,9 @@
-﻿namespace Dncy.Specifications;
-
-public enum IncludeTypeEnum
+﻿namespace Dncy.Specifications
 {
-    Include = 1,
-    ThenInclude = 2
+    public enum IncludeTypeEnum
+    {
+        Include = 1,
+        ThenInclude = 2
+    }
 }
+

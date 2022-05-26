@@ -1,16 +1,20 @@
-﻿namespace Dncy.Specifications.Exceptions;
+﻿using System;
 
-public class DuplicateOrderChainException : Exception
+namespace Dncy.Specifications.Exceptions
 {
-    private const string message = "The specification contains more than one Order chain!";
-
-    public DuplicateOrderChainException()
-        : base(message)
+    public class DuplicateOrderChainException : Exception
     {
-    }
+        private const string message = "The specification contains more than one Order chain!";
 
-    public DuplicateOrderChainException(Exception innerException)
-        : base(message, innerException)
-    {
+        public DuplicateOrderChainException()
+            : base(message)
+        {
+        }
+
+        public DuplicateOrderChainException(Exception innerException)
+            : base(message, innerException)
+        {
+        }
     }
 }
+

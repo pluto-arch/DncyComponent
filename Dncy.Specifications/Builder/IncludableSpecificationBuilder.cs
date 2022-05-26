@@ -1,12 +1,14 @@
-﻿namespace Dncy.Specifications.Builder;
-
-public class IncludableSpecificationBuilder<T, TProperty> : IIncludableSpecificationBuilder<T, TProperty>
-    where T : class
+﻿namespace Dncy.Specifications.Builder
 {
-    public IncludableSpecificationBuilder(Specification<T> specification)
+    public class IncludableSpecificationBuilder<T, TProperty> : IIncludableSpecificationBuilder<T, TProperty>
+        where T : class
     {
-        Specification = specification;
-    }
+        public IncludableSpecificationBuilder(Specification<T> specification)
+        {
+            Specification = specification;
+        }
 
-    public Specification<T> Specification { get; }
+        public Specification<T> Specification { get; }
+    }
 }
+

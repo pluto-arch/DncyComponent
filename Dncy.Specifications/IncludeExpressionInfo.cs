@@ -1,46 +1,49 @@
-﻿using System.Linq.Expressions;
+﻿using System;
+using System.Linq.Expressions;
 
-namespace Dncy.Specifications;
-
-public class IncludeExpressionInfo
+namespace Dncy.Specifications
 {
-    private IncludeExpressionInfo(LambdaExpression expression, Type entityType, Type propertyType,
-        Type previousPropertyType, IncludeTypeEnum includeType)
+    public class IncludeExpressionInfo
     {
-        _ = expression ?? throw new ArgumentNullException(nameof(expression));
-        _ = entityType ?? throw new ArgumentNullException(nameof(entityType));
-        _ = propertyType ?? throw new ArgumentNullException(nameof(propertyType));
-
-        if (includeType == IncludeTypeEnum.ThenInclude)
+        private IncludeExpressionInfo(LambdaExpression expression, Type entityType, Type propertyType,
+            Type previousPropertyType, IncludeTypeEnum includeType)
         {
-            _ = previousPropertyType ?? throw new ArgumentNullException(nameof(previousPropertyType));
+            _ = expression ?? throw new ArgumentNullException(nameof(expression));
+            _ = entityType ?? throw new ArgumentNullException(nameof(entityType));
+            _ = propertyType ?? throw new ArgumentNullException(nameof(propertyType));
+
+            if (includeType == IncludeTypeEnum.ThenInclude)
+            {
+                _ = previousPropertyType ?? throw new ArgumentNullException(nameof(previousPropertyType));
+            }
+
+            LambdaExpression = expression;
+            EntityType = entityType;
+            PropertyType = propertyType;
+            PreviousPropertyType = previousPropertyType;
+            Type = includeType;
         }
 
-        LambdaExpression = expression;
-        EntityType = entityType;
-        PropertyType = propertyType;
-        PreviousPropertyType = previousPropertyType;
-        Type = includeType;
+        public IncludeExpressionInfo(LambdaExpression expression, Type entityType, Type propertyType)
+            : this(expression, entityType, propertyType, null, IncludeTypeEnum.Include)
+        {
+        }
+
+        public IncludeExpressionInfo(LambdaExpression expression, Type entityType, Type propertyType,
+            Type previousPropertyType)
+            : this(expression, entityType, propertyType, previousPropertyType, IncludeTypeEnum.ThenInclude)
+        {
+        }
+
+        public LambdaExpression LambdaExpression { get; }
+
+        public Type EntityType { get; }
+
+        public Type PropertyType { get; }
+
+        public Type PreviousPropertyType { get; }
+
+        public IncludeTypeEnum Type { get; }
     }
-
-    public IncludeExpressionInfo(LambdaExpression expression, Type entityType, Type propertyType)
-        : this(expression, entityType, propertyType, null, IncludeTypeEnum.Include)
-    {
-    }
-
-    public IncludeExpressionInfo(LambdaExpression expression, Type entityType, Type propertyType,
-        Type previousPropertyType)
-        : this(expression, entityType, propertyType, previousPropertyType, IncludeTypeEnum.ThenInclude)
-    {
-    }
-
-    public LambdaExpression LambdaExpression { get; }
-
-    public Type EntityType { get; }
-
-    public Type PropertyType { get; }
-
-    public Type PreviousPropertyType { get; }
-
-    public IncludeTypeEnum Type { get; }
 }
+

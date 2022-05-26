@@ -1,13 +1,16 @@
-﻿using System.Linq.Expressions;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using Dncy.Specifications.Exceptions;
 
-namespace Dncy.Specifications.Evaluators;
-
-public class OrderEvaluator : IEvaluator, IInMemoryEvaluator
+namespace Dncy.Specifications.Evaluators
+{
+    public class OrderEvaluator : IEvaluator, IInMemoryEvaluator
 {
     private OrderEvaluator() { }
 
-    public static OrderEvaluator Instance { get; } = new();
+    public static OrderEvaluator Instance { get; } = new OrderEvaluator();
 
     public bool IsCriteriaEvaluator { get; } = false;
 
@@ -91,3 +94,5 @@ public class OrderEvaluator : IEvaluator, IInMemoryEvaluator
         return query;
     }
 }
+}
+

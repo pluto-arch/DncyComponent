@@ -1,11 +1,13 @@
-﻿namespace Dncy.Specifications.Builder;
-
-public class OrderedSpecificationBuilder<T> : IOrderedSpecificationBuilder<T>
+﻿namespace Dncy.Specifications.Builder
 {
-    public OrderedSpecificationBuilder(Specification<T> specification)
+    public class OrderedSpecificationBuilder<T> : IOrderedSpecificationBuilder<T>
     {
-        Specification = specification;
-    }
+        public OrderedSpecificationBuilder(Specification<T> specification)
+        {
+            Specification = specification;
+        }
 
-    public Specification<T> Specification { get; }
+        public Specification<T> Specification { get; }
+    }
 }
+

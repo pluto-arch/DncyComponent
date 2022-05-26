@@ -1,6 +1,10 @@
-﻿namespace Dncy.Specifications.Evaluators;
+﻿using System.Collections.Generic;
 
-public interface IInMemoryEvaluator
+namespace Dncy.Specifications.Evaluators
 {
-    IEnumerable<T> Evaluate<T>(IEnumerable<T> query, ISpecification<T> specification);
+    public interface IInMemoryEvaluator
+    {
+        IEnumerable<T> Evaluate<T>(IEnumerable<T> query, ISpecification<T> specification);
+    }
 }
+

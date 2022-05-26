@@ -1,23 +1,26 @@
-﻿using Dncy.Specifications.Evaluators;
+﻿using System.Linq;
+using Dncy.Specifications.Evaluators;
 using Microsoft.EntityFrameworkCore;
 
-namespace Dncy.Specifications.EntityFrameworkCore.Evaluatiors;
-
-public class AsNoTrackingEvaluator: IEvaluator
+namespace Dncy.Specifications.EntityFrameworkCore.Evaluatiors
 {
-    private AsNoTrackingEvaluator() { }
-
-    public static AsNoTrackingEvaluator Instance { get; } = new();
-
-    public bool IsCriteriaEvaluator { get; } = true;
-
-    public IQueryable<T> GetQuery<T>(IQueryable<T> query, ISpecification<T> specification) where T : class
+    public class AsNoTrackingEvaluator: IEvaluator
     {
-        if (specification.AsNoTracking)
-        {
-            query = query.AsNoTracking();
-        }
+        private AsNoTrackingEvaluator() { }
 
-        return query;
+        public static AsNoTrackingEvaluator Instance { get; } = new AsNoTrackingEvaluator();
+
+        public bool IsCriteriaEvaluator { get; } = true;
+
+        public IQueryable<T> GetQuery<T>(IQueryable<T> query, ISpecification<T> specification) where T : class
+        {
+            if (specification.AsNoTracking)
+            {
+                query = query.AsNoTracking();
+            }
+
+            return query;
+        }
     }
 }
+

@@ -1,11 +1,13 @@
-﻿namespace Dncy.Specifications.Builder;
-
-public class CacheSpecificationBuilder<T> : ICacheSpecificationBuilder<T> where T : class
+﻿namespace Dncy.Specifications.Builder
 {
-    public CacheSpecificationBuilder(Specification<T> specification)
+    public class CacheSpecificationBuilder<T> : ICacheSpecificationBuilder<T> where T : class
     {
-        Specification = specification;
-    }
+        public CacheSpecificationBuilder(Specification<T> specification)
+        {
+            Specification = specification;
+        }
 
-    public Specification<T> Specification { get; }
+        public Specification<T> Specification { get; }
+    }
 }
+

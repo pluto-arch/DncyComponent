@@ -1,37 +1,43 @@
-﻿using Dncy.Specifications.EntityFrameworkCore.Evaluatiors;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Dncy.Specifications.EntityFrameworkCore.Evaluatiors;
 using Dncy.Specifications.Evaluators;
 using Microsoft.EntityFrameworkCore;
 
-namespace Dncy.Specifications.EntityFrameworkCore;
-
-public static class DbSetExtensions
+namespace Dncy.Specifications.EntityFrameworkCore
 {
-    public static async Task<List<TSource>> ToListAsync<TSource>(this DbSet<TSource> source,
-        ISpecification<TSource> specification, CancellationToken cancellationToken = default) where TSource : class
+    public static class DbSetExtensions
     {
-        List<TSource> result = await EfCoreSpecificationEvaluator.Default.GetQuery(source, specification)
-            .ToListAsync(cancellationToken);
+        public static async Task<List<TSource>> ToListAsync<TSource>(this DbSet<TSource> source,
+            ISpecification<TSource> specification, CancellationToken cancellationToken = default) where TSource : class
+        {
+            List<TSource> result = await EfCoreSpecificationEvaluator.Default.GetQuery(source, specification)
+                .ToListAsync(cancellationToken);
 
-        return specification.PostProcessingAction == null
-            ? result
-            : specification.PostProcessingAction(result).ToList();
-    }
+            return specification.PostProcessingAction == null
+                ? result
+                : specification.PostProcessingAction(result).ToList();
+        }
 
-    public static async Task<IEnumerable<TSource>> ToEnumerableAsync<TSource>(this DbSet<TSource> source,
-        ISpecification<TSource> specification, CancellationToken cancellationToken = default) where TSource : class
-    {
-        List<TSource> result = await EfCoreSpecificationEvaluator.Default.GetQuery(source, specification)
-            .ToListAsync(cancellationToken);
+        public static async Task<IEnumerable<TSource>> ToEnumerableAsync<TSource>(this DbSet<TSource> source,
+            ISpecification<TSource> specification, CancellationToken cancellationToken = default) where TSource : class
+        {
+            List<TSource> result = await EfCoreSpecificationEvaluator.Default.GetQuery(source, specification)
+                .ToListAsync(cancellationToken);
 
-        return specification.PostProcessingAction == null
-            ? result
-            : specification.PostProcessingAction(result);
-    }
+            return specification.PostProcessingAction == null
+                ? result
+                : specification.PostProcessingAction(result);
+        }
 
-    public static IQueryable<TSource> WithSpecification<TSource>(this IQueryable<TSource> source,
-        ISpecification<TSource> specification, ISpecificationEvaluator evaluator = null) where TSource : class
-    {
-        evaluator ??= EfCoreSpecificationEvaluator.Default;
-        return evaluator.GetQuery(source, specification);
+        public static IQueryable<TSource> WithSpecification<TSource>(this IQueryable<TSource> source,
+            ISpecification<TSource> specification, ISpecificationEvaluator evaluator = null) where TSource : class
+        {
+            evaluator ??= EfCoreSpecificationEvaluator.Default;
+            return evaluator.GetQuery(source, specification);
+        }
     }
 }
+

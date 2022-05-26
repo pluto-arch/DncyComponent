@@ -1,22 +1,24 @@
-﻿namespace Dncy.Specifications.Builder;
-
-public class SpecificationBuilder<T, TResult> : SpecificationBuilder<T>, ISpecificationBuilder<T, TResult>
+﻿namespace Dncy.Specifications.Builder
 {
-    public SpecificationBuilder(Specification<T, TResult> specification)
-        : base(specification)
+    public class SpecificationBuilder<T, TResult> : SpecificationBuilder<T>, ISpecificationBuilder<T, TResult>
     {
-        Specification = specification;
+        public SpecificationBuilder(Specification<T, TResult> specification)
+            : base(specification)
+        {
+            Specification = specification;
+        }
+
+        public new Specification<T, TResult> Specification { get; }
     }
 
-    public new Specification<T, TResult> Specification { get; }
-}
-
-public class SpecificationBuilder<T> : ISpecificationBuilder<T>
-{
-    public SpecificationBuilder(Specification<T> specification)
+    public class SpecificationBuilder<T> : ISpecificationBuilder<T>
     {
-        Specification = specification;
-    }
+        public SpecificationBuilder(Specification<T> specification)
+        {
+            Specification = specification;
+        }
 
-    public Specification<T> Specification { get; }
+        public Specification<T> Specification { get; }
+    }
 }
+

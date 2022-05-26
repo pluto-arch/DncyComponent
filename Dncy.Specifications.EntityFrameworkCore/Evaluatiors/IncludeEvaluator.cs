@@ -1,35 +1,38 @@
-﻿using Dncy.Specifications.Evaluators;
+﻿using System.Linq;
+using Dncy.Specifications.Evaluators;
 using Microsoft.EntityFrameworkCore;
 
-namespace Dncy.Specifications.EntityFrameworkCore.Evaluatiors;
-
-public class IncludeEvaluator : IEvaluator
+namespace Dncy.Specifications.EntityFrameworkCore.Evaluatiors
 {
-    private IncludeEvaluator() { }
-
-    public static IncludeEvaluator Instance { get; } = new();
-
-    public bool IsCriteriaEvaluator { get; } = false;
-
-    public IQueryable<T> GetQuery<T>(IQueryable<T> query, ISpecification<T> specification) where T : class
+    
+    public class IncludeEvaluator : IEvaluator
     {
-        foreach (string includeString in specification.IncludeStrings)
-        {
-            query = query.Include(includeString);
-        }
+        private IncludeEvaluator() { }
 
-        foreach (IncludeExpressionInfo includeInfo in specification.IncludeExpressions)
-        {
-            if (includeInfo.Type == IncludeTypeEnum.Include)
-            {
-                query = query.Include(includeInfo);
-            }
-            else if (includeInfo.Type == IncludeTypeEnum.ThenInclude)
-            {
-                query = query.ThenInclude(includeInfo);
-            }
-        }
+        public static IncludeEvaluator Instance { get; } = new IncludeEvaluator();
 
-        return query;
+        public bool IsCriteriaEvaluator { get; } = false;
+
+        public IQueryable<T> GetQuery<T>(IQueryable<T> query, ISpecification<T> specification) where T : class
+        {
+            foreach (string includeString in specification.IncludeStrings)
+            {
+                query = query.Include(includeString);
+            }
+
+            foreach (IncludeExpressionInfo includeInfo in specification.IncludeExpressions)
+            {
+                if (includeInfo.Type == IncludeTypeEnum.Include)
+                {
+                    query = query.Include(includeInfo);
+                }
+                else if (includeInfo.Type == IncludeTypeEnum.ThenInclude)
+                {
+                    query = query.ThenInclude(includeInfo);
+                }
+            }
+
+            return query;
+        }
     }
 }
