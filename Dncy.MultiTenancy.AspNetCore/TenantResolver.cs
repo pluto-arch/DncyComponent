@@ -31,7 +31,7 @@ namespace Dncy.MultiTenancy.AspNetCore
                     tenantResolver.Resolve(context);
                     if (context.HasResolvedTenantOrHost())
                     {
-                        _logger.LogInformation($"Tenant successfully resolved from : {tenantResolver.Name}！");
+                        _logger.LogDebug("Tenant successfully resolved from : {@tenantResolver}. The tenant is {tenantIdOrName}",tenantResolver.Name,context.TenantIdOrName);
                         return context.TenantIdOrName;
                     }
                 }
