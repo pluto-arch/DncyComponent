@@ -1,30 +1,36 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System;
+using System.Linq;
+using Microsoft.AspNetCore.Http;
 
-namespace Dncy.MultiTenancy.AspNetCore;
-
-public class HeaderTenantConstruct:HttpTenantConstructBase
+namespace Dncy.MultiTenancy.AspNetCore
 {
-
-    private readonly Func<IHeaderDictionary, string> _analizeFunc;
-
-
-    public HeaderTenantConstruct(Func<IHeaderDictionary, string> analizeFunc)
+    public class HeaderTenantConstruct:HttpTenantConstructBase
     {
-        _analizeFunc = analizeFunc;
-    }
+
+        private readonly Func<IHeaderDictionary, string> _analizeFunc;
 
 
-    /// <inheritdoc />
-    protected override string GetTenantIdOrNameFromHttpContextOrNull(ITenantResolveContext context, HttpContext httpContext)
-    {
-        if (httpContext.Request == null || !(httpContext.Request.Headers?.Any()??false))
+        public HeaderTenantConstruct(Func<IHeaderDictionary, string> analizeFunc)
         {
-            return null;
+            _analizeFunc = analizeFunc;
         }
 
-        var extractResult = _analizeFunc(httpContext.Request.Headers);
-        context.Handled = true;
-        return extractResult;
 
+        /// <inheritdoc />
+        public override string Name => "Http Header";
+
+        /// <inheritdoc />
+        protected override string GetTenantIdOrNameFromHttpContextOrNull(ITenantResolveContext context, HttpContext httpContext)
+        {
+            if (httpContext.Request == null || !(httpContext.Request.Headers?.Any()??false))
+            {
+                return null;
+            }
+
+            var extractResult = _analizeFunc(httpContext.Request.Headers);
+            context.Handled = true;
+            return extractResult;
+
+        }
     }
 }

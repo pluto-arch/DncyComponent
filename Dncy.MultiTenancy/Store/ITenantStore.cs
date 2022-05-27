@@ -1,15 +1,17 @@
-﻿using Dncy.MultiTenancy.ConnectionStrings;
-using Dncy.MultiTenancy.Model;
+﻿using System.Threading.Tasks;
+using Dncy.MultiTenancy.ConnectionStrings;
 
-namespace Dncy.MultiTenancy.Store;
-
-public interface ITenantStore
+namespace Dncy.MultiTenancy.Store
 {
-    Task<TenantConfiguration> FindAsync(string name);
+    public interface ITenantStore
+    {
+        Task<TenantConfiguration> FindAsync(string name);
 
-    Task<TenantConfiguration> FindAsync<Tkey>(Tkey id);
+        Task<TenantConfiguration> FindAsync<Tkey>(Tkey id);
 
-    TenantConfiguration Find(string name);
+        TenantConfiguration Find(string name);
 
-    TenantConfiguration Find<Tkey>(Tkey id);
+        TenantConfiguration Find<Tkey>(Tkey id);
+    }
 }
+

@@ -1,8 +1,10 @@
 ﻿using Dncy.MultiTenancy.Model;
 
-namespace Dncy.MultiTenancy;
-
-public interface ICurrentTenantAccessor
+namespace Dncy.MultiTenancy
 {
-    TenantInfo CurrentTenantInfo { get; set; }
+    public interface ICurrentTenantAccessor
+    {
+        TenantInfo CurrentTenantInfo { get; set; }
+    }
 }
+

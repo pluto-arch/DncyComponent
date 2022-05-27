@@ -1,4 +1,7 @@
-﻿namespace Dncy.MultiTenancy
+﻿using System;
+using System.Threading.Tasks;
+
+namespace Dncy.MultiTenancy
 {
     internal class DisposeAction : IDisposable
     {
@@ -30,7 +33,12 @@
         {
             _action();
             GC.SuppressFinalize(this);
+#if NET5_0_OR_GREATER
             return ValueTask.CompletedTask;
+#else
+            return new ValueTask();
+#endif
+
         }
     }
 }

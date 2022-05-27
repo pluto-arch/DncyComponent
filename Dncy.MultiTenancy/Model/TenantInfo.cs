@@ -1,15 +1,17 @@
-﻿namespace Dncy.MultiTenancy.Model;
-
-
-public class TenantInfo
+﻿namespace Dncy.MultiTenancy.Model
 {
-    public TenantInfo(string id, string name = null)
+    public class TenantInfo
     {
-        Id = id;
-        Name = name;
+        public TenantInfo(string id, string name = null)
+        {
+            Id = id;
+            Name = name;
+        }
+
+        public string Id { get; set; }
+
+        public string Name { get; set; }
     }
-
-    public string Id { get; set; }
-
-    public string Name { get; set; }
 }
+
+

@@ -1,11 +1,15 @@
-﻿namespace Dncy.MultiTenancy.ConnectionStrings;
+﻿using System.Threading.Tasks;
 
-public interface IConnectionStringResolver
+namespace Dncy.MultiTenancy.ConnectionStrings
 {
-    /// <summary>
-    /// 获取对应名称的连接字符串
-    /// </summary>
-    /// <param name="connectionStringName"></param>
-    /// <returns></returns>
-    Task<string> GetAsync(string connectionStringName = null);
+    public interface IConnectionStringResolver
+    {
+        /// <summary>
+        /// 获取对应名称的连接字符串
+        /// </summary>
+        /// <param name="connectionStringName"></param>
+        /// <returns></returns>
+        Task<string> GetAsync(string connectionStringName = null);
+    }
 }
+

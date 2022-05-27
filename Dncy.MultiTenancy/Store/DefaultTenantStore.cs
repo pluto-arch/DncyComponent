@@ -1,10 +1,12 @@
-﻿using Dncy.MultiTenancy.ConnectionStrings;
-using Dncy.MultiTenancy.Model;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using Dncy.MultiTenancy.ConnectionStrings;
 using Microsoft.Extensions.Options;
 
-namespace Dncy.MultiTenancy.Store;
-
-public class DefaultTenantStore : ITenantStore
+namespace Dncy.MultiTenancy.Store
+{
+    public class DefaultTenantStore : ITenantStore
 {
     private readonly TenantConfiguration[] _tenants;
 
@@ -69,3 +71,5 @@ public class DefaultTenantStore : ITenantStore
         return false;
     }
 }
+}
+

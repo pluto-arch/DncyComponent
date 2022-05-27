@@ -1,31 +1,36 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System;
+using Microsoft.AspNetCore.Http;
 
-namespace Dncy.MultiTenancy.AspNetCore;
-
-/// <summary>
-/// 域名租户构造
-/// </summary>
-public class DomainNameTenantConstruct:HttpTenantConstructBase
+namespace Dncy.MultiTenancy.AspNetCore
 {
-    private readonly Func<HostString, string> _analizeFunc;
-
-
-    public DomainNameTenantConstruct(Func<HostString,string> analizeFunc)
+    /// <summary>
+    /// 域名租户构造
+    /// </summary>
+    public class DomainNameTenantConstruct:HttpTenantConstructBase
     {
-        _analizeFunc = analizeFunc;
-    }
+        private readonly Func<HostString, string> _analizeFunc;
 
 
-    /// <inheritdoc />
-    protected override string GetTenantIdOrNameFromHttpContextOrNull(ITenantResolveContext context, HttpContext httpContext)
-    {
-        if (httpContext.Request?.Host == null)
+        public DomainNameTenantConstruct(Func<HostString,string> analizeFunc)
         {
-            return null;
+            _analizeFunc = analizeFunc;
         }
 
-        var extractResult = _analizeFunc(httpContext.Request.Host);
-        context.Handled = true;
-        return extractResult;
+
+        /// <inheritdoc />
+        public override string Name => "Domain Name";
+
+        /// <inheritdoc />
+        protected override string GetTenantIdOrNameFromHttpContextOrNull(ITenantResolveContext context, HttpContext httpContext)
+        {
+            if (httpContext.Request?.Host == null)
+            {
+                return null;
+            }
+
+            var extractResult = _analizeFunc(httpContext.Request.Host);
+            context.Handled = true;
+            return extractResult;
+        }
     }
 }

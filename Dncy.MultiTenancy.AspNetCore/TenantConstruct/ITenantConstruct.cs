@@ -1,6 +1,9 @@
-﻿namespace Dncy.MultiTenancy.AspNetCore;
-
-public interface ITenantConstruct
+﻿namespace Dncy.MultiTenancy.AspNetCore
 {
-    void Resolve(ITenantResolveContext context);
+    public interface ITenantConstruct
+    {
+        string Name { get; }
+        void Resolve(ITenantResolveContext context);
+    }
 }
+

@@ -1,20 +1,24 @@
-﻿namespace Dncy.MultiTenancy.AspNetCore;
+﻿using System;
 
-public class TenantResolveContext:ITenantResolveContext
+namespace Dncy.MultiTenancy.AspNetCore
 {
-    public IServiceProvider ServiceProvider { get; }
-
-    public string TenantIdOrName { get; set; }
-
-    public bool Handled { get; set; }
-
-    public bool HasResolvedTenantOrHost()
+    public class TenantResolveContext:ITenantResolveContext
     {
-        return Handled || !string.IsNullOrEmpty(TenantIdOrName);
-    }
+        public IServiceProvider ServiceProvider { get; }
 
-    public TenantResolveContext(IServiceProvider serviceProvider)
-    {
-        ServiceProvider = serviceProvider;
+        public string TenantIdOrName { get; set; }
+
+        public bool Handled { get; set; }
+
+        public bool HasResolvedTenantOrHost()
+        {
+            return Handled || !string.IsNullOrEmpty(TenantIdOrName);
+        }
+
+        public TenantResolveContext(IServiceProvider serviceProvider)
+        {
+            ServiceProvider = serviceProvider;
+        }
     }
 }
+

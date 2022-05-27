@@ -1,24 +1,29 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
-namespace Dncy.MultiTenancy.ConnectionStrings;
-
-public class DefaultConnectionStringResolver : IConnectionStringResolver
+namespace Dncy.MultiTenancy.ConnectionStrings
 {
-    protected readonly IConfiguration _configuration;
-
-    public DefaultConnectionStringResolver(IConfiguration configuration)
+    public class DefaultConnectionStringResolver : IConnectionStringResolver
     {
-        _configuration = configuration;
-    }
+        protected readonly IConfiguration _configuration;
 
-    public virtual Task<string> GetAsync(string connectionStringName = null)
-    {
-        if (string.IsNullOrEmpty(connectionStringName))
+        public DefaultConnectionStringResolver(IConfiguration configuration)
         {
-            throw new InvalidOperationException("connection string name can not be empty!");
+            _configuration = configuration;
         }
-        return Task.FromResult(_configuration.GetConnectionString(connectionStringName));
+
+        public virtual Task<string> GetAsync(string connectionStringName = null)
+        {
+            if (string.IsNullOrEmpty(connectionStringName))
+            {
+                throw new InvalidOperationException("connection string name can not be empty!");
+            }
+            return Task.FromResult(_configuration.GetConnectionString(connectionStringName));
+        }
     }
+
 }
+
 
 

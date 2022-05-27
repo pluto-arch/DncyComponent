@@ -1,10 +1,14 @@
-﻿namespace Dncy.MultiTenancy.AspNetCore;
+﻿using System;
 
-public interface ITenantResolveContext
+namespace Dncy.MultiTenancy.AspNetCore
 {
-    string TenantIdOrName { get; set; }
+    public interface ITenantResolveContext
+    {
+        string TenantIdOrName { get; set; }
 
-    bool Handled { get; set; }
+        bool Handled { get; set; }
 
-    IServiceProvider ServiceProvider { get; }
+        IServiceProvider ServiceProvider { get; }
+    }
 }
+

@@ -1,8 +1,9 @@
-﻿using Dncy.MultiTenancy.Model;
-
-namespace Dncy.MultiTenancy.AspNetCore;
-
-public interface ITenantResolver
+﻿
+namespace Dncy.MultiTenancy.AspNetCore
 {
-    string ResolveTenantIdOrName();
+    public interface ITenantResolver
+    {
+        string ResolveTenantIdOrName();
+    }
 }
+
