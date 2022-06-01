@@ -56,7 +56,7 @@ namespace Dncy.Permission.UnitTest
             var claims = new[]
             {
                 new Claim("user_name", "hello"),
-                new Claim("role", "admin"),
+                new Claim(ClaimTypes.Role, "admin"),
             };
             var claimsIdentity = new ClaimsIdentity(claims, "demo_scheme");
             var principal = new ClaimsPrincipal(claimsIdentity);
@@ -67,10 +67,11 @@ namespace Dncy.Permission.UnitTest
             var claims2 = new[]
             {
                 new Claim("user_name", "hello"),
+                new Claim(ClaimTypes.Role, "user"),
             };
-            var claimsIdentity2 = new ClaimsIdentity(claims, "demo_scheme");
-            var principal2 = new ClaimsPrincipal(claimsIdentity);
-            var isGrant2 = await permissionChecker.IsGrantedAsync(principal, ProductPermission.Product.Create);
+            var claimsIdentity2 = new ClaimsIdentity(claims2, "demo_scheme");
+            var principal2 = new ClaimsPrincipal(claimsIdentity2);
+            var isGrant2 = await permissionChecker.IsGrantedAsync(principal2, ProductPermission.Product.Create);
             Assert.IsFalse(isGrant2);
         }
 

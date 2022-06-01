@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Dncy.Permission.Models;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Dncy.Permission
 {
@@ -21,10 +22,13 @@ namespace Dncy.Permission
 
         private readonly ConcurrentDictionary<string, string> permissionCached = new ConcurrentDictionary<string, string>();
 
-        public InMemoryPermissionManager(IPermissionDefinitionManager permissionDefinitionManager, ILogger<InMemoryPermissionManager> logger, IPermissionGrantStore permissionGrantStore)
+        public InMemoryPermissionManager(
+            IPermissionDefinitionManager permissionDefinitionManager, 
+            IPermissionGrantStore permissionGrantStore,
+            ILogger<InMemoryPermissionManager> logger=null)
         {
             _permissionDefinitionManager = permissionDefinitionManager;
-            _logger = logger;
+            _logger = logger??NullLogger<InMemoryPermissionManager>.Instance;
             _permissionGrantStore = permissionGrantStore ?? throw new ArgumentNullException(nameof(permissionGrantStore));
         }
 
