@@ -30,7 +30,7 @@ namespace Dncy.Permission
 
 
         /// <inheritdoc />
-        public async Task<PermissionGrantResult> CheckAsync(ClaimsPrincipal principal, PermissionDefinition permission)
+        public virtual async Task<PermissionGrantResult> CheckAsync(ClaimsPrincipal principal, PermissionDefinition permission)
         {
             string[] roles = principal?.FindAll(ClaimTypes.Role).Select(c => c.Value).ToArray();
             if (roles == null || !roles.Any())
@@ -50,7 +50,7 @@ namespace Dncy.Permission
         }
 
         /// <inheritdoc />
-        public async Task<MultiplePermissionGrantResult> CheckAsync(ClaimsPrincipal principal, List<PermissionDefinition> permissions)
+        public virtual async Task<MultiplePermissionGrantResult> CheckAsync(ClaimsPrincipal principal, List<PermissionDefinition> permissions)
         {
             var permissionNames = permissions.Select(x => x.Name).ToList();
             var result = new MultiplePermissionGrantResult(permissionNames.ToArray());

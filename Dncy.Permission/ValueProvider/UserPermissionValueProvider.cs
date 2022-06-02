@@ -25,7 +25,7 @@ namespace Dncy.Permission
         public string Name => "User";
 
 
-        public async Task<PermissionGrantResult> CheckAsync(ClaimsPrincipal principal, PermissionDefinition permission)
+        public virtual async Task<PermissionGrantResult> CheckAsync(ClaimsPrincipal principal, PermissionDefinition permission)
         {
             string id = principal?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (string.IsNullOrEmpty(id))
@@ -41,7 +41,7 @@ namespace Dncy.Permission
             return PermissionGrantResult.Prohibited;
         }
 
-        public async Task<MultiplePermissionGrantResult> CheckAsync(ClaimsPrincipal principal,
+        public virtual async Task<MultiplePermissionGrantResult> CheckAsync(ClaimsPrincipal principal,
             List<PermissionDefinition> permissions)
         {
             var permissionNames = permissions.Select(x => x.Name).ToList();
