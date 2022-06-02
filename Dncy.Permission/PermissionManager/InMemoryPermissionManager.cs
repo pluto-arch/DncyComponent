@@ -20,7 +20,7 @@ namespace Dncy.Permission
 
         private readonly IPermissionGrantStore _permissionGrantStore;
 
-        private readonly ConcurrentDictionary<string, string> permissionCached = new ConcurrentDictionary<string, string>();
+        private static readonly ConcurrentDictionary<string, string> permissionCached = new ConcurrentDictionary<string, string>();
 
         public InMemoryPermissionManager(
             IPermissionDefinitionManager permissionDefinitionManager,
@@ -93,8 +93,7 @@ namespace Dncy.Permission
 
 
 
-        protected virtual async Task<(string Key, bool IsGranted)> SetCacheItemsAsync(string providerName,
-            string providerKey, string currentName)
+        protected virtual async Task<(string Key, bool IsGranted)> SetCacheItemsAsync(string providerName, string providerKey, string currentName)
         {
             var permissions = _permissionDefinitionManager.GetPermissions();
             _logger.LogDebug($"Getting all granted permissions from the repository for this provider name,key: {providerName},{providerKey}");

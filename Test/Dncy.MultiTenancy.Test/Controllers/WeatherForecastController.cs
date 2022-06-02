@@ -1,4 +1,6 @@
 using Dncy.MultiTenancy.Model;
+using Dncy.Permission.UnitTest.Definitions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dncy.MultiTenancy.Test.Controllers
@@ -15,6 +17,7 @@ namespace Dncy.MultiTenancy.Test.Controllers
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
+        [Authorize(ProductPermission.Product.Default)]
         public TenantInfo Get()
         {
             return new TenantInfo(_currentTenant.Id,_currentTenant.Name);

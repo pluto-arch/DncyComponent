@@ -13,6 +13,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\Dncy.MultiTenancy.AspNetCore\Dncy.MultiTenancy.AspNetCore.csproj" />
+		<ProjectReference Include="..\..\Dncy.Permission\Dncy.Permission.csproj" />
 	</ItemGroup>
 
 </Project>

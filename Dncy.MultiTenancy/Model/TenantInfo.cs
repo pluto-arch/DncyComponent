@@ -1,5 +1,8 @@
-﻿namespace Dncy.MultiTenancy.Model
+﻿using System;
+
+namespace Dncy.MultiTenancy.Model
 {
+    [Serializable]
     public class TenantInfo
     {
         public TenantInfo(string id, string name = null)

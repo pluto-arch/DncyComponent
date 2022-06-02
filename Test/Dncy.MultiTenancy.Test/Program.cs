@@ -2,6 +2,10 @@ using Dncy.MultiTenancy;
 using Dncy.MultiTenancy.AspNetCore;
 using Dncy.MultiTenancy.ConnectionStrings;
 using Dncy.MultiTenancy.Store;
+using Dncy.MultiTenancy.Test;
+using Dncy.Permission;
+using Dncy.Permission.UnitTest.Definitions;
+using Microsoft.AspNetCore.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,8 +33,26 @@ builder.Services.AddTransient<ITenantIdentityParse, HeaderTenantIdentityParse>(x
 
     return null;
 }));
-
+builder.Services.AddSingleton<IAuthorizationPolicyProvider, DynamicAuthorizationPolicyProvider>();
+builder.Services.AddScoped<IAuthorizationHandler, PermissionRequirementHandler>();
 builder.Services.AddTransient<MultiTenancyMiddleware>();
+
+
+#region permission
+
+builder.Services.AddScoped<IPermissionChecker, DefaultPermissionChecker>();
+            
+// permission definition 
+builder.Services.AddSingleton<IPermissionDefinitionManager, DefaultPermissionDefinitionManager>();
+builder.Services.AddSingleton<IPermissionDefinitionProvider, ProductPermissionDefinitionProvider>();
+builder.Services.AddTransient<IPermissionGrantStore, InMemoryPermissionGrantStore>();
+builder.Services.AddTransient<IPermissionManager, InMemoryPermissionManager>(); 
+builder.Services.AddTransient<IPermissionValueProvider, RolePermissionValueProvider>();
+builder.Services.AddTransient<IPermissionValueProvider, UserPermissionValueProvider>();
+#endregion
+
+builder.Services.AddAuthorization();
+
 
 var app = builder.Build();
 
@@ -41,9 +63,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseHttpsRedirection();
-
-app.UseAuthorization();
+app.UseAuthentication();
 app.UseMiddleware<MultiTenancyMiddleware>();
+app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
