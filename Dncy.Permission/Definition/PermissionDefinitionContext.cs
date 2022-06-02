@@ -7,13 +7,10 @@ namespace Dncy.Permission
 {
     public class PermissionDefinitionContext
     {
-        internal PermissionDefinitionContext(IServiceProvider serviceProvider)
+        internal PermissionDefinitionContext()
         {
-            ServiceProvider = serviceProvider;
             Groups = new Dictionary<string, PermissionGroupDefinition>();
         }
-
-        public IServiceProvider ServiceProvider { get; }
 
         internal Dictionary<string, PermissionGroupDefinition> Groups { get; }
 

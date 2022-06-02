@@ -20,7 +20,7 @@ builder.Services.AddTransient<ICurrentTenant, CurrentTenant>();
 builder.Services.AddTransient<IConnectionStringResolver, DefaultConnectionStringResolver>();
 builder.Services.AddTransient<ITenantStore, DefaultTenantStore>();
 builder.Services.AddTransient<ITenantResolver, TenantResolver>();
-builder.Services.AddTransient<ITenantConstruct, HeaderTenantConstruct>(x=>new HeaderTenantConstruct(headerDic =>
+builder.Services.AddTransient<ITenantIdentityParse, HeaderTenantIdentityParse>(x=>new HeaderTenantIdentityParse(headerDic =>
 {
     if (headerDic.ContainsKey("tenant"))
     {

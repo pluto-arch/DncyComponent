@@ -8,7 +8,7 @@ namespace Dncy.Permission
 {
     public class InMemoryPermissionGrantStore:IPermissionGrantStore
     {
-        private static readonly List<IPermissionGrant> _grants = new List<IPermissionGrant>();
+        private static readonly HashSet<IPermissionGrant> _grants = new HashSet<IPermissionGrant>();
 
         private static readonly object _lock=new object();
 
@@ -21,6 +21,13 @@ namespace Dncy.Permission
                     return _grants.ToImmutableList();
                 }
             }
+        }
+
+        /// <inheritdoc />
+        public Task<IPermissionGrant> GetAsync(string name, string providerName, string providerKey)
+        {
+            var res = Query.SingleOrDefault(s => s.Name==name&&s.ProviderName == providerName && s.ProviderKey == providerKey);
+            return Task.FromResult(res);
         }
 
         /// <inheritdoc />
@@ -38,41 +45,67 @@ namespace Dncy.Permission
         }
 
         /// <inheritdoc />
-        public Task GrantAsync(IPermissionGrant grant)
+        public Task GrantAsync(string name, string providerName, string providerKey)
         {
             lock (_lock)
             {
-                _grants.Add(grant);
+                _grants.Add(new PermissionGrant(name, providerName, providerKey));
                 return Task.CompletedTask;
             }
         }
 
+
         /// <inheritdoc />
-        public Task CancleGrantAsync(IPermissionGrant grant)
+        public Task GrantAsync(string[] name, string providerName, string providerKey)
         {
             lock (_lock)
             {
-                _grants.Remove(grant);
+                foreach (var item in name)
+                {
+                    _grants.Add(new PermissionGrant(item, providerName, providerKey));
+                }
+                return Task.CompletedTask;
+            }
+        }
+
+
+        /// <inheritdoc />
+        public Task CancleGrantAsync(string name, string providerName, string providerKey)
+        {
+            lock (_lock)
+            {
+                _grants.RemoveWhere(x=>x.Name==name&&x.ProviderKey==providerKey&&x.ProviderName==providerName);
                 return Task.CompletedTask;
             }
            
         }
 
         /// <inheritdoc />
-        public Task CancleGrantAsync(List<IPermissionGrant> grants)
+        public Task CancleGrantAsync(string[] name, string providerName, string providerKey)
         {
-            if (grants==null||!grants.Any())
-            {
-                return Task.CompletedTask;
-            }
             lock (_lock)
             {
-                foreach (var grant in grants)
+                foreach (var item in name)
                 {
-                    _grants.Remove(grant);
+                    _grants.RemoveWhere(x=>x.Name==item&&x.ProviderKey==providerKey&&x.ProviderName==providerName);
                 }
                 return Task.CompletedTask;
             }
         }
+
+        internal struct PermissionGrant:IPermissionGrant
+        {
+            public PermissionGrant(string name, string providerName, string providerKey)
+            {
+                Name = name;
+                ProviderName = providerName;
+                ProviderKey = providerKey;
+            }
+
+            public string Name { get; set; }
+            public string ProviderName { get; set; }
+            public string ProviderKey { get; set; }
+        }
+
     }
 }

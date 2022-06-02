@@ -9,7 +9,7 @@ namespace Dncy.MultiTenancy.AspNetCore
     /// <summary>
     /// Http的租户构造基础
     /// </summary>
-    public abstract class HttpTenantConstructBase:ITenantConstruct
+    public abstract class HttpTenantIdentityParseBase:ITenantIdentityParse
     {
         /// <inheritdoc />
         public abstract string Name { get; }
@@ -29,7 +29,7 @@ namespace Dncy.MultiTenancy.AspNetCore
             }
             catch (Exception e)
             {
-                context.ServiceProvider?.GetRequiredService<ILogger<HttpTenantConstructBase>>()?
+                context.ServiceProvider?.GetRequiredService<ILogger<HttpTenantIdentityParseBase>>()?
                     .LogWarning(e, e.Message);
             }
         }

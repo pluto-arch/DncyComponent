@@ -2,20 +2,24 @@
 using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Dncy.MultiTenancy.AspNetCore
 {
     public class TenantResolver:ITenantResolver
     {
-        private readonly IEnumerable<ITenantConstruct> _tenantConstructs;
+        private readonly IEnumerable<ITenantIdentityParse> _tenantIdentityParses;
         private readonly IServiceProvider _serviceProvider;
         private readonly ILogger<TenantResolver> _logger;
 
-        public TenantResolver(IEnumerable<ITenantConstruct> tenantConstructs,IServiceProvider serviceProvider, ILogger<TenantResolver> logger)
+        public TenantResolver(
+            IEnumerable<ITenantIdentityParse> tenantIdentityParses,
+            IServiceProvider serviceProvider, 
+            ILogger<TenantResolver> logger=null)
         {
-            _tenantConstructs = tenantConstructs;
+            _tenantIdentityParses = tenantIdentityParses;
             _serviceProvider = serviceProvider;
-            _logger = logger;
+            _logger = logger??NullLogger<TenantResolver>.Instance;
         }
 
 
@@ -26,7 +30,7 @@ namespace Dncy.MultiTenancy.AspNetCore
             {
                 var context = new TenantResolveContext(serviceScope.ServiceProvider);
 
-                foreach (var tenantResolver in _tenantConstructs)
+                foreach (var tenantResolver in _tenantIdentityParses)
                 {
                     tenantResolver.Resolve(context);
                     if (context.HasResolvedTenantOrHost())

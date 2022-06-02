@@ -3,6 +3,8 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Dncy.Permission.Models;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Dncy.Permission
 {
@@ -11,11 +13,13 @@ namespace Dncy.Permission
     /// </summary>
     public class UserPermissionValueProvider : IPermissionValueProvider
     {
-        private readonly IPermissionManager _manager;
+        private readonly IPermissionGrantStore _grantStore;
+        private readonly ILogger<UserPermissionValueProvider> _logger;
 
-        public UserPermissionValueProvider(IPermissionManager manager)
+        public UserPermissionValueProvider(IPermissionGrantStore grantStore, ILogger<UserPermissionValueProvider> logger=null)
         {
-            _manager = manager;
+            _grantStore = grantStore;
+            _logger = logger??NullLogger<UserPermissionValueProvider>.Instance;
         }
 
         public string Name => "User";
@@ -28,12 +32,12 @@ namespace Dncy.Permission
             {
                 return PermissionGrantResult.Prohibited;
             }
-
-            if (await _manager.IsGrantedAsync(permission.Name, Name, id))
+            var grantInfo = await _grantStore.GetAsync(permission.Name, Name, id);
+            if (grantInfo!=null)
             {
                 return PermissionGrantResult.Granted;
             }
-
+           
             return PermissionGrantResult.Prohibited;
         }
 
@@ -42,25 +46,17 @@ namespace Dncy.Permission
         {
             var permissionNames = permissions.Select(x => x.Name).ToList();
             var result = new MultiplePermissionGrantResult(permissionNames.ToArray());
-
             string id = principal?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
             if (string.IsNullOrEmpty(id))
             {
                 return result;
             }
-
-            var multipleResult = await _manager.IsGrantedAsync(permissionNames.ToArray(), Name, id);
-            var res = multipleResult.Result.Where(grantResult =>
-                    result.Result.ContainsKey(grantResult.Key) &&
-                    result.Result[grantResult.Key] == PermissionGrantResult.Undefined &&
-                    grantResult.Value != PermissionGrantResult.Undefined);
-            foreach (var grantResult in res)
+            var grantInfos = await _grantStore.GetListAsync(permissionNames.ToArray(), Name, id);
+            foreach (var item in permissionNames)
             {
-                result.Result[grantResult.Key] = grantResult.Value;
-                permissionNames.RemoveAll(x => x == grantResult.Key);
+                var grant = grantInfos.SingleOrDefault(x=>x.Name==item);
+                result.Result.Add(item,grant!=null?PermissionGrantResult.Granted:PermissionGrantResult.Prohibited);
             }
-
             return result;
         }
     }

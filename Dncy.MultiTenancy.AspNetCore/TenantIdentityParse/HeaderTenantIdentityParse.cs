@@ -4,13 +4,13 @@ using Microsoft.AspNetCore.Http;
 
 namespace Dncy.MultiTenancy.AspNetCore
 {
-    public class HeaderTenantConstruct:HttpTenantConstructBase
+    public class HeaderTenantIdentityParse:HttpTenantIdentityParseBase
     {
 
         private readonly Func<IHeaderDictionary, string> _analizeFunc;
 
 
-        public HeaderTenantConstruct(Func<IHeaderDictionary, string> analizeFunc)
+        public HeaderTenantIdentityParse(Func<IHeaderDictionary, string> analizeFunc)
         {
             _analizeFunc = analizeFunc;
         }

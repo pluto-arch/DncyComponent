@@ -1,6 +1,6 @@
 ﻿namespace Dncy.MultiTenancy.AspNetCore
 {
-    public interface ITenantConstruct
+    public interface ITenantIdentityParse
     {
         string Name { get; }
         void Resolve(ITenantResolveContext context);

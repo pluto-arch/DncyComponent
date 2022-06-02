@@ -19,7 +19,7 @@ namespace Dncy.Permission.UnitTest
             services.AddScoped<IPermissionChecker, DefaultPermissionChecker>();
             services.AddSingleton<IPermissionDefinitionManager, DefaultPermissionDefinitionManager>();
 
-            services.AddTransient<IPermissionManager, InMemoryPermissionManager>();
+            //services.AddTransient<IPermissionManager, InMemoryPermissionManager>();
             services.AddTransient<IPermissionGrantStore, InMemoryPermissionGrantStore>();
             services.AddSingleton<IPermissionDefinitionProvider, ProductPermissionDefinitionProvider>();
 
@@ -45,29 +45,38 @@ namespace Dncy.Permission.UnitTest
             Assert.IsNotNull(permissionGrant);
 
             // grant ProductPermission.Product.Create to role with admin
-            await permissionGrant.GrantAsync(new SystemPermission
-            {
-                Name = ProductPermission.Product.Create,
-                ProviderName = "Role",
-                ProviderKey = "admin"
-            });
+            await permissionGrant.GrantAsync(ProductPermission.Product.Create, "Role", "admin");
+           
+            // grant ProductPermission.Product.Edit to user with 123 identity
+            await permissionGrant.GrantAsync(ProductPermission.Product.Edit, "User", "123");
+
 
             var permissionChecker = _serviceProvider.GetService<IPermissionChecker>();
-            var claims = new[]
+            var claimsA = new[]
             {
-                new Claim("user_name", "hello"),
+                new Claim("user_name", "A"),
                 new Claim(ClaimTypes.Role, "admin"),
             };
-            var claimsIdentity = new ClaimsIdentity(claims, "demo_scheme");
-            var principal = new ClaimsPrincipal(claimsIdentity);
-            var isGrant = await permissionChecker.IsGrantedAsync(principal, ProductPermission.Product.Create);
-            Assert.IsTrue(isGrant);
+            var claimsIdentityA = new ClaimsIdentity(claimsA, "demo_scheme");
+            var principalA = new ClaimsPrincipal(claimsIdentityA);
+            var isGrantA = await permissionChecker.IsGrantedAsync(principalA, ProductPermission.Product.Create);
+            Assert.IsTrue(isGrantA);
+
+
+            var claimsB = new[]
+            {
+                new Claim("user_name", "B"),
+                new Claim(ClaimTypes.NameIdentifier, "123"),
+            };
+            var claimsIdentity = new ClaimsIdentity(claimsB, "demo_scheme");
+            var principalB = new ClaimsPrincipal(claimsIdentity);
+            var isGrantB = await permissionChecker.IsGrantedAsync(principalB, ProductPermission.Product.Edit);
+            Assert.IsTrue(isGrantB);
 
 
             var claims2 = new[]
             {
-                new Claim("user_name", "hello"),
-                new Claim(ClaimTypes.Role, "user"),
+                new Claim("user_name", "C"),
             };
             var claimsIdentity2 = new ClaimsIdentity(claims2, "demo_scheme");
             var principal2 = new ClaimsPrincipal(claimsIdentity2);

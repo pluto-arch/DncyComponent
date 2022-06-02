@@ -1,7 +1,29 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-	  <TargetFrameworks>net6.0;net5.0;netcoreapp3.1</TargetFrameworks>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>net6.0;net5.0;netcoreapp3.1</TargetFrameworks>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Dncy.Permission\Dncy.Permission.csproj" />
+	</ItemGroup>
+
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.1" allowedVersions="[6,)" />
+		<PackageReference Include="Microsoft.AspNetCore.Authorization" Version="6.0.0" allowedVersions="[6,)" />
+	</ItemGroup>
+
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" allowedVersions="[5,)" />
+		<PackageReference Include="Microsoft.AspNetCore.Authorization" Version="5.0.0" allowedVersions="[5,)" />
+	</ItemGroup>
+
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.0.0" allowedVersions="[3,)" />
+		<PackageReference Include="Microsoft.AspNetCore.Authorization" Version="3.0.0" allowedVersions="[3,)" />		
+	</ItemGroup>
 
 </Project>

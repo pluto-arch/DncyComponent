@@ -42,17 +42,10 @@ namespace Dncy.Permission
                 {
                     continue;
                 }
-
                 var result = await permissionValueProvider.CheckAsync(claimsPrincipal, permissionDefinition);
-
                 if (result == PermissionGrantResult.Granted)
                 {
                     return true;
-                }
-
-                if (result == PermissionGrantResult.Prohibited)
-                {
-                    return false;
                 }
             }
 

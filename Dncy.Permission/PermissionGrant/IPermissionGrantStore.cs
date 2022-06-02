@@ -6,6 +6,15 @@ namespace Dncy.Permission
     public interface IPermissionGrantStore
     {
         /// <summary>
+        /// 获取权限授予信息
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="providerName"></param>
+        /// <param name="providerKey"></param>
+        /// <returns></returns>
+        Task<IPermissionGrant> GetAsync(string name,string providerName, string providerKey);
+
+        /// <summary>
         /// 获取权限的授予表
         /// </summary>
         /// <param name="providerName">权限值提供者名称。eg. role,user</param>
@@ -30,7 +39,18 @@ namespace Dncy.Permission
         /// <param name="providerName"></param>
         /// <param name="providerKey"></param>
         /// <returns></returns>
-        Task GrantAsync(IPermissionGrant grant);
+        Task GrantAsync(string name, string providerName, string providerKey);
+
+
+        /// <summary>
+        /// 授权
+        /// </summary>
+        /// <param name="name">权限</param>
+        /// <param name="providerName"></param>
+        /// <param name="providerKey"></param>
+        /// <returns></returns>
+        Task GrantAsync(string[] name, string providerName, string providerKey);
+
 
         /// <summary>
         /// 取消授权
@@ -39,7 +59,7 @@ namespace Dncy.Permission
         /// <param name="providerName"></param>
         /// <param name="providerKey"></param>
         /// <returns></returns>
-        Task CancleGrantAsync(IPermissionGrant grant);
+        Task CancleGrantAsync(string name, string providerName, string providerKey);
 
         /// <summary>
         /// 取消授权
@@ -48,6 +68,6 @@ namespace Dncy.Permission
         /// <param name="providerName"></param>
         /// <param name="providerKey"></param>
         /// <returns></returns>
-        Task CancleGrantAsync(List<IPermissionGrant> grants);
+        Task CancleGrantAsync(string[] name, string providerName, string providerKey);
     }
 }

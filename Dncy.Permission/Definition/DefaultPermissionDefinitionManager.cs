@@ -93,7 +93,7 @@ namespace Dncy.Permission
         protected virtual Dictionary<string, PermissionGroupDefinition> CreatePermissionGroupDefinitions()
         {
             using IServiceScope scope = _serviceProvider.CreateScope();
-            var context = new PermissionDefinitionContext(scope.ServiceProvider);
+            var context = new PermissionDefinitionContext();
             var providers = _serviceProvider.GetServices<IPermissionDefinitionProvider>();
             foreach (IPermissionDefinitionProvider provider in providers)
             {

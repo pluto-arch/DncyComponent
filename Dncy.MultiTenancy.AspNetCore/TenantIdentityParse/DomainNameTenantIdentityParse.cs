@@ -6,12 +6,12 @@ namespace Dncy.MultiTenancy.AspNetCore
     /// <summary>
     /// 域名租户构造
     /// </summary>
-    public class DomainNameTenantConstruct:HttpTenantConstructBase
+    public class DomainNameTenantIdentityParse:HttpTenantIdentityParseBase
     {
         private readonly Func<HostString, string> _analizeFunc;
 
 
-        public DomainNameTenantConstruct(Func<HostString,string> analizeFunc)
+        public DomainNameTenantIdentityParse(Func<HostString,string> analizeFunc)
         {
             _analizeFunc = analizeFunc;
         }
