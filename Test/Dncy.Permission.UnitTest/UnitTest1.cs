@@ -19,7 +19,7 @@ namespace Dncy.Permission.UnitTest
             services.AddScoped<IPermissionChecker, DefaultPermissionChecker>();
             services.AddSingleton<IPermissionDefinitionManager, DefaultPermissionDefinitionManager>();
 
-            //services.AddTransient<IPermissionManager, InMemoryPermissionManager>();
+            services.AddTransient<IPermissionManager, InMemoryPermissionManager>();
             services.AddTransient<IPermissionGrantStore, InMemoryPermissionGrantStore>();
             services.AddSingleton<IPermissionDefinitionProvider, ProductPermissionDefinitionProvider>();
 
