@@ -33,6 +33,7 @@ builder.Services.AddTransient<ITenantIdentityParse, HeaderTenantIdentityParse>(x
 
     return null;
 }));
+
 builder.Services.AddSingleton<IAuthorizationPolicyProvider, DynamicAuthorizationPolicyProvider>();
 builder.Services.AddScoped<IAuthorizationHandler, PermissionRequirementHandler>();
 builder.Services.AddTransient<MultiTenancyMiddleware>();
