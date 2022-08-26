@@ -42,16 +42,16 @@ public class DiagnosticContext:IDisposable,IAsyncDisposable
     public void Dispose()
     {
         IsAvalable = false;
-        Stopwatch.Reset();
         Stopwatch.Stop();
+        Stopwatch.Reset();
     }
 
     /// <inheritdoc />
     public ValueTask DisposeAsync()
     {
         IsAvalable = false;
-        Stopwatch.Reset();
         Stopwatch.Stop();
+        Stopwatch.Reset();
         return ValueTask.CompletedTask;
     }
 }
