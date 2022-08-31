@@ -1,13 +1,14 @@
-﻿using System.Net;
+﻿using System.Net.Http;
+using System.Net;
 using System.Reflection;
 using System.Text;
 using Microsoft.AspNetCore.Http;
 
-namespace Dncy.RateLimit.AspNetCore.Pages
+namespace Dncy.QuartzJob.AspNetCore.Pages
 {
-    public class DashboardEmbeddedFiles
+    internal class EmbeddedFilesHelper
     {
-        static readonly Dictionary<string, string> ResponseType = new Dictionary<string, string>
+         static readonly Dictionary<string, string> ResponseType = new Dictionary<string, string>
         {
             { ".css","text/css"},
             { ".js","application/javascript"},
@@ -20,17 +21,17 @@ namespace Dncy.RateLimit.AspNetCore.Pages
 
         private static readonly Assembly Assembly;
 
-        static DashboardEmbeddedFiles()
+        static EmbeddedFilesHelper()
         {
             Assembly = Assembly.GetExecutingAssembly();
         }
 
         public static async Task IncludeEmbeddedFile(HttpContext context, string path="dashboard.html")
         {
-            if (string.IsNullOrEmpty(path.Replace("/rld",string.Empty)))
+            if (string.IsNullOrEmpty(path.Replace("/quartzjob",string.Empty)))
             {
                 context.Response.StatusCode = (int) StatusCodes.Status307TemporaryRedirect;
-                context.Response.Redirect("/rld/dashboard.html");
+                context.Response.Redirect("/quartzjob/dashboard.html");
                 return;
             }
             context.Response.OnStarting(() =>
@@ -45,8 +46,8 @@ namespace Dncy.RateLimit.AspNetCore.Pages
 
             try
             {
-                path = path.Replace("/rld",string.Empty).TrimStart('/').Replace("/",".");
-                await using var inputStream = Assembly.GetManifestResourceStream($"Dncy.RateLimit.AspNetCore.Pages.{path}");
+                path = path.Replace("/quartzjob",string.Empty).TrimStart('/').Replace("/",".");
+                await using var inputStream = Assembly.GetManifestResourceStream($"Dncy.QuartzJob.AspNetCore.Pages.{path}");
                 if (inputStream == null)
                 {
                     throw new ArgumentException($@"Resource with name {path} not found in assembly {Assembly}.");
@@ -63,7 +64,6 @@ namespace Dncy.RateLimit.AspNetCore.Pages
             }
 
         }
-
     }
 }
 

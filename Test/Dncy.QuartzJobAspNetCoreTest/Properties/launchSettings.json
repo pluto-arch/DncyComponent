@@ -1,0 +1,13 @@
+﻿{
+  "profiles": {
+    "Dncy.QuartzJobAspNetCoreTest": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": false,
+      "applicationUrl": "https://localhost:7166;http://localhost:5166",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
