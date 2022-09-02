@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Dncy.QuartzJob.AspNetCore.Handler;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Dncy.QuartzJob.AspNetCore
@@ -9,6 +10,7 @@ namespace Dncy.QuartzJob.AspNetCore
         {
             services.AddScoped<QuartzJobUiMiddleware>();
             services.AddHostedService<QuartzHostedService>();
+            services.AddTransient<JobDataHandler>();
             return services;
         }
 

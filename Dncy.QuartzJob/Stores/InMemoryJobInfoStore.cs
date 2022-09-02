@@ -1,11 +1,15 @@
-﻿using Dncy.QuartzJob.Model;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Dncy.QuartzJob.Model;
 using Quartz;
 
 namespace Dncy.QuartzJob.Stores
 {
-    public class InMemoryJobStore : IJobInfoStore
+    public class InMemoryJobInfoStore : IJobInfoStore
     {
-        private static readonly List<JobInfoModel> jobs = new();
+        private static readonly List<JobInfoModel> jobs = new List<JobInfoModel>();
 
         /// <inheritdoc />
         public Task<int> CountAsync()
@@ -81,6 +85,12 @@ namespace Dncy.QuartzJob.Stores
             jobs.Remove(old);
             jobs.Add(@new);
             await Task.CompletedTask;
+        }
+
+        /// <inheritdoc />
+        public Task SaveAllAsync()
+        {
+            return Task.CompletedTask;
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using Dncy.QuartzJob.Model;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Dncy.QuartzJob.Model;
 using Quartz;
 
 namespace Dncy.QuartzJob.Stores
@@ -9,55 +11,61 @@ namespace Dncy.QuartzJob.Stores
         ///     总数
         /// </summary>
         /// <returns></returns>
-        public Task<int> CountAsync();
+        Task<int> CountAsync();
 
         /// <summary>
         ///     获取job 列表
         /// </summary>
         /// <returns></returns>
-        public Task<List<JobInfoModel>> GetListAsync();
-
-
-        /// <summary>
-        ///     获取job 列表
-        /// </summary>
-        /// <returns></returns>
-        public Task<JobInfoModel> GetAsync(string id);
+        Task<List<JobInfoModel>> GetListAsync();
 
 
         /// <summary>
         ///     获取job 列表
         /// </summary>
         /// <returns></returns>
-        public Task<JobInfoModel> GetAsync(JobKey job);
+        Task<JobInfoModel> GetAsync(string id);
+
+
+        /// <summary>
+        ///     获取job 列表
+        /// </summary>
+        /// <returns></returns>
+        Task<JobInfoModel> GetAsync(JobKey job);
 
 
         /// <summary>
         ///     添加job
         /// </summary>
         /// <returns></returns>
-        public Task AddAsync(JobInfoModel job);
+        Task AddAsync(JobInfoModel job);
 
 
         /// <summary>
         ///     添加job
         /// </summary>
         /// <returns></returns>
-        public Task UpdateAsync(JobInfoModel job);
+        Task UpdateAsync(JobInfoModel job);
 
 
         /// <summary>
         ///     移除job
         /// </summary>
         /// <returns></returns>
-        public Task RemoveAsync(string groupName, string jobName);
+        Task RemoveAsync(string groupName, string jobName);
 
 
         /// <summary>
         ///     暂停
         /// </summary>
         /// <returns></returns>
-        public Task PauseAsync(string groupName, string jobName);
+        Task PauseAsync(string groupName, string jobName);
+
+        /// <summary>
+        /// 保存全部
+        /// </summary>
+        /// <returns></returns>
+        Task SaveAllAsync();
     }
 }
 

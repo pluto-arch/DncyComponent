@@ -1,0 +1,18 @@
+[
+  {
+    "DisplayName": "测试服务",
+    "Name": "DemoJob",
+    "GroupName": "Default",
+    "IsOpen": false,
+    "Description": "测试服务",
+    "Cron": "0/2 * * * * ?"
+  },
+  {
+    "DisplayName": "用户服务",
+    "Name": "UserJob",
+    "GroupName": "Default",
+    "IsOpen": false,
+    "Description": "用户服务",
+    "Cron": "0/6 * * * * ?"
+  }
+]

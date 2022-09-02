@@ -57,9 +57,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dncy.QuartzJob", "Dncy.Quar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DncyQuartzConsoleTest", "Test\DncyQuartzConsoleTest\DncyQuartzConsoleTest.csproj", "{6EE5D234-7325-45EE-B99E-5F68A828A512}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dncy.QuartzJob.AspNetCore", "Dncy.QuartzJob.AspNetCore\Dncy.QuartzJob.AspNetCore.csproj", "{EAC1D783-3811-43C7-B5BF-B6CFD7741A01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dncy.QuartzJob.AspNetCore", "Dncy.QuartzJob.AspNetCore\Dncy.QuartzJob.AspNetCore.csproj", "{EAC1D783-3811-43C7-B5BF-B6CFD7741A01}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dncy.QuartzJobAspNetCoreTest", "Test\Dncy.QuartzJobAspNetCoreTest\Dncy.QuartzJobAspNetCoreTest.csproj", "{9BDB4C47-7ED5-4345-855F-4BFE46A4F882}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dncy.QuartzJobAspNetCoreTest", "Test\Dncy.QuartzJobAspNetCoreTest\Dncy.QuartzJobAspNetCoreTest.csproj", "{9BDB4C47-7ED5-4345-855F-4BFE46A4F882}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DncyQuartzJobNetFrameworkTest", "Test\DncyQuartzJobNetFrameworkTest\DncyQuartzJobNetFrameworkTest.csproj", "{E94F5863-3E23-42F1-A042-2E0CC33BDAF4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -163,6 +165,10 @@ Global
 		{9BDB4C47-7ED5-4345-855F-4BFE46A4F882}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9BDB4C47-7ED5-4345-855F-4BFE46A4F882}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9BDB4C47-7ED5-4345-855F-4BFE46A4F882}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E94F5863-3E23-42F1-A042-2E0CC33BDAF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E94F5863-3E23-42F1-A042-2E0CC33BDAF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E94F5863-3E23-42F1-A042-2E0CC33BDAF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E94F5863-3E23-42F1-A042-2E0CC33BDAF4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -195,6 +201,7 @@ Global
 		{6EE5D234-7325-45EE-B99E-5F68A828A512} = {83E91D5E-3638-432B-9682-21672AD37D1D}
 		{EAC1D783-3811-43C7-B5BF-B6CFD7741A01} = {835A3E62-A693-4B2A-B5D4-DE1641D01747}
 		{9BDB4C47-7ED5-4345-855F-4BFE46A4F882} = {83E91D5E-3638-432B-9682-21672AD37D1D}
+		{E94F5863-3E23-42F1-A042-2E0CC33BDAF4} = {83E91D5E-3638-432B-9682-21672AD37D1D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8F5F0788-5958-459A-B53D-296C9756B958}

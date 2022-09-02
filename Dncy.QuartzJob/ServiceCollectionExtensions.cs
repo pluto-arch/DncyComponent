@@ -1,10 +1,15 @@
-﻿using System.Reflection;
+﻿
+#if NETCOREAPP
+using System;
+using System.Linq;
+using System.Reflection;
 using Dncy.QuartzJob.Model;
 using Microsoft.Extensions.DependencyInjection;
 using Quartz.Impl;
 using Quartz;
 using Quartz.Simpl;
 using Quartz.Spi;
+using Dncy.QuartzJob.Stores;
 
 namespace Dncy.QuartzJob
 {
@@ -12,15 +17,58 @@ namespace Dncy.QuartzJob
     {
         public static IServiceCollection AddDncyQuartzJobCore(this IServiceCollection services)
         {
-            services.AddTransient<QuartzJobRunner>();
+            services.AddSingleton<QuartzJobRunner>();
             services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
             services.AddTransient<IJobStore, RAMJobStore>();
             services.AddSingleton<IJobFactory, SingletonJobFactory>();
+            services.AddTransient<IJobListener, JobLogListener>();
+            services.AddTransient<HttpServiceCallJob>();
             return services;
         }
 
 
-        public static void AddStaticJobs(this IServiceCollection services)
+        /// <summary>
+        /// 添加json文件存储器
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddJsonFileJobInfoStore(this IServiceCollection services)
+        {
+            services.AddSingleton<IJobInfoStore, JsonFileJobInfoStore>();
+            return services;
+        }
+
+
+        /// <summary>
+        /// 添加内存job信息存储器
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddInMemoryJobInfoStore(this IServiceCollection services)
+        {
+            services.AddSingleton<IJobInfoStore, InMemoryJobInfoStore>();
+            return services;
+        }
+
+
+        /// <summary>
+        /// 添加内存日志存储器
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddInMemoryLogStore(this IServiceCollection services)
+        {
+            services.AddSingleton<IJobLogStore, InMemoryJobLogStore>();
+            return services;
+        }
+
+
+
+        /// <summary>
+        /// 初始化静态job的类型定义
+        /// </summary>
+        /// <param name="services"></param>
+        public static void AddStaticJobDefined(this IServiceCollection services)
         {
             var jobd = new JobDefined
             {
@@ -45,4 +93,5 @@ namespace Dncy.QuartzJob
         }
     }
 }
+#endif
 

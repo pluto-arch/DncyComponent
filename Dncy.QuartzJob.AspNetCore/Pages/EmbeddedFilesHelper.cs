@@ -15,7 +15,11 @@ namespace Dncy.QuartzJob.AspNetCore.Pages
             { ".html","text/html;charset=utf-8"},
             {".woff2","font/woff2" },
             {".woff","font/woff" },
-            {".ttf","application/octet-stream" },
+            {".ttf","application/font-sfnt" },
+            {".png","image/png" },
+            {".jpeg","image/jpeg" },
+            {".gif","image/gif" },
+            {".svg","image/svg+xml" },
         };
 
 
@@ -52,15 +56,12 @@ namespace Dncy.QuartzJob.AspNetCore.Pages
                 {
                     throw new ArgumentException($@"Resource with name {path} not found in assembly {Assembly}.");
                 }
-                using var reader = new StreamReader(inputStream);
-                var htmlBuilder = new StringBuilder(await reader.ReadToEndAsync());
-                context.Response.StatusCode = (int)HttpStatusCode.OK;
-                await context.Response.WriteAsync(htmlBuilder.ToString());
+                await inputStream.CopyToAsync(context.Response.Body,1024);
             }
             catch
             {
                 context.Response.StatusCode = (int)HttpStatusCode.OK;
-                await context.Response.WriteAsync($"");
+                await context.Response.WriteAsync($"出现错误");
             }
 
         }

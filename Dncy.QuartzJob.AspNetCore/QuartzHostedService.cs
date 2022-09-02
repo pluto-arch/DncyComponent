@@ -43,15 +43,6 @@ namespace Dncy.QuartzJob.AspNetCore
             Scheduler.JobFactory = _jobFactory;
             var jobListener = _serviceProvider.GetService<IJobListener>();
             var triggerListener = _serviceProvider.GetService<ITriggerListener>();
-            if (jobListener!=null)
-            {
-                Scheduler.ListenerManager.AddJobListener(jobListener, GroupMatcher<JobKey>.AnyGroup());
-            }
-
-            if (triggerListener != null)
-            {
-                Scheduler.ListenerManager.AddTriggerListener(triggerListener, GroupMatcher<TriggerKey>.AnyGroup());
-            }
 
             var jobs = await _jobStore.GetListAsync();
             if (jobs == null || !jobs.Any())
@@ -62,7 +53,10 @@ namespace Dncy.QuartzJob.AspNetCore
             await SchedulerBuilderHelper.Default
                 .WithStaticJobTypeDefined(_jobDefined.JobDictionary)
                 .WithSchedler(Scheduler)
-                .SchedulerJobs(jobs)
+                .WithJobStore(_jobStore)
+                .WithGlobalJobListener(jobListener)
+                .WithGlobalTriggerListener(triggerListener)
+                .WithHTTPServiceCallJob(typeof(HttpServiceCallJob))
                 .BuildAsync();
 
             await Scheduler.Start(cancellationToken);

@@ -23,10 +23,10 @@ IConfiguration Configuration = new ConfigurationBuilder()
 service.AddSingleton(Configuration);
 
 service.AddDncyQuartzJobCore();
-service.AddStaticJobs();
+service.AddStaticJobDefined();
 
-service.AddSingleton<IJobInfoStore, JsonFileJobStore>();
-service.AddSingleton<IJobLogStore, InMemoryJobLog>();
+service.AddSingleton<IJobInfoStore, JsonFileJobInfoStore>();
+service.AddSingleton<IJobLogStore, InMemoryJobLogStore>();
 
 
 
@@ -43,7 +43,6 @@ Scheduler.JobFactory = jfc;
 
 
 var jst=sp.GetRequiredService<IJobInfoStore>();
-
 
 
 var jobss =Configuration.GetSection("JobSettings").Get<List<JobSetting>>();
@@ -81,7 +80,7 @@ if (jobs == null || !jobs.Any())
 await SchedulerBuilderHelper.Default
     .WithStaticJobTypeDefined(sp.GetRequiredService<JobDefined>().JobDictionary)
     .WithSchedler(Scheduler)
-    .SchedulerJobs(jobs)
+    .WithJobStore(jst)
     .BuildAsync();
 
 await Scheduler.Start();

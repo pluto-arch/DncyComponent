@@ -1,14 +1,16 @@
-﻿using Dncy.QuartzJob.Model;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Dncy.QuartzJob.Model;
 using Dncy.QuartzJob.Utils;
 using Quartz;
 
 namespace Dncy.QuartzJob.Stores
 {
-    public class InMemoryJobLog:IJobLogStore
+    public class InMemoryJobLogStore:IJobLogStore
     {
         private const int QUEUE_LENGTH = 20;
-        private static readonly Dictionary<string, FixLengthQueue> JobLog = new();
-
+        private static readonly Dictionary<string, FixLengthQueue> JobLog = new Dictionary<string, FixLengthQueue>();
         public Task RecordAsync(JobKey job, JobLogModel model)
         {
             string key = $"{job.Group}_{job.Name}";
@@ -34,10 +36,25 @@ namespace Dncy.QuartzJob.Stores
                 .Select(x => (JobLogModel)x).ToList();
             return Task.FromResult(res);
         }
+
+        /// <inheritdoc />
+        public Task<List<JobLogModel>> GetListAsync(JobKey job, int pageNo = 1, int count = 20)
+        {
+            string key = $"{job.Group}_{job.Name}";
+            if (!JobLog.ContainsKey(key))
+            {
+                return Task.FromResult(new List<JobLogModel>());
+            }
+
+            object[] logs = JobLog[key].ToArray();
+            List<JobLogModel> res = logs.OrderByDescending(x => ( (JobLogModel)x )?.Time).Skip((pageNo-1)*count).Take(count)
+                .Select(x => (JobLogModel)x).ToList();
+            return Task.FromResult(res);
+        }
     }
 
 
-    public class NullJobLog:IJobLogStore
+    public class NullJobLogStore:IJobLogStore
     {
         public Task RecordAsync(JobKey job, JobLogModel model)
         {
@@ -49,8 +66,14 @@ namespace Dncy.QuartzJob.Stores
             return Task.FromResult(new List<JobLogModel>());
         }
 
+        /// <inheritdoc />
+        public Task<List<JobLogModel>> GetListAsync(JobKey job, int pageNo = 1, int count = 20)
+        {
+            return Task.FromResult(new List<JobLogModel>());
+        }
 
-        public static NullJobLog Instrance => new NullJobLog();
+
+        public static NullJobLogStore Instrance => new NullJobLogStore();
     }
 
 }

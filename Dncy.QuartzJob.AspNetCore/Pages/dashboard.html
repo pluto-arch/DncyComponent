@@ -3,7 +3,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <title>后台任务看板</title>
     <link rel="stylesheet" href="css/dashboard.css" />
     <link rel="stylesheet" href="lib/layui/css/layui.css" />
     <script type="text/javascript" src="lib/jquery/jquery.min.js"></script>
@@ -13,11 +13,11 @@
 <header class="layui-bg-blue" style="padding: 0 20px">
     <nav>
         <ul class="layui-nav layui-bg-blue">
-            <li class="layui-nav-item">
-                <a asp-controller="Home" asp-action="Index">Dashboard</a>
+            <li class="layui-nav-item layui-this">
+                <a href="/quartzjob/dashboard.html">Dashboard</a>
             </li>
             <li class="layui-nav-item">
-                <a asp-controller="Task" asp-action="Index">作业</a>
+                <a href="/quartzjob/tasklist.html">作业</a>
             </li>
         </ul>
     </nav>
@@ -31,19 +31,25 @@
                     <div class="layui-col-md4">
                         <div class="layui-card">
                             <div class="layui-card-header">作业总数</div>
-                            <h1 class="layui-card-body layui-font-blue">123123</h1>
+                            <h1 class="layui-card-body layui-font-blue">
+                                <span id="total">0</span>
+                            </h1>
                         </div>
                     </div>
                     <div class="layui-col-md4">
                         <div class="layui-card">
                             <div class="layui-card-header">正在运行</div>
-                            <h1 class="layui-card-body layui-font-green">12312312</h1>
+                            <h1 class="layui-card-body layui-font-green">
+                                <span id="running">0</span>
+                            </h1>
                         </div>
                     </div>
                     <div class="layui-col-md4">
                         <div class="layui-card">
                             <div class="layui-card-header">暂停的作业</div>
-                            <h1 class="layui-card-body layui-font-green">123123</h1>
+                            <h1 class="layui-card-body layui-font-green">
+                                <span id="pause">0</span>
+                            </h1>
                         </div>
                     </div>
                 </div>
@@ -52,7 +58,7 @@
     </main>
 </div>
 
-<script type="text/javascript" src="js/dashboard.js"></script>
+<script type="text/javascript" src="js/tools.js"></script>
 <script>
     $(function() {
         
@@ -62,7 +68,19 @@
     
     
     function getDashboardData(){
-        alert('123123')
+        $.get("/quartzjob-api/dashboarddata",function(data,status){
+            if (status !== 'success') {
+                alert("获取看板数据失败");
+            } else {
+                if (data.code !== 0) {
+                    alert(data.msg);
+                } else {
+                    $('#total').text(data.data.totalCount);
+                    $('#running').text(data.data.runningCount);
+                    $('#pause').text(data.data.pauseCount);
+                }
+            }
+        });
     }
 </script>
 </body>

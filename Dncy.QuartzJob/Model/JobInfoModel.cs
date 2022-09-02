@@ -1,4 +1,5 @@
-﻿using Quartz;
+﻿using System;
+using Quartz;
 
 namespace Dncy.QuartzJob.Model
 {
@@ -35,6 +36,13 @@ namespace Dncy.QuartzJob.Model
         /// </summary>
         public string TriggerName { get; set; } = "";
 
+
+        /// <summary>
+        ///     最后运行时间
+        /// </summary>
+        public string LastRunTime { get; set; }
+
+
         /// <summary>
         ///     调用的api地址
         /// </summary>
@@ -62,6 +70,7 @@ namespace Dncy.QuartzJob.Model
 
         /// <summary>
         /// 远程调用超时时长
+        /// 默认 60s
         /// </summary>
         public int RemoteCallTimeOut { get; set; } = 60;
 
@@ -86,49 +95,49 @@ namespace Dncy.QuartzJob.Model
             return geo.ToString();
         }
 
-        /// <summary>
-        ///     显示数据转换
-        /// </summary>
-        /// <param name="str"></param>
-        public static explicit operator JobInfoModel(string str)
-        {
-            if (!string.IsNullOrEmpty(str))
-            {
-                var strarr = str.Split('^');
-                if (strarr==null)
-                {
-                    return null;
-                }
-                return new JobInfoModel
-                {
-                    Id = strarr[0],
-                    TaskType =(EnumTaskType)Enum.Parse(typeof(EnumTaskType),strarr[1]),
-                    DisplayName = strarr[2],
-                    TaskName = strarr[3],
-                    GroupName = strarr[4],
-                    Interval = strarr[5],
-                    TriggerName = strarr[6],
-                    ApiUrl = strarr[7],
-                    AuthKey = strarr[8],
-                    AuthValue = strarr[9],
-                    Describe = strarr[10],
-                    RequestType = strarr[11],
-                    RemoteCallTimeOut = int.Parse(strarr[12]),
-                    TriggerStatus = (TriggerState)Enum.Parse(typeof(TriggerState),strarr[13]),
-                    Status =(EnumJobStates)Enum.Parse(typeof(EnumJobStates),strarr[14]),
-                };
-            }
+        ///// <summary>
+        /////     显示数据转换
+        ///// </summary>
+        ///// <param name="str"></param>
+        //public static explicit operator JobInfoModel(string str)
+        //{
+        //    if (!string.IsNullOrEmpty(str))
+        //    {
+        //        var strarr = str.Split('^');
+        //        if (strarr==null)
+        //        {
+        //            return null;
+        //        }
+        //        return new JobInfoModel
+        //        {
+        //            Id = strarr[0],
+        //            TaskType =(EnumTaskType)Enum.Parse(typeof(EnumTaskType),strarr[1]),
+        //            DisplayName = strarr[2],
+        //            TaskName = strarr[3],
+        //            GroupName = strarr[4],
+        //            Interval = strarr[5],
+        //            TriggerName = strarr[6],
+        //            ApiUrl = strarr[7],
+        //            AuthKey = strarr[8],
+        //            AuthValue = strarr[9],
+        //            Describe = strarr[10],
+        //            RequestType = strarr[11],
+        //            RemoteCallTimeOut = int.Parse(strarr[12]),
+        //            TriggerStatus = (TriggerState)Enum.Parse(typeof(TriggerState),strarr[13]),
+        //            Status =(EnumJobStates)Enum.Parse(typeof(EnumJobStates),strarr[14]),
+        //        };
+        //    }
 
-            return null;
-        }
+        //    return null;
+        //}
 
 
 
-        /// <inheritdoc />
-        public override string ToString()
-        {
-            return $"{Id}^{TaskType}^{DisplayName}^{GroupName}^{TaskName}^{Interval}^{TriggerName}^{ApiUrl}^{AuthKey}^{AuthValue}^{Describe}^{RequestType}^{RemoteCallTimeOut}^{TriggerStatus}^{Status};";
-        }
+        ///// <inheritdoc />
+        //public override string ToString()
+        //{
+        //    return $"{Id}^{TaskType}^{DisplayName}^{GroupName}^{TaskName}^{Interval}^{TriggerName}^{ApiUrl}^{AuthKey}^{AuthValue}^{Describe}^{RequestType}^{RemoteCallTimeOut}^{TriggerStatus}^{Status};";
+        //}
 
     }
 }

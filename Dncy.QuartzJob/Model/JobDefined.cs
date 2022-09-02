@@ -1,4 +1,7 @@
-﻿namespace Dncy.QuartzJob.Model
+﻿using System;
+using System.Collections.Generic;
+
+namespace Dncy.QuartzJob.Model
 {
     public class JobDefined
     {

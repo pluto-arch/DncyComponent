@@ -6,7 +6,7 @@ namespace Dncy.QuartzJob.Utils
     {
         private readonly int _length;
 
-        public FixLengthQueue(int length)
+        internal FixLengthQueue(int length)
         {
             _length = length;
         }
@@ -14,7 +14,7 @@ namespace Dncy.QuartzJob.Utils
         /// <summary>
         ///     默认长度10
         /// </summary>
-        public FixLengthQueue() : this(10)
+        internal FixLengthQueue() : this(10)
         {
         }
 
