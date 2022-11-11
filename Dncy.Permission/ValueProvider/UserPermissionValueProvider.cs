@@ -60,16 +60,21 @@ namespace Dncy.Permission
             }
 
             var multipleResult = await _manager.IsGrantedAsync(permissionNames.ToArray(), Name, id);
-            var res = multipleResult.Result.Where(grantResult =>
-                result.Result.ContainsKey(grantResult.Key) &&
-                result.Result[grantResult.Key] == PermissionGrantResult.Undefined &&
-                grantResult.Value != PermissionGrantResult.Undefined);
-            foreach (var grantResult in res)
+            foreach (var grantResult in multipleResult.Result)
             {
-                result.Result[grantResult.Key] = grantResult.Value;
-                permissionNames.RemoveAll(x => x == grantResult.Key);
+                if (result.Result.ContainsKey(grantResult.Key))
+                {
+                    if (result.Result[grantResult.Key] == PermissionGrantResult.Granted || result.Result[grantResult.Key] == PermissionGrantResult.Undefined)
+                    {
+                        continue;
+                    }
+                    result.Result[grantResult.Key] = grantResult.Value;
+                }
+                else
+                {
+                    result.Result[grantResult.Key] = grantResult.Value;
+                }
             }
-
             return result;
         }
     }

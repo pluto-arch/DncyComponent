@@ -9,9 +9,9 @@ namespace Dncy.Permission
 {
     public class DefaultPermissionChecker : IPermissionChecker
     {
-        private readonly IPermissionDefinitionManager _permissionDefinitionManager;
+        protected readonly IPermissionDefinitionManager _permissionDefinitionManager;
 
-        private readonly IEnumerable<IPermissionValueProvider> _permissionValueProviders;
+        protected readonly IEnumerable<IPermissionValueProvider> _permissionValueProviders;
 
         public DefaultPermissionChecker(IPermissionDefinitionManager permissionDefinitionManager,
                                  IEnumerable<IPermissionValueProvider> permissionValueProviders)
@@ -21,7 +21,7 @@ namespace Dncy.Permission
         }
 
         /// <inheritdoc />
-        public async Task<bool> IsGrantedAsync(ClaimsPrincipal claimsPrincipal, string name)
+        public virtual async Task<bool> IsGrantedAsync(ClaimsPrincipal claimsPrincipal, string name)
         {
             if (name is null)
             {
@@ -53,7 +53,7 @@ namespace Dncy.Permission
         }
 
         /// <inheritdoc />
-        public async Task<MultiplePermissionGrantResult> IsGrantedAsync(ClaimsPrincipal claimsPrincipal, string[] names)
+        public virtual async Task<MultiplePermissionGrantResult> IsGrantedAsync(ClaimsPrincipal claimsPrincipal, string[] names)
         {
             MultiplePermissionGrantResult result = new MultiplePermissionGrantResult();
 
