@@ -26,24 +26,16 @@ namespace Dncy.MultiTenancy
         /// <summary>
         /// 切换租户
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="name"></param>
         /// <returns></returns>
-        public IDisposable Change(string id, string name = null)
-        {
-            return SetCurrent(id, name);
-        }
-
-        private IDisposable SetCurrent(string tenantId, string name = null)
+        public IDisposable Change(TenantInfo tenant)
         {
             var parentScope = _currentTenantAccessor.CurrentTenantInfo;
-            _currentTenantAccessor.CurrentTenantInfo = new TenantInfo(tenantId, name);
+            _currentTenantAccessor.CurrentTenantInfo = tenant;
             return new DisposeAction(() =>
             {
                 _currentTenantAccessor.CurrentTenantInfo = parentScope;
             });
         }
-
     }
 }
 

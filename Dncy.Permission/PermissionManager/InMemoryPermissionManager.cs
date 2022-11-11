@@ -56,7 +56,7 @@ namespace Dncy.Permission
                 result.Result.Add(name,
                     await IsGrantedAsync(names.First(), providerName, providerKey)
                         ? PermissionGrantResult.Granted
-                        : PermissionGrantResult.Undefined);
+                        : PermissionGrantResult.Prohibited);
                 return result;
             }
 
@@ -65,7 +65,7 @@ namespace Dncy.Permission
             foreach ((string Key, bool IsGranted) in cacheItems)
             {
                 result.Result.Add(GetPermissionInfoFormCacheKey(Key).Name,
-                    IsGranted ? PermissionGrantResult.Granted : PermissionGrantResult.Undefined);
+                    IsGranted ? PermissionGrantResult.Granted : PermissionGrantResult.Prohibited);
             }
 
             return result;
@@ -119,7 +119,7 @@ namespace Dncy.Permission
         protected virtual async Task<List<(string Key, bool IsGranted)>> GetCacheItemsAsync(string[] names,
             string providerName, string providerKey)
         {
-            var cacheKeys = names.Select(x => string.Format(CacheKeyFormat, x, providerName, providerKey)).ToList();
+            var cacheKeys = names.Select(x => string.Format(CacheKeyFormat, providerName, providerKey, x)).ToList();
 
             _logger.LogDebug($"PermissionStore.GetCacheItemAsync: {string.Join(",", cacheKeys)}");
 
@@ -130,6 +130,10 @@ namespace Dncy.Permission
                 if (permissionCached.TryGetValue(cacheKey, out string value))
                 {
                     getCacheItemTasks.Add((cacheKey, value));
+                }
+                else
+                {
+                    getCacheItemTasks.Add((cacheKey, null));
                 }
             }
 

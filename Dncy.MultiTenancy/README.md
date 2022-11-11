@@ -29,6 +29,7 @@ builder.Services.AddTransient<ITenantStore, DefaultTenantStore>();// 租户store
     {
       "TenantId": "T20210602000001",
       "TenantName": "tenant1",
+      "IsAvaliable":true,
       "ConnectionStrings": {
         "Default":
           "Server=127.0.0.1,1433;Database=Pnct_T20210602000001;User Id=sa;Password=970307lBX;Trusted_Connection = False;"
@@ -37,6 +38,7 @@ builder.Services.AddTransient<ITenantStore, DefaultTenantStore>();// 租户store
     {
       "TenantId": "T20210602000002",
       "TenantName": "tenant2",
+      "IsAvaliable":true,
       "ConnectionStrings": {
         "Default":
           "Server=127.0.0.1,1433;Database=Pnct_T20210602000002;User Id=sa;Password=970307lBX;Trusted_Connection = False;"

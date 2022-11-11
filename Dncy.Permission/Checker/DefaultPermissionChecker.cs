@@ -82,18 +82,20 @@ namespace Dncy.Permission
 
                 var multipleResult = await permissionValueProvider.CheckAsync(claimsPrincipal, pf);
 
-                foreach (var grantResult in multipleResult.Result.Where(
-                                            grantResult => result.Result.ContainsKey(grantResult.Key) &&
-                                            result.Result[grantResult.Key] == PermissionGrantResult.Undefined &&
-                                            grantResult.Value != PermissionGrantResult.Undefined))
+                foreach (var grantResult in multipleResult.Result)
                 {
-                    result.Result[grantResult.Key] = grantResult.Value;
-                    permissionDefinitions.RemoveAll(x => x.Name == grantResult.Key);
-                }
-
-                if (result.AllGranted || result.AllProhibited)
-                {
-                    break;
+                    if (result.Result.ContainsKey(grantResult.Key))
+                    {
+                        if (result.Result[grantResult.Key]==PermissionGrantResult.Granted || result.Result[grantResult.Key] == PermissionGrantResult.Undefined)
+                        {
+                            continue;
+                        }
+                        result.Result[grantResult.Key] = grantResult.Value;
+                    }
+                    else
+                    {
+                        result.Result[grantResult.Key] = grantResult.Value;
+                    }
                 }
             }
 

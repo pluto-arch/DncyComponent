@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Dncy.Permission.Models;
 using Dncy.Permission.UnitTest.Definitions;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
@@ -59,8 +61,8 @@ namespace Dncy.Permission.UnitTest
             };
             var claimsIdentityA = new ClaimsIdentity(claimsA, "demo_scheme");
             var principalA = new ClaimsPrincipal(claimsIdentityA);
-            var isGrantA = await permissionChecker.IsGrantedAsync(principalA, ProductPermission.Product.Create);
-            Assert.IsTrue(isGrantA);
+            var isGrantA = await permissionChecker.IsGrantedAsync(principalA, new string[] { ProductPermission.Product.Create , ProductPermission.Product.Edit });
+            Assert.IsTrue(isGrantA.AllGranted);
 
 
             var claimsB = new[]

@@ -5,15 +5,15 @@
         /// <summary>
         /// 未定义
         /// </summary>
-        Undefined,
+        Undefined=0x01,
         /// <summary>
         /// 已授权
         /// </summary>
-        Granted,
+        Granted=0x02,
         /// <summary>
         /// 禁止
         /// </summary>
-        Prohibited
+        Prohibited=0x03
     }
 }
 

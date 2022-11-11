@@ -1,4 +1,5 @@
 ﻿using System;
+using Dncy.MultiTenancy.Model;
 
 namespace Dncy.MultiTenancy
 {
@@ -14,7 +15,7 @@ namespace Dncy.MultiTenancy
         /// 切换租户
         /// </summary>
         /// <returns></returns>
-        IDisposable Change(string id, string name = null);
+        IDisposable Change(TenantInfo tenant);
     }
 }
 

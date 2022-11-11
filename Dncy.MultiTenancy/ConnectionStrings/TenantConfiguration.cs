@@ -27,6 +27,8 @@ namespace Dncy.MultiTenancy.ConnectionStrings
 
         public string TenantName { get; set; }
 
+        public bool IsAvaliable { get; set; }
+
         public Dictionary<string, string> ConnectionStrings { get; set; }
     }
 

@@ -13,7 +13,7 @@ namespace Dncy.Permission.Models
 
 
         public MultiplePermissionGrantResult(string[] names,
-            PermissionGrantResult grantResult = PermissionGrantResult.Undefined) : this()
+            PermissionGrantResult grantResult = PermissionGrantResult.Prohibited) : this()
         {
             if (names is null)
             {
@@ -26,8 +26,8 @@ namespace Dncy.Permission.Models
         public Dictionary<string, PermissionGrantResult> Result { get; }
 
 
-        public bool AllGranted => Result.Values.All(x => x == PermissionGrantResult.Granted);
+        public bool AllGranted => Result.Count>0&&Result.Values.All(x => x == PermissionGrantResult.Granted);
 
-        public bool AllProhibited => Result.Values.All(x => x == PermissionGrantResult.Prohibited);
+        public bool AllProhibited => Result.Count > 0 && Result.Values.All(x => x == PermissionGrantResult.Prohibited);
     }
 }

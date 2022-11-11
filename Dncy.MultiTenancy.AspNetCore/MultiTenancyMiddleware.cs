@@ -33,7 +33,7 @@ namespace Dncy.MultiTenancy.AspNetCore
                 }
                 else
                 {
-                    using (_currentTenant.Change(tenant?.TenantId,tenant?.TenantName))
+                    using (_currentTenant.Change(tenant))
                     {
                         await next(context);
                     }
@@ -50,7 +50,7 @@ namespace Dncy.MultiTenancy.AspNetCore
         /// </summary>
         /// <param name="tenantIdOrName"></param>
         /// <returns></returns>
-        protected virtual async Task<TenantConfiguration> FindAndCheckTenantAsync(string tenantIdOrName)
+        protected virtual async Task<TenantInfo> FindAndCheckTenantAsync(string tenantIdOrName)
         {
             return await _tenantStore.FindAsync<string>(tenantIdOrName);
         }

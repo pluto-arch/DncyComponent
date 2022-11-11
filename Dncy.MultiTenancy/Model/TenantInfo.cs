@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Dncy.MultiTenancy.Model
 {
@@ -17,6 +18,13 @@ namespace Dncy.MultiTenancy.Model
         public string Id { get; set; }
 
         public string Name { get; set; }
+
+
+        public Dictionary<string,string> ConnectionStrings { get; set; } = new Dictionary<string, string>();
+
+
+        public bool IsAvaliable { get; set; }
+
     }
 }
 
