@@ -5,9 +5,18 @@
     {
         public string Template { get; set; }
 
+        private const string prefix = "/";
+
         public SubscribeAttribute(string template)
         {
-            Template = template;
+            if (template.StartsWith(prefix))
+            {
+                Template = template;
+            }
+            else
+            {
+                Template = $"/{template}";
+            }
         }
     }
 }
