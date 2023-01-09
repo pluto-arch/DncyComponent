@@ -1,6 +1,10 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Text.Json;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -10,7 +14,12 @@ namespace Dncy.MQMessageActivator
     public class MessageHandlerActivator
     {
         private readonly IServiceScopeFactory _scopeFactory;
+
+#if NETCOREAPP3_1
+        private static readonly Lazy<ConcurrentBag<SubscribeDescriptor>> _lazySubscribes = new Lazy<ConcurrentBag<SubscribeDescriptor>>(EnsureSubscribeDescriptorsInitialized, true);
+#else
         private static readonly Lazy<ConcurrentBag<SubscribeDescriptor>> _lazySubscribes = new(EnsureSubscribeDescriptorsInitialized, true);
+#endif
 
         private static readonly Lazy<ConcurrentDictionary<Type, ObjectFactory>> _lazyCacheObjFactory = new Lazy<ConcurrentDictionary<Type, ObjectFactory>>(() => new ConcurrentDictionary<Type, ObjectFactory>(), true);
 
@@ -29,10 +38,15 @@ namespace Dncy.MQMessageActivator
                 logger.LogDebug("receive message：{msg}. on route：{route}。",message,route);
                 foreach (SubscribeDescriptor subscribeDescriptor in _lazySubscribes.Value)
                 {
+#if NETCOREAPP3_1
+                    RouteValueDictionary matchedRouteValues = new RouteValueDictionary();
+#else
                     RouteValueDictionary matchedRouteValues = new();
+#endif
+                   
                     if (RouteMatcher.TryMatch(subscribeDescriptor.AttributeRouteInfo.Template, route, matchedRouteValues))
                     {
-                        var parameterValues = new List<object?>();
+                        var parameterValues = new List<object>();
 
                         var valueProviders = new Dictionary<string, object?>(matchedRouteValues, StringComparer.OrdinalIgnoreCase) { { string.Empty, message } };
 
@@ -88,7 +102,7 @@ namespace Dncy.MQMessageActivator
         }
 
 
-        private async Task<object?> BindModelAsync(ParameterInfo parameterInfo, Dictionary<string, object?> valueProviders)
+        private Task<object?> BindModelAsync(ParameterInfo parameterInfo, Dictionary<string, object?> valueProviders)
         {
             object? parameterValue = parameterInfo.ParameterType.GetDefaultValue();
 
@@ -109,14 +123,19 @@ namespace Dncy.MQMessageActivator
                 throw new InvalidOperationException($"Binding parameters {parameterInfo.Name} failed", e);
             }
 
-            return parameterValue;
+            return Task.FromResult(parameterValue);
         }
 
 
 
         private static ConcurrentBag<SubscribeDescriptor> EnsureSubscribeDescriptorsInitialized()
         {
+#if NETCOREAPP3_1
+            ConcurrentBag<SubscribeDescriptor> subscribeDescriptors = new ConcurrentBag<SubscribeDescriptor>();
+#else
             ConcurrentBag<SubscribeDescriptor> subscribeDescriptors = new();
+#endif
+            
 
             var exportedTypes = AppDomain.CurrentDomain.GetAssemblies().Where(e => !e.IsDynamic).SelectMany(e => e.ExportedTypes);
 
@@ -131,12 +150,21 @@ namespace Dncy.MQMessageActivator
                     SubscribeAttribute? subscribeAttribute = methodInfo.GetCustomAttribute<SubscribeAttribute>();
                     if (subscribeAttribute != null)
                     {
+#if NETCOREAPP3_1
+                        SubscribeDescriptor subscribeDescriptor = new SubscribeDescriptor()
+                        {
+                            AttributeRouteInfo = subscribeAttribute,
+                            MethodInfo = methodInfo,
+                            Parameters = methodInfo.GetParameters()
+                        };
+#else
                         SubscribeDescriptor subscribeDescriptor = new()
                         {
                             AttributeRouteInfo = subscribeAttribute,
                             MethodInfo = methodInfo,
                             Parameters = methodInfo.GetParameters()
                         };
+#endif
 
                         subscribeDescriptors.Add(subscribeDescriptor);
                     }

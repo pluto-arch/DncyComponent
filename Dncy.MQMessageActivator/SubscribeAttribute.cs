@@ -1,4 +1,6 @@
-﻿namespace Dncy.MQMessageActivator
+﻿using System;
+
+namespace Dncy.MQMessageActivator
 {
     [AttributeUsage(AttributeTargets.Method)]
     public class SubscribeAttribute : Attribute
