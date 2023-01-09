@@ -1,4 +1,6 @@
-﻿using System.Threading;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading;
 
 namespace Dncy.PipelinePattern
 {
@@ -6,13 +8,14 @@ namespace Dncy.PipelinePattern
 
     public class DataContext
     {
-        private int _count;
 
-        public int Count => _count;
-
-        public void Increment()
+        public DataContext()
         {
-            _count=Interlocked.Increment(ref _count);
+            Properties=new Dictionary<string, object>();
         }
+
+        public Dictionary<string,object> Properties { get; set; }
+
+        public string Body { get; set; }
     }
 }
