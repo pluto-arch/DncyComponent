@@ -39,7 +39,7 @@ namespace Dncy.Permission
         /// <param name="providerName"></param>
         /// <param name="providerKey"></param>
         /// <returns></returns>
-        Task GrantAsync(string name, string providerName, string providerKey);
+        Task SaveAsync(string name, string providerName, string providerKey);
 
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace Dncy.Permission
         /// <param name="providerName"></param>
         /// <param name="providerKey"></param>
         /// <returns></returns>
-        Task GrantAsync(string[] name, string providerName, string providerKey);
+        Task SaveAsync(string[] name, string providerName, string providerKey);
 
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace Dncy.Permission
         /// <param name="providerName"></param>
         /// <param name="providerKey"></param>
         /// <returns></returns>
-        Task CancleGrantAsync(string name, string providerName, string providerKey);
+        Task RemoveGrantAsync(string name, string providerName, string providerKey);
 
         /// <summary>
         /// 取消授权
@@ -68,6 +68,6 @@ namespace Dncy.Permission
         /// <param name="providerName"></param>
         /// <param name="providerKey"></param>
         /// <returns></returns>
-        Task CancleGrantAsync(string[] name, string providerName, string providerKey);
+        Task RemoveGrantAsync(string[] name, string providerName, string providerKey);
     }
 }
