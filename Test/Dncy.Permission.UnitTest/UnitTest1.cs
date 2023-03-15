@@ -56,7 +56,7 @@ namespace Dncy.Permission.UnitTest
             var permissionChecker = _serviceProvider.GetService<IPermissionChecker>();
             var claimsA = new[]
             {
-                new Claim("user_name", "A"),
+                new Claim(ClaimTypes.NameIdentifier, "123"),
                 new Claim(ClaimTypes.Role, "admin"),
             };
             var claimsIdentityA = new ClaimsIdentity(claimsA, "demo_scheme");

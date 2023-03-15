@@ -10,6 +10,9 @@ public class ProductPermission
     public static class Product
     {
         public const string Default = GroupName + ".Products";
+
+        public const string List = Default + ".List";
+
         public const string Create = Default + ".Create";
         public const string Edit = Default + ".Edit";
         public const string Delete = Default + ".Delete";
@@ -19,6 +22,9 @@ public class ProductPermission
     public static class Device
     {
         public const string Default = GroupName + ".Devices";
+
+        public const string List = Default + ".List";
+
         public const string Create = Default + ".Create";
         public const string Edit = Default + ".Edit";
         public const string Delete = Default + ".Delete";
@@ -32,26 +38,21 @@ public class ProductPermissionDefinitionProvider : IPermissionDefinitionProvider
     public void Define(PermissionDefinitionContext context)
     {
 
-        // 产品管理
-        //   -- 产品列表
-        //     -- 产品详情
-        //     -- 新增产品
-        //     -- 删除产品
-        //     -- 编辑产品
-
         /*
          * can read from database
          */
-        var productGroup = context.AddGroup(ProductPermission.GroupName, "ProductPermission.ProductManager");
-        PermissionDefinition userPermissionManager = productGroup.AddPermission(ProductPermission.Product.Default, "ProductPermission.ProductManager.Products");
-        userPermissionManager.AddChild(ProductPermission.Product.Create, "ProductPermission.ProductManager.Products.Create");
-        userPermissionManager.AddChild(ProductPermission.Product.Edit, "ProductPermission.ProductManager.Products.Edit");
-        userPermissionManager.AddChild(ProductPermission.Product.Delete, "ProductPermission.ProductManager.Products.Delete");
+        var productGroup = context.AddGroup(ProductPermission.GroupName, "产品管理");
+        PermissionDefinition userPermissionManager = productGroup.AddPermission(ProductPermission.Product.Default, "产品");
+        userPermissionManager.AddChild(ProductPermission.Product.List, "产品列表");
+        userPermissionManager.AddChild(ProductPermission.Product.Create, "创建产品");
+        userPermissionManager.AddChild(ProductPermission.Product.Edit, "编辑产品");
+        userPermissionManager.AddChild(ProductPermission.Product.Delete, "删除产品");
 
 
-        var rolePermissionManager = productGroup.AddPermission(ProductPermission.Device.Default, "ProductPermission.ProductManager.Device");
-        rolePermissionManager.AddChild(ProductPermission.Device.Create, "ProductPermission.ProductManager.Device.Create");
-        rolePermissionManager.AddChild(ProductPermission.Device.Edit, "ProductPermission.ProductManager.Device.Edit");
-        rolePermissionManager.AddChild(ProductPermission.Device.Delete, "ProductPermission.ProductManager.Device.Delete");
+        var rolePermissionManager = productGroup.AddPermission(ProductPermission.Device.Default, "设备");
+        rolePermissionManager.AddChild(ProductPermission.Device.List, "设备列表");
+        rolePermissionManager.AddChild(ProductPermission.Device.Create, "创建设备");
+        rolePermissionManager.AddChild(ProductPermission.Device.Edit, "编辑设备");
+        rolePermissionManager.AddChild(ProductPermission.Device.Delete, "删除设备");
     }
 }
