@@ -31,6 +31,14 @@ public class ProductPermissionDefinitionProvider : IPermissionDefinitionProvider
     /// <inheritdoc />
     public void Define(PermissionDefinitionContext context)
     {
+
+        // 产品管理
+        //   -- 产品列表
+        //     -- 产品详情
+        //     -- 新增产品
+        //     -- 删除产品
+        //     -- 编辑产品
+
         /*
          * can read from database
          */

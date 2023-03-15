@@ -47,6 +47,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MQMessageActivatorTest", "T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dncy.MongoTools", "Dncy.MongoTools\Dncy.MongoTools.csproj", "{E150AC2F-CCC9-49C5-8C2F-FEEA7E2B3204}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1", "WebApplication1\WebApplication1.csproj", "{AAD673FA-29ED-4754-9ADC-8BA631ABB4BF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -129,6 +131,10 @@ Global
 		{E150AC2F-CCC9-49C5-8C2F-FEEA7E2B3204}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E150AC2F-CCC9-49C5-8C2F-FEEA7E2B3204}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E150AC2F-CCC9-49C5-8C2F-FEEA7E2B3204}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAD673FA-29ED-4754-9ADC-8BA631ABB4BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAD673FA-29ED-4754-9ADC-8BA631ABB4BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAD673FA-29ED-4754-9ADC-8BA631ABB4BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAD673FA-29ED-4754-9ADC-8BA631ABB4BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -154,6 +160,7 @@ Global
 		{BE8759B8-2834-41F5-9AA6-48B1F92D60AF} = {70A47FF6-372D-4C66-BD87-7DB636AED154}
 		{456FA176-053E-469E-8ABD-D8DBF0C1A6CE} = {83E91D5E-3638-432B-9682-21672AD37D1D}
 		{E150AC2F-CCC9-49C5-8C2F-FEEA7E2B3204} = {70A47FF6-372D-4C66-BD87-7DB636AED154}
+		{AAD673FA-29ED-4754-9ADC-8BA631ABB4BF} = {83E91D5E-3638-432B-9682-21672AD37D1D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8F5F0788-5958-459A-B53D-296C9756B958}
