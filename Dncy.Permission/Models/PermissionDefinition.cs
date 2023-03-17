@@ -2,6 +2,7 @@
 using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Text.Json.Serialization;
 
 namespace Dncy.Permission.Models
 {
@@ -47,22 +48,16 @@ namespace Dncy.Permission.Models
         /// </summary>
         public int ParentId { get; set; }
 
-
-        /// <summary>
-        ///     分组id
-        /// </summary>
-        public int GroupId { get; set; }
-
         /// <summary>
         ///     分组
         /// </summary>
-        public PermissionGroupDefinition Group { get; set; }
+        public string Group { get; set; }
 
 
         /// <summary>
         ///     上级权限
         /// </summary>
-        public PermissionDefinition Parent { get; private set; }
+        public string Parent { get; private set; }
 
         /// <summary>
         ///     是否启用
@@ -80,7 +75,11 @@ namespace Dncy.Permission.Models
         public virtual PermissionDefinition AddChild([NotNull] string name, string displayName = null,
             bool isEnabled = true)
         {
-            PermissionDefinition child = new PermissionDefinition(name, displayName, isEnabled) { Parent = this };
+            PermissionDefinition child = new PermissionDefinition(name, displayName, isEnabled)
+            {
+                Parent = this.Name ,
+                Group=this.Group
+            };
             _children.Add(child);
             return child;
         }
