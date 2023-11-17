@@ -2,7 +2,6 @@
 using System.Net;
 using System.Reflection;
 using System.Text;
-using Microsoft.AspNetCore.Http;
 
 namespace Dncy.QuartzJob.AspNetCore.Pages
 {
