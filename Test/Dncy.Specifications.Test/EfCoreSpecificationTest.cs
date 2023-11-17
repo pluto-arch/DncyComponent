@@ -32,6 +32,11 @@ namespace Dncy.Specifications.Test
             var count= await res.CountAsync();
             var data = await res.ToListAsync();
             Assert.That(count==10);
+
+            var res2= ctx.Users.WithSpecification(new WithOrder(30));
+            var count2 = await res2.CountAsync();
+            Assert.That(count2 == 30);
+
         }
 
 
@@ -64,6 +69,13 @@ namespace Dncy.Specifications.Test
                 Query.OrderByDescending(x => x.Age).ThenByDescending(x => x.Sort);
                 Query.Select(x => new UserDto() {Id = x.Id, Name = x.Name});
                 Query.Take(10);
+            }
+
+            public WithOrder(int pageSize)
+            {
+                Query.OrderByDescending(x => x.Age).ThenByDescending(x => x.Sort);
+                Query.Select(x => new UserDto() { Id = x.Id, Name = x.Name });
+                Query.Take(pageSize);
             }
         }
 

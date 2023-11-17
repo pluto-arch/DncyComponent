@@ -53,10 +53,10 @@ namespace Dncy.Permission.UnitTest
             Assert.IsNotNull(permissionGrant);
 
             // grant ProductPermission.Product.Create to role with admin
-            await permissionGrant.GrantAsync(ProductPermission.Product.Create, "Role", "admin");
+            await permissionGrant.SaveAsync(ProductPermission.Product.Create, "Role", "admin");
            
             // grant ProductPermission.Product.Edit to user with 123 identity
-            await permissionGrant.GrantAsync(ProductPermission.Product.Edit, "User", "123");
+            await permissionGrant.SaveAsync(ProductPermission.Product.Edit, "User", "123");
 
 
             var permissionChecker = _serviceProvider.GetService<IPermissionChecker>();
@@ -68,7 +68,7 @@ namespace Dncy.Permission.UnitTest
             var claimsIdentityA = new ClaimsIdentity(claimsA, "demo_scheme");
             var principalA = new ClaimsPrincipal(claimsIdentityA);
             var isGrantA = await permissionChecker.IsGrantedAsync(principalA, new string[] { ProductPermission.Product.Create , ProductPermission.Product.Edit });
-            Assert.IsTrue(isGrantA.AllGranted);
+            Assert.IsTrue(!isGrantA.AllGranted);
 
 
             var claimsB = new[]

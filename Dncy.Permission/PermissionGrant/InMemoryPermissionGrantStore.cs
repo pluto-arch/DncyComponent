@@ -45,7 +45,7 @@ namespace Dncy.Permission
         }
 
         /// <inheritdoc />
-        public Task GrantAsync(string name, string providerName, string providerKey)
+        public Task SaveAsync(string name, string providerName, string providerKey)
         {
             lock (_lock)
             {
@@ -56,7 +56,7 @@ namespace Dncy.Permission
 
 
         /// <inheritdoc />
-        public Task GrantAsync(string[] name, string providerName, string providerKey)
+        public Task SaveAsync(string[] name, string providerName, string providerKey)
         {
             lock (_lock)
             {
@@ -70,7 +70,7 @@ namespace Dncy.Permission
 
 
         /// <inheritdoc />
-        public Task CancleGrantAsync(string name, string providerName, string providerKey)
+        public Task RemoveGrantAsync(string name, string providerName, string providerKey)
         {
             lock (_lock)
             {
@@ -81,7 +81,7 @@ namespace Dncy.Permission
         }
 
         /// <inheritdoc />
-        public Task CancleGrantAsync(string[] name, string providerName, string providerKey)
+        public Task RemoveGrantAsync(string[] name, string providerName, string providerKey)
         {
             lock (_lock)
             {
