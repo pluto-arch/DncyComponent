@@ -1,4 +1,5 @@
 using Dncy.MQMessageActivator;
+using MQMessageActivatorTest.Stores;
 using System.Text;
 
 namespace MQMessageActivatorTest
@@ -11,9 +12,9 @@ namespace MQMessageActivatorTest
 
             // Add services to the container.
             builder.Services.AddRazorPages();
-
             builder.Services.AddSingleton<MessageHandlerActivator>();
-
+            builder.Services.AddScoped<DemoStore>();
+            builder.Services.AddScoped<TranDemoStore>();
 
             var app = builder.Build();
 

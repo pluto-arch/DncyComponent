@@ -10,6 +10,9 @@ public class ProductPermission
     public static class Product
     {
         public const string Default = GroupName + ".Products";
+
+        public const string List = Default + ".List";
+
         public const string Create = Default + ".Create";
         public const string Edit = Default + ".Edit";
         public const string Delete = Default + ".Delete";
@@ -19,6 +22,9 @@ public class ProductPermission
     public static class Device
     {
         public const string Default = GroupName + ".Devices";
+
+        public const string List = Default + ".List";
+
         public const string Create = Default + ".Create";
         public const string Edit = Default + ".Edit";
         public const string Delete = Default + ".Delete";
@@ -31,19 +37,10 @@ public class ProductPermissionDefinitionProvider : IPermissionDefinitionProvider
     /// <inheritdoc />
     public void Define(PermissionDefinitionContext context)
     {
-        /*
-         * can read from database
-         */
-        var productGroup = context.AddGroup(ProductPermission.GroupName, "ProductPermission.ProductManager");
-        PermissionDefinition userPermissionManager = productGroup.AddPermission(ProductPermission.Product.Default, "ProductPermission.ProductManager.Products");
-        userPermissionManager.AddChild(ProductPermission.Product.Create, "ProductPermission.ProductManager.Products.Create");
-        userPermissionManager.AddChild(ProductPermission.Product.Edit, "ProductPermission.ProductManager.Products.Edit");
-        userPermissionManager.AddChild(ProductPermission.Product.Delete, "ProductPermission.ProductManager.Products.Delete");
-
-
-        var rolePermissionManager = productGroup.AddPermission(ProductPermission.Device.Default, "ProductPermission.ProductManager.Device");
-        rolePermissionManager.AddChild(ProductPermission.Device.Create, "ProductPermission.ProductManager.Device.Create");
-        rolePermissionManager.AddChild(ProductPermission.Device.Edit, "ProductPermission.ProductManager.Device.Edit");
-        rolePermissionManager.AddChild(ProductPermission.Device.Delete, "ProductPermission.ProductManager.Device.Delete");
+        var productGroup = context.AddGroup("PM", "产品管理");
+        var userPermissionManager = productGroup.AddPermission("PM.PP", "产品权限");
+        userPermissionManager.AddChild("PM.PP.List", "创建产品");
+        userPermissionManager.AddChild("PM.PP.Create", "创建产品");
+        userPermissionManager.AddChild("PM.PP.Edit", "编辑产品");
     }
 }

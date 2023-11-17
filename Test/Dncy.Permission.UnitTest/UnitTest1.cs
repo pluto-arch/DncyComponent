@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Dncy.Permission.Models;
 using Dncy.Permission.UnitTest.Definitions;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 using NUnit.Framework;
 
 namespace Dncy.Permission.UnitTest
@@ -38,6 +39,11 @@ namespace Dncy.Permission.UnitTest
             Assert.IsNotNull(permissDefinMgr);
             var permissionGroups = permissDefinMgr.GetGroups();
             Assert.IsTrue(permissionGroups.Count==1);
+
+
+            var dddd = JsonConvert.SerializeObject(permissionGroups);
+
+            var ddd = permissDefinMgr.GetPermissions();
         }
 
         [Test]
@@ -56,7 +62,7 @@ namespace Dncy.Permission.UnitTest
             var permissionChecker = _serviceProvider.GetService<IPermissionChecker>();
             var claimsA = new[]
             {
-                new Claim("user_name", "A"),
+                new Claim(ClaimTypes.NameIdentifier, "123"),
                 new Claim(ClaimTypes.Role, "admin"),
             };
             var claimsIdentityA = new ClaimsIdentity(claimsA, "demo_scheme");

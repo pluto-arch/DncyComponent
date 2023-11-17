@@ -1,4 +1,8 @@
-﻿namespace Dncy.MQMessageActivator
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Dncy.MQMessageActivator
 {
     internal static class TypeExtensions
     {
