@@ -14,7 +14,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\Dncy.PipelinePattern\Dncy.PipelinePattern.csproj" />
+		<ProjectReference Include="..\..\Dncy.PipelinePattern\Dotnetydd.PipelinePattern.csproj" />
 	</ItemGroup>
 
 </Project>

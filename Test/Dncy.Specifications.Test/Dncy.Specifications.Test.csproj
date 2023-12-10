@@ -18,8 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Dncy.Specifications.EntityFrameworkCore\Dncy.Specifications.EntityFrameworkCore.csproj" />
-    <ProjectReference Include="..\..\Dncy.Specifications\Dncy.Specifications.csproj" />
+    <ProjectReference Include="..\..\Dncy.Specifications.EntityFrameworkCore\Dotnetydd.Specifications.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\..\Dncy.Specifications\Dotnetydd.Specifications.csproj" />
   </ItemGroup>
 
   <ItemGroup>

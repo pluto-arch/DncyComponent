@@ -16,10 +16,14 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Dncy.Specifications\Dncy.Specifications.csproj" />
+		<ProjectReference Include="..\Dncy.Permission\Dotnetydd.Permission.csproj" />
 	</ItemGroup>
 
+
 	<ItemGroup>
-		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0" allowedVersions="[5,)" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" allowedVersions="[5,)" />
+		<PackageReference Include="Microsoft.AspNetCore.Authorization" Version="5.0.0" allowedVersions="[5,)" />
 	</ItemGroup>
+
+
 </Project>
