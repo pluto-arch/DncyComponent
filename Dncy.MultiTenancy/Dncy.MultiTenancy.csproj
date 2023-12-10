@@ -10,6 +10,9 @@
 	  <Authors>dotnetydd</Authors>
 	  <PublishTrimmed Condition="'$(TargetFramework)' == 'net8.0'">true</PublishTrimmed>
 	  <IncludeNativeLibrariesForSelfExtract Condition="'$(TargetFramework)' == 'net8.0'">true</IncludeNativeLibrariesForSelfExtract>
+	  <PackageProjectUrl>https://github.com/pluto-arch/DncyComponent</PackageProjectUrl>
+	  <PackageReadmeFile>README.md</PackageReadmeFile>
+	  <RepositoryUrl>https://github.com/pluto-arch/DncyComponent</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,6 +24,13 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" allowedVersions="[6,)" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="6.0.0" allowedVersions="[6,)" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="6.0.0" allowedVersions="[6,)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

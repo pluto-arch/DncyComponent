@@ -10,6 +10,8 @@
 		<Authors>dotnetydd</Authors>
 		<PublishTrimmed Condition="'$(TargetFramework)' == 'net8.0'">true</PublishTrimmed>
 		<IncludeNativeLibrariesForSelfExtract Condition="'$(TargetFramework)' == 'net8.0'">true</IncludeNativeLibrariesForSelfExtract>
+		<PackageProjectUrl>https://github.com/pluto-arch/DncyComponent</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/pluto-arch/DncyComponent</RepositoryUrl>
 	</PropertyGroup>
 
 
