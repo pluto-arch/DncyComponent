@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace Dncy.Specifications.Evaluators
+namespace Dotnetydd.Specifications.Evaluators
 {
     public interface IEvaluator
     {

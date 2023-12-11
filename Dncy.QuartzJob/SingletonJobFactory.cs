@@ -1,11 +1,11 @@
 ﻿#if NETCOREAPP
 
-using System;
 using Microsoft.Extensions.DependencyInjection;
 using Quartz;
 using Quartz.Spi;
+using System;
 
-namespace Dncy.QuartzJob
+namespace Dotnetydd.QuartzJob
 {
     public class SingletonJobFactory : IJobFactory
     {
@@ -23,7 +23,7 @@ namespace Dncy.QuartzJob
 
         public void ReturnJob(IJob job)
         {
-            ( job as IDisposable )?.Dispose();
+            (job as IDisposable)?.Dispose();
         }
     }
 }

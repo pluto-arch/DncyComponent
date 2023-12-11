@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Dncy.MultiTenancy.AspNetCore
+namespace Dotnetydd.MultiTenancy.AspNetCore
 {
     public interface ITenantResolveContext
     {

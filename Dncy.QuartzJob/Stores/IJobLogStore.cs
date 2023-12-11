@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Dncy.QuartzJob.Model;
+﻿using Dotnetydd.QuartzJob.Model;
 using Quartz;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace Dncy.QuartzJob.Stores
+namespace Dotnetydd.QuartzJob.Stores
 {
     public interface IJobLogStore
     {
@@ -26,7 +26,7 @@ namespace Dncy.QuartzJob.Stores
         /// </summary>
         /// <param name="count"></param>
         /// <returns></returns>
-        Task<List<JobLogModel>> GetListAsync(JobKey job, int pageNo=1,int count = 20);
+        Task<List<JobLogModel>> GetListAsync(JobKey job, int pageNo = 1, int count = 20);
     }
 }
 

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Dncy.Specifications.Evaluators
+namespace Dotnetydd.Specifications.Evaluators
 {
     public interface IInMemorySpecificationEvaluator
     {

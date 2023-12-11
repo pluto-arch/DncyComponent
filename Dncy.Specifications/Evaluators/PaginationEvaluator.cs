@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Dncy.Specifications.Evaluators
+namespace Dotnetydd.Specifications.Evaluators
 {
     public class PaginationEvaluator : IEvaluator, IInMemoryEvaluator
     {

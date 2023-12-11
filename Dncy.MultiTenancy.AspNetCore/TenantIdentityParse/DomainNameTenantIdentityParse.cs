@@ -1,17 +1,17 @@
-﻿using System;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 
-namespace Dncy.MultiTenancy.AspNetCore
+namespace Dotnetydd.MultiTenancy.AspNetCore.TenantIdentityParse
 {
     /// <summary>
     /// 域名租户构造
     /// </summary>
-    public class DomainNameTenantIdentityParse:HttpTenantIdentityParseBase
+    public class DomainNameTenantIdentityParse : HttpTenantIdentityParseBase
     {
         private readonly Func<HostString, string> _analizeFunc;
 
 
-        public DomainNameTenantIdentityParse(Func<HostString,string> analizeFunc)
+        public DomainNameTenantIdentityParse(Func<HostString, string> analizeFunc)
         {
             _analizeFunc = analizeFunc;
         }

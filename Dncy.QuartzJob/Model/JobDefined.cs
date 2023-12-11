@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Dncy.QuartzJob.Model
+namespace Dotnetydd.QuartzJob.Model
 {
     public class JobDefined
     {

@@ -1,10 +1,11 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using Dotnetydd.Permission.Definition;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.Extensions.Options;
+using System;
+using System.Threading.Tasks;
 
-namespace Dncy.Permission.AspNetCore
+namespace Dotnetydd.Permission.AspNetCore
 {
     public class DynamicAuthorizationPolicyProvider : DefaultAuthorizationPolicyProvider
     {
@@ -23,14 +24,14 @@ namespace Dncy.Permission.AspNetCore
         {
             AuthorizationPolicy policy = await base.GetPolicyAsync(policyName);
 
-            if (policy!=null)
+            if (policy != null)
             {
                 return policy;
             }
 
             var permission = _permissionDefinitionManager.GetOrNull(policyName);
 
-            if (permission!=null)
+            if (permission != null)
             {
                 AuthorizationPolicyBuilder policyBuilder = new AuthorizationPolicyBuilder(Array.Empty<string>());
                 policyBuilder.Requirements.Add(new OperationAuthorizationRequirement { Name = policyName });

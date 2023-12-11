@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Dncy.Permission.Models
+namespace Dotnetydd.Permission.Models
 {
     public class MultiplePermissionGrantResult
     {
@@ -26,7 +26,7 @@ namespace Dncy.Permission.Models
         public Dictionary<string, PermissionGrantResult> Result { get; }
 
 
-        public bool AllGranted => Result.Count>0&&Result.Values.All(x => x == PermissionGrantResult.Granted);
+        public bool AllGranted => Result.Count > 0 && Result.Values.All(x => x == PermissionGrantResult.Granted);
 
         public bool AllProhibited => Result.Count > 0 && Result.Values.All(x => x == PermissionGrantResult.Prohibited);
     }

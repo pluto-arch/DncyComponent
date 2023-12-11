@@ -1,13 +1,13 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Routing;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 namespace Dncy.MQMessageActivator
 {
@@ -31,11 +31,11 @@ namespace Dncy.MQMessageActivator
 
         public async Task ProcessRequestAsync(string route, string message)
         {
-           
+
             using (var sc = _scopeFactory.CreateScope())
             {
-                var logger=sc.ServiceProvider.GetRequiredService<ILogger<MessageHandlerActivator>>();
-                logger.LogDebug("receive message：{msg}. on route：{route}。",message,route);
+                var logger = sc.ServiceProvider.GetRequiredService<ILogger<MessageHandlerActivator>>();
+                logger.LogDebug("receive message：{msg}. on route：{route}。", message, route);
                 foreach (SubscribeDescriptor subscribeDescriptor in _lazySubscribes.Value)
                 {
 #if NETCOREAPP3_1
@@ -43,7 +43,7 @@ namespace Dncy.MQMessageActivator
 #else
                     RouteValueDictionary matchedRouteValues = new();
 #endif
-                   
+
                     if (RouteMatcher.TryMatch(subscribeDescriptor.AttributeRouteInfo.Template, route, matchedRouteValues))
                     {
                         var parameterValues = new List<object>();
@@ -135,7 +135,7 @@ namespace Dncy.MQMessageActivator
 #else
             ConcurrentBag<SubscribeDescriptor> subscribeDescriptors = new();
 #endif
-            
+
 
             var exportedTypes = AppDomain.CurrentDomain.GetAssemblies().Where(e => !e.IsDynamic).SelectMany(e => e.ExportedTypes);
 

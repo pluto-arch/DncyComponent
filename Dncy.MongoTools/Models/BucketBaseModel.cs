@@ -15,7 +15,7 @@ namespace Dncy.MongoTools.Models
     }
 
 
-    public class BucketBaseModel<T>:BucketBaseModel
+    public class BucketBaseModel<T> : BucketBaseModel
     {
         public List<T> Records { get; set; }
 

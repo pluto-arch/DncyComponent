@@ -1,11 +1,13 @@
-﻿using System;
+﻿using Dotnetydd.Permission.Definition;
+using Dotnetydd.Permission.Models;
+using Dotnetydd.Permission.ValueProvider;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Dncy.Permission.Models;
 
-namespace Dncy.Permission
+namespace Dotnetydd.Permission.Checker
 {
     public class DefaultPermissionChecker : IPermissionChecker
     {
@@ -86,7 +88,7 @@ namespace Dncy.Permission
                 {
                     if (result.Result.ContainsKey(grantResult.Key))
                     {
-                        if (result.Result[grantResult.Key]==PermissionGrantResult.Granted || result.Result[grantResult.Key] == PermissionGrantResult.Undefined)
+                        if (result.Result[grantResult.Key] == PermissionGrantResult.Granted || result.Result[grantResult.Key] == PermissionGrantResult.Undefined)
                         {
                             continue;
                         }

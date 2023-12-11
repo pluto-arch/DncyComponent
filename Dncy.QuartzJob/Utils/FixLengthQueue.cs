@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 
-namespace Dncy.QuartzJob.Utils
+namespace Dotnetydd.QuartzJob.Utils
 {
-    internal class FixLengthQueue: Queue
+    internal class FixLengthQueue : Queue
     {
         private readonly int _length;
 

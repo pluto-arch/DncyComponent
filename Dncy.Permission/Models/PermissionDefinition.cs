@@ -2,9 +2,8 @@
 using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Text.Json.Serialization;
 
-namespace Dncy.Permission.Models
+namespace Dotnetydd.Permission.Models
 {
     public class PermissionDefinition
     {
@@ -77,8 +76,8 @@ namespace Dncy.Permission.Models
         {
             PermissionDefinition child = new PermissionDefinition(name, displayName, isEnabled)
             {
-                Parent = this.Name ,
-                Group=this.Group
+                Parent = Name,
+                Group = Group
             };
             _children.Add(child);
             return child;

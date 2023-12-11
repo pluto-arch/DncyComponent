@@ -1,15 +1,15 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Diagnostics.CodeAnalysis;
 
-namespace Dncy.MultiTenancy.AspNetCore
+namespace Dotnetydd.MultiTenancy.AspNetCore.TenantIdentityParse
 {
     /// <summary>
     /// Http的租户构造基础
     /// </summary>
-    public abstract class HttpTenantIdentityParseBase:ITenantIdentityParse
+    public abstract class HttpTenantIdentityParseBase : ITenantIdentityParse
     {
         /// <inheritdoc />
         public abstract string Name { get; }
@@ -25,7 +25,7 @@ namespace Dncy.MultiTenancy.AspNetCore
 
             try
             {
-                ResolveFromHttpContext(context,httpContext);
+                ResolveFromHttpContext(context, httpContext);
             }
             catch (Exception e)
             {

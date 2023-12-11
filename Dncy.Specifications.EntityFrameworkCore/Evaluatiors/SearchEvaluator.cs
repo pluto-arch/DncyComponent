@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Dotnetydd.Specifications.EntityFrameworkCore.Extensions;
+using Dotnetydd.Specifications.Evaluators;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using Dncy.Specifications.Evaluators;
 
-namespace Dncy.Specifications.EntityFrameworkCore.Evaluatiors
+namespace Dotnetydd.Specifications.EntityFrameworkCore.Evaluatiors
 {
-    public class SearchEvaluator: IEvaluator
+    public class SearchEvaluator : IEvaluator
     {
         private SearchEvaluator() { }
 

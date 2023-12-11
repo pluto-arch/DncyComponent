@@ -1,14 +1,73 @@
-﻿using System;
+﻿
+/* 项目“Dotnetydd.QuartzJob (net7.0)”的未合并的更改
+在此之前:
+using System;
+在此之后:
+using Dotnetydd.QuartzJob.Model;
+using Newtonsoft.Json;
+using Quartz;
+using System;
+*/
+
+/* 项目“Dotnetydd.QuartzJob (net6.0)”的未合并的更改
+在此之前:
+using System;
+在此之后:
+using Dotnetydd.QuartzJob.Model;
+using Newtonsoft.Json;
+using Quartz;
+using System;
+*/
+
+/* 项目“Dotnetydd.QuartzJob (net5.0)”的未合并的更改
+在此之前:
+using System;
+在此之后:
+using Dotnetydd.QuartzJob.Model;
+using Newtonsoft.Json;
+using Quartz;
+using System;
+*/
+using Dotnetydd.QuartzJob.Model;
+using Newtonsoft.Json;
+using Quartz;
+using System;
+
+/* 项目“Dotnetydd.QuartzJob (net7.0)”的未合并的更改
+在此之前:
+using System.Threading.Tasks;
+using Dotnetydd.QuartzJob.Model;
+using Newtonsoft.Json;
+using Quartz;
+在此之后:
+using System.Threading.Tasks;
+*/
+
+/* 项目“Dotnetydd.QuartzJob (net6.0)”的未合并的更改
+在此之前:
+using System.Threading.Tasks;
+using Dotnetydd.QuartzJob.Model;
+using Newtonsoft.Json;
+using Quartz;
+在此之后:
+using System.Threading.Tasks;
+*/
+
+/* 项目“Dotnetydd.QuartzJob (net5.0)”的未合并的更改
+在此之前:
+using System.Threading.Tasks;
+using Dotnetydd.QuartzJob.Model;
+using Newtonsoft.Json;
+using Quartz;
+在此之后:
+using System.Threading.Tasks;
+*/
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Dncy.QuartzJob.Model;
-using Newtonsoft.Json;
-using Quartz;
 
-namespace Dncy.QuartzJob.Stores
+namespace Dotnetydd.QuartzJob.Stores
 {
     public class JsonFileJobInfoStore : IJobInfoStore
     {
@@ -29,10 +88,10 @@ namespace Dncy.QuartzJob.Stores
 
         IEnumerable<JobInfoModel> StaticJobs(string path)
         {
-            var text=string.Empty;
+            var text = string.Empty;
             if (File.Exists(path))
             {
-                text=File.ReadAllText(path);
+                text = File.ReadAllText(path);
             }
 
             if (!string.IsNullOrEmpty(text))
@@ -49,7 +108,7 @@ namespace Dncy.QuartzJob.Stores
                         GroupName = job.GroupName,
                         Interval = job.Cron,
                         Describe = job.Description,
-                        Status = job.IsOpen?EnumJobStates.Normal:EnumJobStates.Stopped
+                        Status = job.IsOpen ? EnumJobStates.Normal : EnumJobStates.Stopped
                     };
                 }
             }
@@ -61,7 +120,7 @@ namespace Dncy.QuartzJob.Stores
             if (!File.Exists(_defaultJobFile))
             {
                 using (File.CreateText(_defaultJobFile))
-                {}
+                { }
             }
             else
             {
@@ -74,7 +133,7 @@ namespace Dncy.QuartzJob.Stores
             }
 
             var staticJobs = StaticJobs(path)?.ToList();
-            if (staticJobs!=null&&staticJobs.Any())
+            if (staticJobs != null && staticJobs.Any())
                 _jobs.AddRange(staticJobs);
         }
 
@@ -128,7 +187,7 @@ namespace Dncy.QuartzJob.Stores
             }
 
             _jobs.Add(job);
-            await this.SaveAllAsync();
+            await SaveAllAsync();
         }
 
         /// <inheritdoc />
@@ -142,7 +201,7 @@ namespace Dncy.QuartzJob.Stores
             JobInfoModel old = _jobs.FirstOrDefault(x => x.GroupName == job.GroupName && x.TaskName == job.TaskName);
             _jobs.Remove(old);
             _jobs.Add(job);
-            await this.SaveAllAsync();
+            await SaveAllAsync();
         }
 
         /// <inheritdoc />
@@ -150,7 +209,7 @@ namespace Dncy.QuartzJob.Stores
         {
             JobInfoModel old = _jobs.FirstOrDefault(x => x.GroupName == groupName && x.TaskName == jobName);
             _jobs.Remove(old);
-            await this.SaveAllAsync();
+            await SaveAllAsync();
         }
 
         /// <inheritdoc />
@@ -166,32 +225,32 @@ namespace Dncy.QuartzJob.Stores
             JobInfoModel @new = old;
             _jobs.Remove(old);
             _jobs.Add(@new);
-            await this.SaveAllAsync();
+            await SaveAllAsync();
         }
 
         /// <inheritdoc />
         public async Task SaveAllAsync()
         {
-            var saveto = _jobs.Where(x=>x.TaskType!=EnumTaskType.StaticExecute);
+            var saveto = _jobs.Where(x => x.TaskType != EnumTaskType.StaticExecute);
             if (!saveto.Any())
             {
                 return;
             }
 
-            #if NET6_0
+#if NET6_0
             await using (var sw = File.CreateText(_defaultJobFile))
             {
                 await sw.WriteAsync(JsonConvert.SerializeObject(saveto));
             }
-            #endif
+#endif
 
-            #if NET46
+#if NET46
             using (var sw = File.CreateText(_defaultJobFile))
             {
                 await sw.WriteAsync(JsonConvert.SerializeObject(saveto));
             }
-            #endif
-            
+#endif
+
         }
     }
 }

@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Dncy.QuartzJob.Model;
+﻿using Dotnetydd.QuartzJob.Model;
 using Quartz;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace Dncy.QuartzJob.Stores
+namespace Dotnetydd.QuartzJob.Stores
 {
     public interface IJobInfoStore
     {

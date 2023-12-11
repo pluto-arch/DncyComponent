@@ -1,14 +1,71 @@
-﻿using System;
+﻿
+/* 项目“Dotnetydd.Permission (net6.0)”的未合并的更改
+在此之前:
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Dncy.Permission.Models;
+using Dotnetydd.Permission.Models;
+在此之后:
+using Dotnetydd.Permission.Models;
+using Dotnetydd.Collections.PermissionGrant;
+using System.Collections.PermissionManager;
+using Microsoft.Extensions.Logging;
+using System.Security.Logging.Abstractions;
+using System;
+using System.Collections.Concurrent;
+*/
+
+/* 项目“Dotnetydd.Permission (net7.0)”的未合并的更改
+在此之前:
+using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using Dotnetydd.Permission.Models;
+在此之后:
+using Dotnetydd.Permission.Models;
+using Dotnetydd.Collections.PermissionGrant;
+using System.Collections.PermissionManager;
+using Microsoft.Extensions.Logging;
+using System.Security.Logging.Abstractions;
+using System;
+using System.Collections.Concurrent;
+*/
+
+/* 项目“Dotnetydd.Permission (net5.0)”的未合并的更改
+在此之前:
+using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using Dotnetydd.Permission.Models;
+在此之后:
+using Dotnetydd.Permission.Models;
+using Dotnetydd.Collections.PermissionGrant;
+using System.Collections.PermissionManager;
+using Microsoft.Extensions.Logging;
+using System.Security.Logging.Abstractions;
+using System;
+using System.Collections.Concurrent;
+*/
+using Dotnetydd.Permission.Models;
+using Dotnetydd.Permission.PermissionGrant;
+using Dotnetydd.Permission.PermissionManager;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
-namespace Dncy.Permission
+namespace Dotnetydd.Permission.ValueProvider
 {
     /// <summary>
     ///     角色级别的权限值检测提供程序
@@ -20,13 +77,13 @@ namespace Dncy.Permission
         protected readonly IPermissionManager _manager;
 
         public RolePermissionValueProvider(
-            IPermissionGrantStore grantStore, 
-            IPermissionManager permissionManager, 
-            ILogger<RolePermissionValueProvider> logger=null)
+            IPermissionGrantStore grantStore,
+            IPermissionManager permissionManager,
+            ILogger<RolePermissionValueProvider> logger = null)
         {
             _grantStore = grantStore;
             _manager = permissionManager;
-            _logger = logger??NullLogger<RolePermissionValueProvider>.Instance;
+            _logger = logger ?? NullLogger<RolePermissionValueProvider>.Instance;
         }
 
         public string Name => "Role";

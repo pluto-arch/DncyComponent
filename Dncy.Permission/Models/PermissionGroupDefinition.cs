@@ -2,7 +2,7 @@
 using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Dncy.Permission.Models
+namespace Dotnetydd.Permission.Models
 {
     public class PermissionGroupDefinition
     {
@@ -32,7 +32,7 @@ namespace Dncy.Permission.Models
 
         public virtual PermissionDefinition AddPermission([NotNull] string name, string displayName = null, bool isEnabled = true)
         {
-            PermissionDefinition permission = new PermissionDefinition(name, displayName, isEnabled){Group=this.Name};
+            PermissionDefinition permission = new PermissionDefinition(name, displayName, isEnabled) { Group = Name };
             _permissions.Add(permission);
             return permission;
         }

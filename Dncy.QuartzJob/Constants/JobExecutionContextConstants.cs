@@ -1,4 +1,4 @@
-﻿namespace Dncy.QuartzJob.Constants
+﻿namespace Dotnetydd.QuartzJob.Constants
 {
     internal class JobExecutionContextConstants
     {

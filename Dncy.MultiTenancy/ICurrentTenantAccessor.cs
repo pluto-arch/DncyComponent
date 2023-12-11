@@ -1,6 +1,6 @@
-﻿using Dncy.MultiTenancy.Model;
+﻿using Dotnetydd.MultiTenancy.Model;
 
-namespace Dncy.MultiTenancy
+namespace Dotnetydd.MultiTenancy
 {
     public interface ICurrentTenantAccessor
     {

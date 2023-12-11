@@ -1,4 +1,4 @@
-﻿namespace Dncy.QuartzJob.Model
+﻿namespace Dotnetydd.QuartzJob.Model
 {
     public class JobLogModel
     {

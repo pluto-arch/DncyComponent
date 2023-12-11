@@ -1,4 +1,4 @@
-﻿namespace Dncy.MultiTenancy.AspNetCore
+﻿namespace Dotnetydd.MultiTenancy.AspNetCore.TenantIdentityParse
 {
     public interface ITenantIdentityParse
     {

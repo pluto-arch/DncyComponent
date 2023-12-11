@@ -1,10 +1,9 @@
-﻿using System;
+﻿using Dotnetydd.Specifications.Builder;
+using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using Dncy.Specifications;
-using Dncy.Specifications.Builder;
 
-namespace Dncy.Specifications.Extensions
+namespace Dotnetydd.Specifications.Extensions
 {
     public static class OrderedBuilderExtensions
     {

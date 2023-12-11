@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Dotnetydd.QuartzJob.Model;
+using Quartz;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Dncy.QuartzJob.Model;
-using Quartz;
 
-namespace Dncy.QuartzJob.Stores
+namespace Dotnetydd.QuartzJob.Stores
 {
     public class InMemoryJobInfoStore : IJobInfoStore
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 
-namespace Dncy.Specifications
+namespace Dotnetydd.Specifications
 {
     public class IncludeExpressionInfo
     {

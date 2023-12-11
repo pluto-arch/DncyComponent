@@ -1,17 +1,17 @@
 ﻿
 #if NETCOREAPP
+using Dotnetydd.QuartzJob.Model;
+using Dotnetydd.QuartzJob.Stores;
+using Microsoft.Extensions.DependencyInjection;
+using Quartz;
+using Quartz.Impl;
+using Quartz.Simpl;
+using Quartz.Spi;
 using System;
 using System.Linq;
 using System.Reflection;
-using Dncy.QuartzJob.Model;
-using Microsoft.Extensions.DependencyInjection;
-using Quartz.Impl;
-using Quartz;
-using Quartz.Simpl;
-using Quartz.Spi;
-using Dncy.QuartzJob.Stores;
 
-namespace Dncy.QuartzJob
+namespace Dotnetydd.QuartzJob
 {
     public static class ServiceCollectionExtensions
     {
@@ -72,7 +72,7 @@ namespace Dncy.QuartzJob
         {
             var jobd = new JobDefined
             {
-                JobDictionary=new()
+                JobDictionary = new()
             };
             var assembly = Assembly.GetEntryAssembly();
             var baceType = typeof(IBackgroundJob);

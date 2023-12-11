@@ -1,7 +1,7 @@
-﻿using System.Threading;
-using Dncy.MultiTenancy.Model;
+﻿using Dotnetydd.MultiTenancy.Model;
+using System.Threading;
 
-namespace Dncy.MultiTenancy
+namespace Dotnetydd.MultiTenancy
 {
     public class CurrentTenantAccessor : ICurrentTenantAccessor
     {

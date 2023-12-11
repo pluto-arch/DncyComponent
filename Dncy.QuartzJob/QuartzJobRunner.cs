@@ -1,17 +1,26 @@
-﻿using System;
-using Dncy.QuartzJob.Model;
-using Dncy.QuartzJob.Stores;
-using System.Threading.Tasks;
-using Dncy.QuartzJob.Constants;
+﻿using Dotnetydd.QuartzJob.Constants;
+using Dotnetydd.QuartzJob.Model;
+/* 项目“Dotnetydd.QuartzJob (net7.0)”的未合并的更改
+在此之前:
+using Dotnetydd.QuartzJob.Stores;
+在此之后:
+using Dotnetydd.QuartzJob.Stores;
+using Dncy;
+using Dncy.QuartzJob;
+using Dotnetydd.QuartzJob;
+*/
+using Dotnetydd.QuartzJob.Stores;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Quartz;
+using System;
+using System.Threading.Tasks;
 
 
 
 
-namespace Dncy.QuartzJob
+namespace Dotnetydd.QuartzJob
 {
     public class QuartzJobRunner : IJob
     {
@@ -50,7 +59,7 @@ namespace Dncy.QuartzJob
                             return;
                         }
 
-                        if (jobModel.Status!=EnumJobStates.Normal)
+                        if (jobModel.Status != EnumJobStates.Normal)
                         {
                             _logger.LogWarning("{jobType} is not normal to run!", jobType.Name);
                             return;
@@ -63,7 +72,7 @@ namespace Dncy.QuartzJob
                 }
                 catch (Exception e)
                 {
-                    _logger.LogError(e, "{jobType} running has an error : {@message}",jobType.Name, e.Message);
+                    _logger.LogError(e, "{jobType} running has an error : {@message}", jobType.Name, e.Message);
                     await jobLogStore.RecordAsync(job, new JobLogModel
                     {
                         Time = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss}",

@@ -1,4 +1,4 @@
-﻿namespace Dncy.Permission
+﻿namespace Dotnetydd.Permission.Definition
 {
     public interface IPermissionDefinitionProvider
     {

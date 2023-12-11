@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
 
-namespace Dncy.MultiTenancy.ConnectionStrings
+namespace Dotnetydd.MultiTenancy.ConnectionStrings
 {
     public class DefaultConnectionStringResolver : IConnectionStringResolver
     {

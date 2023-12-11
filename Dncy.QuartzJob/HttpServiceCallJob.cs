@@ -1,13 +1,22 @@
-﻿using System;
-using System.Threading.Tasks;
-using Dncy.QuartzJob.Model;
+﻿/* 项目“Dotnetydd.QuartzJob (net7.0)”的未合并的更改
+在此之前:
+using Dotnetydd.QuartzJob.Constants;
+在此之后:
+using Dotnetydd.QuartzJob.Constants;
+using Dncy;
+using Dncy.QuartzJob;
+using Dotnetydd.QuartzJob;
+*/
+using Dotnetydd.QuartzJob.Constants;
+using Dotnetydd.QuartzJob.Model;
 using Microsoft.Extensions.Logging;
 using Quartz;
+using System;
 using System.Net.Http;
-using Dncy.QuartzJob.Constants;
+using System.Threading.Tasks;
 
 
-namespace Dncy.QuartzJob
+namespace Dotnetydd.QuartzJob
 {
     public class HttpServiceCallJob : IBackgroundJob
     {

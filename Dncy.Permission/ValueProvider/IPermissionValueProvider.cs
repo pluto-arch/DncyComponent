@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Dotnetydd.Permission.Models;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Dncy.Permission.Models;
 
-namespace Dncy.Permission
+namespace Dotnetydd.Permission.ValueProvider
 {
     public interface IPermissionValueProvider
     {

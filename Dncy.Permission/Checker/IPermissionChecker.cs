@@ -1,9 +1,9 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using Dotnetydd.Permission.Models;
+using System.Diagnostics.CodeAnalysis;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Dncy.Permission.Models;
 
-namespace Dncy.Permission
+namespace Dotnetydd.Permission.Checker
 {
     public interface IPermissionChecker
     {

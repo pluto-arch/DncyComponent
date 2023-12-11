@@ -1,8 +1,8 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using Dotnetydd.Permission.Models;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
-using Dncy.Permission.Models;
 
-namespace Dncy.Permission
+namespace Dotnetydd.Permission.PermissionManager
 {
     public interface IPermissionManager
     {

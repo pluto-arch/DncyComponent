@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Dotnetydd.Specifications.Builder;
+using Dotnetydd.Specifications.Evaluators;
+using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using Dncy.Specifications.Builder;
-using Dncy.Specifications.Evaluators;
 
-namespace Dncy.Specifications
+namespace Dotnetydd.Specifications
 {
 
     public abstract class Specification<T, TResult> : Specification<T>, ISpecification<T, TResult>

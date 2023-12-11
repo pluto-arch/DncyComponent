@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Dotnetydd.Permission.Models;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
-using Dncy.Permission.Models;
-using Microsoft.Extensions.DependencyInjection;
 
-namespace Dncy.Permission
+namespace Dotnetydd.Permission.Definition
 {
     public class DefaultPermissionDefinitionManager : IPermissionDefinitionManager
     {

@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Dncy.Specifications.Exceptions
+namespace Dotnetydd.Specifications.Exceptions
 {
-    
+
     public class SelectorNotFoundException : Exception
     {
         private const string message = "The specification must have Selector defined.";

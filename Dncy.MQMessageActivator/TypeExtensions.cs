@@ -28,12 +28,12 @@ namespace Dncy.MQMessageActivator
                 .Union(type.GetInterfaces())
                 .FirstOrDefault(i => i.IsConstructedGenericType && i.GetGenericTypeDefinition() == genericType);
 
-            return ( constructedType != null );
+            return (constructedType != null);
         }
 
         internal static bool IsReferenceOrNullableType(this Type type)
         {
-            return ( !type.IsValueType || Nullable.GetUnderlyingType(type) != null );
+            return (!type.IsValueType || Nullable.GetUnderlyingType(type) != null);
         }
 
         internal static object? GetDefaultValue(this Type type)

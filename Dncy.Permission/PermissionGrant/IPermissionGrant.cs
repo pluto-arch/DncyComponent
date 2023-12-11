@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Dncy.Permission
+﻿namespace Dotnetydd.Permission.PermissionGrant
 {
     public interface IPermissionGrant
     {

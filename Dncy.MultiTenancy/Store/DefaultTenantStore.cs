@@ -1,13 +1,11 @@
-﻿using System;
+﻿using Dotnetydd.MultiTenancy.ConnectionStrings;
+using Dotnetydd.MultiTenancy.Model;
+using Microsoft.Extensions.Options;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-using Dncy.MultiTenancy.ConnectionStrings;
-using Dncy.MultiTenancy.Model;
-
-using Microsoft.Extensions.Options;
-
-namespace Dncy.MultiTenancy.Store
+namespace Dotnetydd.MultiTenancy.Store
 {
     public class DefaultTenantStore : ITenantStore
     {

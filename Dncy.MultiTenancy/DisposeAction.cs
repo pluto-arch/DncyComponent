@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Dncy.MultiTenancy
+namespace Dotnetydd.MultiTenancy
 {
     internal class DisposeAction : IDisposable
     {

@@ -1,15 +1,12 @@
-﻿using Dncy.QuartzJob.Model;
-using Dncy.QuartzJob.Stores;
-using Dncy.QuartzJob.Utils;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+﻿using Dotnetydd.QuartzJob.Model;
+using Dotnetydd.QuartzJob.Stores;
+using Dotnetydd.QuartzJob.Utils;
 using Quartz;
-using Quartz.Impl.Matchers;
 using Quartz.Spi;
 
-namespace Dncy.QuartzJob.AspNetCore
+namespace Dotnetydd.QuartzJob.AspNetCore
 {
-    public class QuartzHostedService:IHostedService
+    public class QuartzHostedService : IHostedService
     {
 
         private readonly JobDefined _jobDefined;

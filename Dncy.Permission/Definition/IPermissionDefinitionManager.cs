@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Dotnetydd.Permission.Models;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using Dncy.Permission.Models;
 
-namespace Dncy.Permission
+namespace Dotnetydd.Permission.Definition
 {
     /// <summary>
     /// 权限定义管理器

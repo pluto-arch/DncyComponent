@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Dncy.MultiTenancy.ConnectionStrings
+namespace Dotnetydd.MultiTenancy.ConnectionStrings
 {
     /// <summary>
     /// tenant info in configuration
@@ -12,13 +12,13 @@ namespace Dncy.MultiTenancy.ConnectionStrings
 
         public TenantConfiguration()
         {
-        
+
         }
 
-        public TenantConfiguration(string tenantId,string tenantName, Dictionary<string, string> connectionStrings=null)
+        public TenantConfiguration(string tenantId, string tenantName, Dictionary<string, string> connectionStrings = null)
         {
             TenantId = tenantId;
-            TenantName= tenantName;
+            TenantName = tenantName;
             ConnectionStrings = connectionStrings;
         }
 

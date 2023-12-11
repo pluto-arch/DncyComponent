@@ -1,13 +1,12 @@
-﻿using Dncy.QuartzJob.Model;
-using Dncy.QuartzJob.Stores;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Primitives;
+﻿using Dotnetydd.QuartzJob.AspNetCore.Models;
+using Dotnetydd.QuartzJob.Model;
+using Dotnetydd.QuartzJob.Stores;
 using Newtonsoft.Json;
 using Quartz;
 using Quartz.Impl.Triggers;
 using Quartz.Spi;
 
-namespace Dncy.QuartzJob.AspNetCore.Handler
+namespace Dotnetydd.QuartzJob.AspNetCore.Handlers
 {
     internal class JobDataHandler
     {
@@ -34,7 +33,7 @@ namespace Dncy.QuartzJob.AspNetCore.Handler
             res.TotalCount = (uint)jobs.Count;
             res.RunningCount = (uint)(jobs?.Count(x => x.Status == EnumJobStates.Normal) ?? 0);
             res.PauseCount = (uint)(jobs?.Count(x => x.Status == EnumJobStates.Pause) ?? 0);
-            return new JobDataResult<DashboardDataResult> {Data = res};
+            return new JobDataResult<DashboardDataResult> { Data = res };
         }
 
 
@@ -61,7 +60,7 @@ namespace Dncy.QuartzJob.AspNetCore.Handler
                 }
             }
 
-            return new JobDataResult<List<JobInfoModel>> {Data = jobs,Count=jobs?.Count ?? 0};
+            return new JobDataResult<List<JobInfoModel>> { Data = jobs, Count = jobs?.Count ?? 0 };
         }
 
         public async Task<JobDataResult<string>> PauseTask(string id)
@@ -69,7 +68,7 @@ namespace Dncy.QuartzJob.AspNetCore.Handler
             JobInfoModel job = await _jobInfoStore.GetAsync(id);
             if (job == null)
             {
-                return new JobDataResult<string>{Code=-1,Msg="job不存在"};
+                return new JobDataResult<string> { Code = -1, Msg = "job不存在" };
             }
 
             IScheduler scheduler = await _jobSchedularFactory.GetScheduler();
@@ -86,28 +85,28 @@ namespace Dncy.QuartzJob.AspNetCore.Handler
                     Message = "暂停指令发送成功"
                 });
 
-            return new JobDataResult<string>{Code=0,Msg="操作成功"};
+            return new JobDataResult<string> { Code = 0, Msg = "操作成功" };
         }
 
-        public async Task<JobDataResult<List<JobLogModel>>> JobLogs(string id,int pageNo)
+        public async Task<JobDataResult<List<JobLogModel>>> JobLogs(string id, int pageNo)
         {
             JobInfoModel job = await _jobInfoStore.GetAsync(id);
             if (job == null)
             {
-                return new JobDataResult<List<JobLogModel>>{Code=-1,Msg="日志为空"};
+                return new JobDataResult<List<JobLogModel>> { Code = -1, Msg = "日志为空" };
             }
 
             JobKey jk = JobKey.Create(job.TaskName, job.GroupName);
-            List<JobLogModel> logs = await _jobLogStore.GetListAsync(jk,pageNo,20);
-            return new JobDataResult<List<JobLogModel>>{Data=logs};
+            List<JobLogModel> logs = await _jobLogStore.GetListAsync(jk, pageNo, 20);
+            return new JobDataResult<List<JobLogModel>> { Data = logs };
         }
 
         public async Task<JobDataResult<string>> AddJob(string body)
         {
             var model = JsonConvert.DeserializeObject<CreateJobModel>(body);
-            if (model==null)
+            if (model == null)
             {
-                return new JobDataResult<string>{Code=-1,Msg="请求参数错误"};
+                return new JobDataResult<string> { Code = -1, Msg = "请求参数错误" };
             }
             var job = new JobInfoModel
             {
@@ -125,13 +124,13 @@ namespace Dncy.QuartzJob.AspNetCore.Handler
             var res = await AddNewJob(model);
             if (!res)
             {
-                return new JobDataResult<string>{Code=-1,Msg="创建失败"};
+                return new JobDataResult<string> { Code = -1, Msg = "创建失败" };
             }
 
             job.Status = EnumJobStates.Normal;
             await _jobInfoStore.UpdateAsync(job);
 
-            return new JobDataResult<string>{Code=0,Msg="操作成功"};
+            return new JobDataResult<string> { Code = 0, Msg = "操作成功" };
         }
 
         public async Task<JobDataResult<string>> Refire(string id)
@@ -139,7 +138,7 @@ namespace Dncy.QuartzJob.AspNetCore.Handler
             JobInfoModel job = await _jobInfoStore.GetAsync(id);
             if (job == null)
             {
-                return new JobDataResult<string>{Code=-1,Msg="job不存在"};
+                return new JobDataResult<string> { Code = -1, Msg = "job不存在" };
             }
 
             IScheduler scheduler = await _jobSchedularFactory.GetScheduler();
@@ -156,7 +155,7 @@ namespace Dncy.QuartzJob.AspNetCore.Handler
             job.Status = EnumJobStates.Normal;
             await _jobInfoStore.UpdateAsync(job);
 
-            return new JobDataResult<string>{Code=0,Msg="执行成功"};
+            return new JobDataResult<string> { Code = 0, Msg = "执行成功" };
         }
 
         public async Task<JobDataResult<string>> Execute(string id)
@@ -164,7 +163,7 @@ namespace Dncy.QuartzJob.AspNetCore.Handler
             JobInfoModel job = await _jobInfoStore.GetAsync(id);
             if (job == null)
             {
-                return new JobDataResult<string>{Code=-1,Msg="job不存在"};
+                return new JobDataResult<string> { Code = -1, Msg = "job不存在" };
             }
             JobKey jobKey = JobKey.Create(job.TaskName, job.GroupName);
             IScheduler scheduler = await _jobSchedularFactory.GetScheduler();
@@ -177,7 +176,7 @@ namespace Dncy.QuartzJob.AspNetCore.Handler
                     State = EnumJobStates.Normal,
                     Message = "发送立即执行指令成功"
                 });
-            return new JobDataResult<string>{Code=0,Msg="执行成功"};
+            return new JobDataResult<string> { Code = 0, Msg = "执行成功" };
         }
 
 

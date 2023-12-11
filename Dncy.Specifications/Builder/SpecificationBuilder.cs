@@ -1,4 +1,4 @@
-﻿namespace Dncy.Specifications.Builder
+﻿namespace Dotnetydd.Specifications.Builder
 {
     public class SpecificationBuilder<T, TResult> : SpecificationBuilder<T>, ISpecificationBuilder<T, TResult>
     {

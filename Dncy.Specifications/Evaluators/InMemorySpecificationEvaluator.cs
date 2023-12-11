@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Dotnetydd.Specifications.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Dncy.Specifications.Exceptions;
 
-namespace Dncy.Specifications.Evaluators
+
+
+namespace Dotnetydd.Specifications.Evaluators
 {
     public class InMemorySpecificationEvaluator : IInMemorySpecificationEvaluator
     {

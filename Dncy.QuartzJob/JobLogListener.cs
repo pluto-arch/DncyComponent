@@ -1,13 +1,13 @@
-﻿using System;
+﻿using Dotnetydd.QuartzJob.Model;
+using Dotnetydd.QuartzJob.Stores;
+using Quartz;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Dncy.QuartzJob.Model;
-using Dncy.QuartzJob.Stores;
-using Quartz;
 
-namespace Dncy.QuartzJob
+namespace Dotnetydd.QuartzJob
 {
-    public class JobLogListener: IJobListener
+    public class JobLogListener : IJobListener
     {
         private readonly IJobLogStore _jobLogStore;
 
@@ -35,12 +35,12 @@ namespace Dncy.QuartzJob
             JobKey job = context.JobDetail.Key;
             bool hasException = jobException != null;
             _jobLogStore.RecordAsync(job, new JobLogModel
-                {
-                    Time = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss}",
-                    RunSeconds = context.JobRunTime.Seconds,
-                    State = hasException ? EnumJobStates.Exception : EnumJobStates.Normal,
-                    Message = jobException?.Message ?? context.Result?.ToString() ?? ""
-                });
+            {
+                Time = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss}",
+                RunSeconds = context.JobRunTime.Seconds,
+                State = hasException ? EnumJobStates.Exception : EnumJobStates.Normal,
+                Message = jobException?.Message ?? context.Result?.ToString() ?? ""
+            });
             return Task.CompletedTask;
         }
 

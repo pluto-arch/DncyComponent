@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Linq;
-using Microsoft.AspNetCore.Http;
 
-namespace Dncy.MultiTenancy.AspNetCore
+namespace Dotnetydd.MultiTenancy.AspNetCore.TenantIdentityParse
 {
-    public class HeaderTenantIdentityParse:HttpTenantIdentityParseBase
+    public class HeaderTenantIdentityParse : HttpTenantIdentityParseBase
     {
 
         private readonly Func<IHeaderDictionary, string> _analizeFunc;
@@ -22,7 +22,7 @@ namespace Dncy.MultiTenancy.AspNetCore
         /// <inheritdoc />
         protected override string GetTenantIdOrNameFromHttpContextOrNull(ITenantResolveContext context, HttpContext httpContext)
         {
-            if (httpContext.Request == null || !(httpContext.Request.Headers?.Any()??false))
+            if (httpContext.Request == null || !(httpContext.Request.Headers?.Any() ?? false))
             {
                 return null;
             }

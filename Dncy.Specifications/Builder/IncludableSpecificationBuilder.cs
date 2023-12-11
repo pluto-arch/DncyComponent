@@ -1,4 +1,4 @@
-﻿namespace Dncy.Specifications.Builder
+﻿namespace Dotnetydd.Specifications.Builder
 {
     public class IncludableSpecificationBuilder<T, TProperty> : IIncludableSpecificationBuilder<T, TProperty>
         where T : class

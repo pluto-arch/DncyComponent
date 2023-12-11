@@ -1,12 +1,11 @@
-﻿using System.Threading.Tasks;
-using Dncy.MultiTenancy.ConnectionStrings;
-using Dncy.MultiTenancy.Model;
-using Dncy.MultiTenancy.Store;
+﻿using Dotnetydd.MultiTenancy.Model;
+using Dotnetydd.MultiTenancy.Store;
 using Microsoft.AspNetCore.Http;
+using System.Threading.Tasks;
 
-namespace Dncy.MultiTenancy.AspNetCore
+namespace Dotnetydd.MultiTenancy.AspNetCore
 {
-    public class MultiTenancyMiddleware:IMiddleware
+    public class MultiTenancyMiddleware : IMiddleware
     {
         private readonly ITenantResolver _tenantResolver;
         private readonly ITenantStore _tenantStore;
@@ -24,7 +23,7 @@ namespace Dncy.MultiTenancy.AspNetCore
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
             var resolveResult = _tenantResolver.ResolveTenantIdOrName();
-            if (resolveResult!=null&&!string.IsNullOrEmpty(resolveResult))
+            if (resolveResult != null && !string.IsNullOrEmpty(resolveResult))
             {
                 var tenant = await FindAndCheckTenantAsync(resolveResult);
                 if (tenant == null)

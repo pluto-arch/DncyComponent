@@ -1,10 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using Dotnetydd.Permission.Checker;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authorization.Infrastructure;
+using System.Threading.Tasks;
 
-namespace Dncy.Permission.AspNetCore
+namespace Dotnetydd.Permission.AspNetCore
 {
-    public class PermissionRequirementHandler: AuthorizationHandler<OperationAuthorizationRequirement>
+    public class PermissionRequirementHandler : AuthorizationHandler<OperationAuthorizationRequirement>
     {
         private readonly IPermissionChecker _permissionChecker;
 

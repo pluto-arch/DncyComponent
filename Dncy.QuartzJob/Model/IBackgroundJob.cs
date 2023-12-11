@@ -1,8 +1,8 @@
 ﻿using Quartz;
 
-namespace Dncy.QuartzJob.Model
+namespace Dotnetydd.QuartzJob.Model
 {
-    public interface IBackgroundJob:IJob
-    {}
+    public interface IBackgroundJob : IJob
+    { }
 }
 

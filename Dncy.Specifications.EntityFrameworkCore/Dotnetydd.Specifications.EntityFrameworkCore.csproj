@@ -13,13 +13,36 @@
 		<PackageProjectUrl>https://github.com/pluto-arch/DncyComponent</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/pluto-arch/DncyComponent</RepositoryUrl>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<Version>4.0.0</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\Dncy.Specifications\Dotnetydd.Specifications.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0|AnyCPU'">
+		<IsTrimmable>True</IsTrimmable>
+		<IsAotCompatible>True</IsAotCompatible>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0|AnyCPU'">
+		<IsTrimmable>True</IsTrimmable>
+		<IsAotCompatible>True</IsAotCompatible>
+	</PropertyGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" allowedVersions="[8,)" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.0" allowedVersions="[7,)" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0" allowedVersions="[6,)" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0" allowedVersions="[5,)" />
 	</ItemGroup>
 </Project>

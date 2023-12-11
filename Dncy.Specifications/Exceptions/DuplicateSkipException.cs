@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Dncy.Specifications.Exceptions
+namespace Dotnetydd.Specifications.Exceptions
 {
     public class DuplicateSkipException : Exception
     {

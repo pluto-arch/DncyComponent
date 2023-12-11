@@ -1,17 +1,17 @@
-﻿using System;
+﻿using Dotnetydd.QuartzJob.Model;
+using Dotnetydd.QuartzJob.Stores;
+using Quartz;
+using Quartz.Impl.Matchers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Dncy.QuartzJob.Model;
-using Dncy.QuartzJob.Stores;
-using Quartz;
-using Quartz.Impl.Matchers;
 
-namespace Dncy.QuartzJob.Utils
+namespace Dotnetydd.QuartzJob.Utils
 {
     public class SchedulerBuilderHelper
     {
-        private Dictionary<string, Type> _jobDefined=new Dictionary<string, Type>();
+        private Dictionary<string, Type> _jobDefined = new Dictionary<string, Type>();
 
         private IScheduler _scheduler;
 
@@ -22,10 +22,10 @@ namespace Dncy.QuartzJob.Utils
 
         private SchedulerBuilderHelper()
         {
-            _jobDefined=new Dictionary<string, Type>();
-            _scheduler=null;
-            _jobInfoStore=null;
-            _httpJobHandlerType=null;
+            _jobDefined = new Dictionary<string, Type>();
+            _scheduler = null;
+            _jobInfoStore = null;
+            _httpJobHandlerType = null;
         }
 
 
@@ -36,14 +36,14 @@ namespace Dncy.QuartzJob.Utils
 
         public SchedulerBuilderHelper WithStaticJobTypeDefined(Dictionary<string, Type> defined)
         {
-            _jobDefined = defined??new Dictionary<string, Type>();
+            _jobDefined = defined ?? new Dictionary<string, Type>();
             return this;
         }
 
 
         public SchedulerBuilderHelper WithSchedler(IScheduler scheduler)
         {
-            _scheduler = scheduler??throw new ArgumentNullException(nameof(scheduler));
+            _scheduler = scheduler ?? throw new ArgumentNullException(nameof(scheduler));
             return this;
         }
 
@@ -62,7 +62,7 @@ namespace Dncy.QuartzJob.Utils
         /// <exception cref="InvalidOperationException"></exception>
         public SchedulerBuilderHelper WithHTTPServiceCallJob(Type httpJobHandlerType)
         {
-            if (httpJobHandlerType.GetInterface(nameof(IJob))==null)
+            if (httpJobHandlerType.GetInterface(nameof(IJob)) == null)
             {
                 throw new InvalidOperationException("httpJobHandlerType 的类型无效");
             }
@@ -74,16 +74,16 @@ namespace Dncy.QuartzJob.Utils
 
         public SchedulerBuilderHelper WithGlobalJobListener(params IJobListener[] listeners)
         {
-            if (_scheduler==null)
+            if (_scheduler == null)
             {
                 throw new InvalidOperationException("请先设置Schedler。(WithSchedler)");
             }
 
             foreach (var listener in listeners)
             {
-                if (listener!=null)
+                if (listener != null)
                 {
-                    _scheduler.ListenerManager.AddJobListener(listener,GroupMatcher<JobKey>.AnyGroup());
+                    _scheduler.ListenerManager.AddJobListener(listener, GroupMatcher<JobKey>.AnyGroup());
                 }
             }
 
@@ -93,16 +93,16 @@ namespace Dncy.QuartzJob.Utils
 
         public SchedulerBuilderHelper WithGlobalTriggerListener(params ITriggerListener[] listeners)
         {
-            if (_scheduler==null)
+            if (_scheduler == null)
             {
                 throw new InvalidOperationException("请先设置Schedler。(WithSchedler)");
             }
 
             foreach (var listener in listeners)
             {
-                if (listener!=null)
+                if (listener != null)
                 {
-                    _scheduler.ListenerManager.AddTriggerListener(listener,GroupMatcher<TriggerKey>.AnyGroup());
+                    _scheduler.ListenerManager.AddTriggerListener(listener, GroupMatcher<TriggerKey>.AnyGroup());
                 }
             }
 
@@ -113,11 +113,11 @@ namespace Dncy.QuartzJob.Utils
         public async Task BuildAsync()
         {
             var jobs = await _jobInfoStore.GetListAsync();
-            if (jobs==null||!jobs.Any())
+            if (jobs == null || !jobs.Any())
             {
                 return;
             }
-            if (_scheduler==null)
+            if (_scheduler == null)
             {
                 throw new InvalidOperationException("no scheduler found");
             }
@@ -172,11 +172,11 @@ namespace Dncy.QuartzJob.Utils
         public void Build()
         {
             var jobs = _jobInfoStore.GetListAsync().GetAwaiter().GetResult();
-            if (jobs==null||!jobs.Any())
+            if (jobs == null || !jobs.Any())
             {
                 return;
             }
-            if (_scheduler==null)
+            if (_scheduler == null)
             {
                 throw new InvalidOperationException("no scheduler found");
             }

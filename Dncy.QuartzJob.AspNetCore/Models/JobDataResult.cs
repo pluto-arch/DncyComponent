@@ -1,4 +1,4 @@
-﻿namespace Dncy.QuartzJob.AspNetCore
+﻿namespace Dotnetydd.QuartzJob.AspNetCore.Models
 {
     internal class JobDataResult<T>
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Dncy.Permission
+namespace Dotnetydd.Permission.PermissionGrant
 {
     public interface IPermissionGrantStore
     {
@@ -12,7 +12,7 @@ namespace Dncy.Permission
         /// <param name="providerName"></param>
         /// <param name="providerKey"></param>
         /// <returns></returns>
-        Task<IPermissionGrant> GetAsync(string name,string providerName, string providerKey);
+        Task<IPermissionGrant> GetAsync(string name, string providerName, string providerKey);
 
         /// <summary>
         /// 获取权限的授予表

@@ -1,10 +1,13 @@
-﻿using System;
+﻿
+
+
+using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using Dncy.Specifications.Builder;
-using Dncy.Specifications.Exceptions;
+using Dotnetydd.Specifications.Builder;
+using Dotnetydd.Specifications.Exceptions;
 
-namespace Dncy.Specifications.Extensions
+namespace Dotnetydd.Specifications.Extensions
 {
 
     public static class SpecificationBuilderExtensions

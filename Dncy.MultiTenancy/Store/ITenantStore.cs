@@ -1,8 +1,7 @@
-﻿using System.Threading.Tasks;
-using Dncy.MultiTenancy.ConnectionStrings;
-using Dncy.MultiTenancy.Model;
+﻿using Dotnetydd.MultiTenancy.Model;
+using System.Threading.Tasks;
 
-namespace Dncy.MultiTenancy.Store
+namespace Dotnetydd.MultiTenancy.Store
 {
     public interface ITenantStore
     {

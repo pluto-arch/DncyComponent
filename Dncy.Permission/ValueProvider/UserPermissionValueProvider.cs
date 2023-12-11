@@ -1,14 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using Dotnetydd.Permission.Models;
+using Dotnetydd.Permission.PermissionGrant;
+using Dotnetydd.Permission.PermissionManager;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Dncy.Permission.Models;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
 
-namespace Dncy.Permission
+namespace Dotnetydd.Permission.ValueProvider
 {
-      /// <summary>
+    /// <summary>
     ///     用户级别的权限值检测提供程序
     /// </summary>
     public class UserPermissionValueProvider : IPermissionValueProvider
@@ -18,13 +20,13 @@ namespace Dncy.Permission
         protected readonly IPermissionManager _manager;
 
         public UserPermissionValueProvider(
-            IPermissionGrantStore grantStore, 
-            IPermissionManager permissionManager, 
-            ILogger<UserPermissionValueProvider> logger=null)
+            IPermissionGrantStore grantStore,
+            IPermissionManager permissionManager,
+            ILogger<UserPermissionValueProvider> logger = null)
         {
             _grantStore = grantStore;
             _manager = permissionManager;
-            _logger = logger??NullLogger<UserPermissionValueProvider>.Instance;
+            _logger = logger ?? NullLogger<UserPermissionValueProvider>.Instance;
         }
 
         public string Name => "User";

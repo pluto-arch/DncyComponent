@@ -1,8 +1,8 @@
 ﻿using System.Linq.Expressions;
 
-namespace Dncy.Specifications
+namespace Dotnetydd.Specifications
 {
-    public class ParameterReplacerVisitor:ExpressionVisitor
+    public class ParameterReplacerVisitor : ExpressionVisitor
     {
         private readonly Expression newExpression;
 

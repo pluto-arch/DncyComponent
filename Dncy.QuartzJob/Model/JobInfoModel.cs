@@ -1,7 +1,33 @@
-﻿using System;
+﻿
+/* 项目“Dotnetydd.QuartzJob (net7.0)”的未合并的更改
+在此之前:
+using System;
+using Quartz;
+在此之后:
+using Quartz;
+using System;
+*/
+
+/* 项目“Dotnetydd.QuartzJob (net6.0)”的未合并的更改
+在此之前:
+using System;
+using Quartz;
+在此之后:
+using Quartz;
+using System;
+*/
+
+/* 项目“Dotnetydd.QuartzJob (net5.0)”的未合并的更改
+在此之前:
+using System;
+using Quartz;
+在此之后:
+using Quartz;
+using System;
+*/
 using Quartz;
 
-namespace Dncy.QuartzJob.Model
+namespace Dotnetydd.QuartzJob.Model
 {
     public class JobInfoModel
     {
@@ -83,7 +109,7 @@ namespace Dncy.QuartzJob.Model
         /// <summary>
         ///     状态
         /// </summary>
-        public EnumJobStates Status { get; set; }= EnumJobStates.Pause;
+        public EnumJobStates Status { get; set; } = EnumJobStates.Pause;
 
 
         /// <summary>

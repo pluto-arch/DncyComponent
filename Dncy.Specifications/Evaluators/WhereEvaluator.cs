@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace Dncy.Specifications.Evaluators
+namespace Dotnetydd.Specifications.Evaluators
 {
     public class WhereEvaluator : IEvaluator, IInMemoryEvaluator
     {

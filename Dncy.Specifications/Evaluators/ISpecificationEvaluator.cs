@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace Dncy.Specifications.Evaluators
+namespace Dotnetydd.Specifications.Evaluators
 {
     /// <summary>
     ///     Evaluates the logic encapsulated by an <see cref="ISpecification{T}" />.

@@ -1,8 +1,6 @@
-﻿using Dncy.QuartzJob.AspNetCore.Handler;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Dotnetydd.QuartzJob.AspNetCore.Handlers;
 
-namespace Dncy.QuartzJob.AspNetCore
+namespace Dotnetydd.QuartzJob.AspNetCore
 {
     public static class ServiceCollectionExtensions
     {

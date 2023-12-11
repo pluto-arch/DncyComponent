@@ -1,10 +1,10 @@
-﻿using System.Linq;
-using Dncy.Specifications.Evaluators;
+﻿using Dotnetydd.Specifications.Evaluators;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
-namespace Dncy.Specifications.EntityFrameworkCore.Evaluatiors
+namespace Dotnetydd.Specifications.EntityFrameworkCore.Evaluatiors
 {
-    public class AsNoTrackingEvaluator: IEvaluator
+    public class AsNoTrackingEvaluator : IEvaluator
     {
         private AsNoTrackingEvaluator() { }
 

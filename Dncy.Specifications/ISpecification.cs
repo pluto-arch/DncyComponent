@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace Dncy.Specifications
+namespace Dotnetydd.Specifications
 {
     public interface ISpecification<T, TResult> : ISpecification<T>
     {

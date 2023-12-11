@@ -1,10 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
 	<PropertyGroup>
-		<TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
+		<TargetFrameworks>net8.0;net7.0;net6.0;net5.0</TargetFrameworks>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
+		<LangVersion>latest</LangVersion>
 		<IsPackable>true</IsPackable>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<OutputType>Library</OutputType>
 		<Company>dotnetydd</Company>
 		<Authors>dotnetydd</Authors>
@@ -16,6 +18,7 @@
 		<PackageProjectUrl>https://github.com/pluto-arch/DncyComponent</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/pluto-arch/DncyComponent</RepositoryUrl>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<Version>4.0.0</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -24,6 +27,16 @@
 		<None Remove="Pages\js\tools.js" />
 		<None Remove="Pages\tasklist.html" />
 	</ItemGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0|AnyCPU'">
+		<IsTrimmable>True</IsTrimmable>
+		<IsAotCompatible>True</IsAotCompatible>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0|AnyCPU'">
+		<IsTrimmable>True</IsTrimmable>
+		<IsAotCompatible>True</IsAotCompatible>
+	</PropertyGroup>
 
 	<ItemGroup>
 		<EmbeddedResource Include="Pages\css\dashboard.css" />

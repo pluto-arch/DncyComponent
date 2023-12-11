@@ -1,4 +1,4 @@
-﻿namespace Dncy.Specifications
+﻿namespace Dotnetydd.Specifications
 {
     public enum IncludeTypeEnum
     {

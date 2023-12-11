@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Dotnetydd.Specifications.Evaluators;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Dncy.Specifications.Evaluators;
 
-namespace Dncy.Specifications.EntityFrameworkCore.Evaluatiors
+namespace Dotnetydd.Specifications.EntityFrameworkCore.Evaluatiors
 {
     public class EfCoreSpecificationEvaluator : ISpecificationEvaluator
     {

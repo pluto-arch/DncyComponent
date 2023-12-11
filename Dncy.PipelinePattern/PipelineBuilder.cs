@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Dncy.PipelinePattern;
 
@@ -22,7 +22,7 @@ public interface IAsyncPipelineBuilder
 
     IAsyncPipelineBuilder Use(Func<DataContext, IServiceProvider, Func<Task>, Task> middleware);
 
-    IAsyncPipelineBuilder Use<TMiddleware>() where TMiddleware:IPipelineMiddleware;
+    IAsyncPipelineBuilder Use<TMiddleware>() where TMiddleware : IPipelineMiddleware;
 
     AsyncRequestDelegate Build();
 }
@@ -51,14 +51,14 @@ public class AsyncPipelineBuilder : IAsyncPipelineBuilder
     }
 
 
-    public IAsyncPipelineBuilder Use<TMiddleware>() 
-        where TMiddleware:IPipelineMiddleware
+    public IAsyncPipelineBuilder Use<TMiddleware>()
+        where TMiddleware : IPipelineMiddleware
     {
-        var of=CreateOrCacheObjectFactory(typeof(TMiddleware));
-        var middleware= (TMiddleware)of.Invoke(Service,null);
+        var of = CreateOrCacheObjectFactory(typeof(TMiddleware));
+        var middleware = (TMiddleware)of.Invoke(Service, null);
         Use(next =>
         {
-            return context => middleware.InvokeAsync(context,Service, next);
+            return context => middleware.InvokeAsync(context, Service, next);
         });
         return this;
     }
@@ -66,11 +66,11 @@ public class AsyncPipelineBuilder : IAsyncPipelineBuilder
 
 
     /// <inheritdoc />
-    public IAsyncPipelineBuilder Use(Func<DataContext,IServiceProvider, Func<Task>, Task> middleware)
+    public IAsyncPipelineBuilder Use(Func<DataContext, IServiceProvider, Func<Task>, Task> middleware)
     {
         Use(next =>
         {
-            return context => middleware(context,Service, () => next(context));
+            return context => middleware(context, Service, () => next(context));
         });
         return this;
     }

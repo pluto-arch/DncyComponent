@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using Dotnetydd.Specifications.EntityFrameworkCore.Evaluatiors;
+using Dotnetydd.Specifications.EntityFrameworkCore.Extensions;
+using Dotnetydd.Specifications.Evaluators;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Dncy.Specifications.EntityFrameworkCore.Evaluatiors;
-using Dncy.Specifications.Evaluators;
-using Microsoft.EntityFrameworkCore;
 
-namespace Dncy.Specifications.EntityFrameworkCore
+namespace Dotnetydd.Specifications.EntityFrameworkCore.Extensions
 {
     public static class DbSetExtensions
     {

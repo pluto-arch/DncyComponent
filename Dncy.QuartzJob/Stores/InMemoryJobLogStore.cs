@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using Dotnetydd.QuartzJob.Model;
+using Dotnetydd.QuartzJob.Utils;
+using Quartz;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Dncy.QuartzJob.Model;
-using Dncy.QuartzJob.Utils;
-using Quartz;
 
-namespace Dncy.QuartzJob.Stores
+namespace Dotnetydd.QuartzJob.Stores
 {
-    public class InMemoryJobLogStore:IJobLogStore
+    public class InMemoryJobLogStore : IJobLogStore
     {
         private const int QUEUE_LENGTH = 20;
         private static readonly Dictionary<string, FixLengthQueue> JobLog = new Dictionary<string, FixLengthQueue>();
@@ -32,7 +32,7 @@ namespace Dncy.QuartzJob.Stores
             }
 
             object[] logs = JobLog[key].ToArray();
-            List<JobLogModel> res = logs.OrderByDescending(x => ( (JobLogModel)x )?.Time).Take(count)
+            List<JobLogModel> res = logs.OrderByDescending(x => ((JobLogModel)x)?.Time).Take(count)
                 .Select(x => (JobLogModel)x).ToList();
             return Task.FromResult(res);
         }
@@ -47,14 +47,14 @@ namespace Dncy.QuartzJob.Stores
             }
 
             object[] logs = JobLog[key].ToArray();
-            List<JobLogModel> res = logs.OrderByDescending(x => ( (JobLogModel)x )?.Time).Skip((pageNo-1)*count).Take(count)
+            List<JobLogModel> res = logs.OrderByDescending(x => ((JobLogModel)x)?.Time).Skip((pageNo - 1) * count).Take(count)
                 .Select(x => (JobLogModel)x).ToList();
             return Task.FromResult(res);
         }
     }
 
 
-    public class NullJobLogStore:IJobLogStore
+    public class NullJobLogStore : IJobLogStore
     {
         public Task RecordAsync(JobKey job, JobLogModel model)
         {

@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Dncy.MultiTenancy.AspNetCore
+namespace Dotnetydd.MultiTenancy.AspNetCore
 {
-    public class TenantResolveContext:ITenantResolveContext
+    public class TenantResolveContext : ITenantResolveContext
     {
         public IServiceProvider ServiceProvider { get; }
 
