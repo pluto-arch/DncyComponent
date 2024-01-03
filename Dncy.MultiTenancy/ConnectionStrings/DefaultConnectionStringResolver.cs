@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace Dotnetydd.MultiTenancy.ConnectionStrings
+namespace Dotnetydd.MultiTenancy
 {
     public class DefaultConnectionStringResolver : IConnectionStringResolver
     {

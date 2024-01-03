@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Dotnetydd.MultiTenancy.ConnectionStrings
+namespace Dotnetydd.MultiTenancy
 {
     /// <summary>
     /// tenant info in configuration

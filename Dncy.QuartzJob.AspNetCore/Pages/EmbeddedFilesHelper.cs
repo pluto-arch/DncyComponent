@@ -1,38 +1,11 @@
-﻿
-/* 项目“Dotnetydd.QuartzJob.AspNetCore (net8.0)”的未合并的更改
-在此之前:
-using System.Net.Http;
-using System.Net;
-在此之后:
-using System.Net;
-using System.Net.Http;
-*/
-
-/* 项目“Dotnetydd.QuartzJob.AspNetCore (net7.0)”的未合并的更改
-在此之前:
-using System.Net.Http;
-using System.Net;
-在此之后:
-using System.Net;
-using System.Net.Http;
-*/
-
-/* 项目“Dotnetydd.QuartzJob.AspNetCore (net5.0)”的未合并的更改
-在此之前:
-using System.Net.Http;
-using System.Net;
-在此之后:
-using System.Net;
-using System.Net.Http;
-*/
-using System.Net;
+﻿using System.Net;
 using System.Reflection;
 
 namespace Dotnetydd.QuartzJob.AspNetCore.Pages
 {
     internal class EmbeddedFilesHelper
     {
-        static readonly Dictionary<string, string> ResponseType = new Dictionary<string, string>
+         static readonly Dictionary<string, string> ResponseType = new Dictionary<string, string>
         {
             { ".css","text/css"},
             { ".js","application/javascript"},
@@ -54,11 +27,11 @@ namespace Dotnetydd.QuartzJob.AspNetCore.Pages
             Assembly = Assembly.GetExecutingAssembly();
         }
 
-        public static async Task IncludeEmbeddedFile(HttpContext context, string path = "dashboard.html")
+        public static async Task IncludeEmbeddedFile(HttpContext context, string path="dashboard.html")
         {
-            if (string.IsNullOrEmpty(path.Replace("/quartzjob", string.Empty)))
+            if (string.IsNullOrEmpty(path.Replace("/quartzjob",string.Empty)))
             {
-                context.Response.StatusCode = StatusCodes.Status307TemporaryRedirect;
+                context.Response.StatusCode = (int) StatusCodes.Status307TemporaryRedirect;
                 context.Response.Redirect("/quartzjob/dashboard.html");
                 return;
             }
@@ -74,13 +47,13 @@ namespace Dotnetydd.QuartzJob.AspNetCore.Pages
 
             try
             {
-                path = path.Replace("/quartzjob", string.Empty).TrimStart('/').Replace("/", ".");
+                path = path.Replace("/quartzjob",string.Empty).TrimStart('/').Replace("/",".");
                 await using var inputStream = Assembly.GetManifestResourceStream($"Dncy.QuartzJob.AspNetCore.Pages.{path}");
                 if (inputStream == null)
                 {
                     throw new ArgumentException($@"Resource with name {path} not found in assembly {Assembly}.");
                 }
-                await inputStream.CopyToAsync(context.Response.Body, 1024);
+                await inputStream.CopyToAsync(context.Response.Body,1024);
             }
             catch
             {

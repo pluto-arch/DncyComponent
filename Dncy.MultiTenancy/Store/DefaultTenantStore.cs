@@ -1,9 +1,5 @@
-﻿using Dotnetydd.MultiTenancy.ConnectionStrings;
-using Dotnetydd.MultiTenancy.Model;
+﻿using Dotnetydd.MultiTenancy.Model;
 using Microsoft.Extensions.Options;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Dotnetydd.MultiTenancy.Store
 {

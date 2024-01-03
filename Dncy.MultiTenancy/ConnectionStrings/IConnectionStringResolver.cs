@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Dotnetydd.MultiTenancy.ConnectionStrings
+namespace Dotnetydd.MultiTenancy
 {
     public interface IConnectionStringResolver
     {

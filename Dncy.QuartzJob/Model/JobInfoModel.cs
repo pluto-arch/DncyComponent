@@ -1,31 +1,4 @@
-﻿
-/* 项目“Dotnetydd.QuartzJob (net7.0)”的未合并的更改
-在此之前:
-using System;
-using Quartz;
-在此之后:
-using Quartz;
-using System;
-*/
-
-/* 项目“Dotnetydd.QuartzJob (net6.0)”的未合并的更改
-在此之前:
-using System;
-using Quartz;
-在此之后:
-using Quartz;
-using System;
-*/
-
-/* 项目“Dotnetydd.QuartzJob (net5.0)”的未合并的更改
-在此之前:
-using System;
-using Quartz;
-在此之后:
-using Quartz;
-using System;
-*/
-using Quartz;
+﻿using Quartz;
 
 namespace Dotnetydd.QuartzJob.Model
 {

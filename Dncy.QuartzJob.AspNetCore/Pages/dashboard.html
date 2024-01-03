@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>后台任务看板</title>
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <link rel="stylesheet" href="lib/layui/css/layui.css" />
+    <script type="text/javascript" src="lib/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="lib/layui/layui.js"></script>
+</head>
+<body style="min-height: 100vh">
+<header class="layui-bg-blue" style="padding: 0 20px">
+    <nav>
+        <ul class="layui-nav layui-bg-blue">
+            <li class="layui-nav-item layui-this">
+                <a href="/quartzjob/dashboard.html">Dashboard</a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="/quartzjob/tasklist.html">作业</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<div style="min-height: 100%; padding: 0 20px">
+    <main role="main">
+        <div class="job-dahboard layui-container">
+            <div class="layui-bg-gray" style="padding: 30px;">
+                <div class="layui-row layui-col-space15">
+                    <div class="layui-col-md4">
+                        <div class="layui-card">
+                            <div class="layui-card-header">作业总数</div>
+                            <h1 class="layui-card-body layui-font-blue">
+                                <span id="total">0</span>
+                            </h1>
+                        </div>
+                    </div>
+                    <div class="layui-col-md4">
+                        <div class="layui-card">
+                            <div class="layui-card-header">正在运行</div>
+                            <h1 class="layui-card-body layui-font-green">
+                                <span id="running">0</span>
+                            </h1>
+                        </div>
+                    </div>
+                    <div class="layui-col-md4">
+                        <div class="layui-card">
+                            <div class="layui-card-header">暂停的作业</div>
+                            <h1 class="layui-card-body layui-font-green">
+                                <span id="pause">0</span>
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script type="text/javascript" src="js/tools.js"></script>
+<script>
+    $(function() {
+        
+        getDashboardData();
+
+    });
+    
+    
+    function getDashboardData(){
+        $.get("/quartzjob-api/dashboarddata",function(data,status){
+            if (status !== 'success') {
+                alert("获取看板数据失败");
+            } else {
+                if (data.code !== 0) {
+                    alert(data.msg);
+                } else {
+                    $('#total').text(data.data.totalCount);
+                    $('#running').text(data.data.runningCount);
+                    $('#pause').text(data.data.pauseCount);
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>

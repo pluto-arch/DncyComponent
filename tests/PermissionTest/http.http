@@ -1,0 +1,26 @@
+@hostname=localhost
+@port=5032
+
+
+### TEST  with 200 statuscode
+GET http://{{hostname}}:{{port}}/product
+key: aaa
+###
+
+### TEST invalid key  with 401 statuscode
+GET http://{{hostname}}:{{port}}/product
+key: aaaa
+###
+
+
+### TEST  with 403 statuscode
+GET http://{{hostname}}:{{port}}/product
+key: bbb
+###
+
+
+### TEST  with 401 statuscode
+GET http://{{hostname}}:{{port}}/product
+###
+
+

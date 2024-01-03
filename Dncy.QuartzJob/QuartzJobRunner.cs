@@ -1,21 +1,10 @@
 ﻿using Dotnetydd.QuartzJob.Constants;
 using Dotnetydd.QuartzJob.Model;
-/* 项目“Dotnetydd.QuartzJob (net7.0)”的未合并的更改
-在此之前:
-using Dotnetydd.QuartzJob.Stores;
-在此之后:
-using Dotnetydd.QuartzJob.Stores;
-using Dncy;
-using Dncy.QuartzJob;
-using Dotnetydd.QuartzJob;
-*/
 using Dotnetydd.QuartzJob.Stores;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Quartz;
-using System;
-using System.Threading.Tasks;
 
 
 

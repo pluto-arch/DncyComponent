@@ -1,0 +1,16 @@
+@hostname=localhost
+@port=5146
+
+
+### TEST header tenant
+GET http://{{hostname}}:{{port}}/tenant
+tenant: T20210602000001
+###
+
+### TEST header tenant
+GET http://{{hostname}}:{{port}}/tenant
+tenant: T20210602000002
+###
+
+
+

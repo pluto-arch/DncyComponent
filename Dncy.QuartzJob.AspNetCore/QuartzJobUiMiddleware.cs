@@ -1,28 +1,4 @@
-﻿
-/* 项目“Dotnetydd.QuartzJob.AspNetCore (net8.0)”的未合并的更改
-在此之前:
-using System.Text.Json;
-using Dncy.QuartzJob.AspNetCore;
-在此之后:
-using Dncy.QuartzJob.AspNetCore;
-*/
-
-/* 项目“Dotnetydd.QuartzJob.AspNetCore (net7.0)”的未合并的更改
-在此之前:
-using System.Text.Json;
-using Dncy.QuartzJob.AspNetCore;
-在此之后:
-using Dncy.QuartzJob.AspNetCore;
-*/
-
-/* 项目“Dotnetydd.QuartzJob.AspNetCore (net5.0)”的未合并的更改
-在此之前:
-using System.Text.Json;
-using Dncy.QuartzJob.AspNetCore;
-在此之后:
-using Dncy.QuartzJob.AspNetCore;
-*/
-using Dotnetydd.QuartzJob.AspNetCore.Handlers;
+﻿using Dotnetydd.QuartzJob.AspNetCore.Handlers;
 using Dotnetydd.QuartzJob.AspNetCore.Models;
 using Dotnetydd.QuartzJob.AspNetCore.Pages;
 using System.Text.Json;
