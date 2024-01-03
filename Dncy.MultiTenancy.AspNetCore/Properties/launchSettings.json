@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Dncy.MultiTenancy.AspNetCore": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:10303;http://localhost:10304"
+    }
+  }
+}
