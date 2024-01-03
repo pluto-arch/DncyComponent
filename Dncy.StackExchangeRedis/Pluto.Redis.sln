@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30611.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pluto.Redis", "Pluto.Redis.csproj", "{FEA6F0F0-0A2F-4A96-AD4B-665D26D9ACA2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{FA66105B-411D-4BD9-B04A-836751798B2A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunctionsTest", "..\Test\FunctionsTest\FunctionsTest.csproj", "{F03B4238-AE17-4575-8E10-83F8C67A4120}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FEA6F0F0-0A2F-4A96-AD4B-665D26D9ACA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEA6F0F0-0A2F-4A96-AD4B-665D26D9ACA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEA6F0F0-0A2F-4A96-AD4B-665D26D9ACA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEA6F0F0-0A2F-4A96-AD4B-665D26D9ACA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F03B4238-AE17-4575-8E10-83F8C67A4120}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F03B4238-AE17-4575-8E10-83F8C67A4120}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F03B4238-AE17-4575-8E10-83F8C67A4120}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F03B4238-AE17-4575-8E10-83F8C67A4120}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FEA6F0F0-0A2F-4A96-AD4B-665D26D9ACA2} = {FA66105B-411D-4BD9-B04A-836751798B2A}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B9978767-3426-4460-B8DA-87E909811327}
+	EndGlobalSection
+EndGlobal

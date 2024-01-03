@@ -56,6 +56,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "解决方案项", "解决�
 		Directory.Build.props = Directory.Build.props
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnetydd.StackExchangeRedis", "Dncy.StackExchangeRedis\Dotnetydd.StackExchangeRedis.csproj", "{99ED4DA7-FF44-44E8-A63C-37832EE938CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -142,6 +144,10 @@ Global
 		{AAD673FA-29ED-4754-9ADC-8BA631ABB4BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AAD673FA-29ED-4754-9ADC-8BA631ABB4BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AAD673FA-29ED-4754-9ADC-8BA631ABB4BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99ED4DA7-FF44-44E8-A63C-37832EE938CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99ED4DA7-FF44-44E8-A63C-37832EE938CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99ED4DA7-FF44-44E8-A63C-37832EE938CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99ED4DA7-FF44-44E8-A63C-37832EE938CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -169,6 +175,7 @@ Global
 		{AAD673FA-29ED-4754-9ADC-8BA631ABB4BF} = {83E91D5E-3638-432B-9682-21672AD37D1D}
 		{20D7264A-43DD-4552-BB84-AE94C0B8B1B8} = {70A47FF6-372D-4C66-BD87-7DB636AED154}
 		{5BDEAD79-B5D8-4912-B738-8DE967BD07D1} = {70A47FF6-372D-4C66-BD87-7DB636AED154}
+		{99ED4DA7-FF44-44E8-A63C-37832EE938CB} = {20D7264A-43DD-4552-BB84-AE94C0B8B1B8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8F5F0788-5958-459A-B53D-296C9756B958}
