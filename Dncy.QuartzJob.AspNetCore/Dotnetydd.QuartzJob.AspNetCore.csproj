@@ -1,24 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
 	<PropertyGroup>
-		<TargetFrameworks>net8.0;net7.0;net6.0;net5.0</TargetFrameworks>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-		<LangVersion>latest</LangVersion>
+		<TargetFrameworks>$(TargetFrameworkVersion)</TargetFrameworks>
 		<IsPackable>true</IsPackable>
-		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<OutputType>Library</OutputType>
-		<Company>dotnetydd</Company>
-		<Authors>dotnetydd</Authors>
 		<GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
 		<GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
 		<GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
-		<PublishTrimmed Condition="'$(TargetFramework)' == 'net8.0'">true</PublishTrimmed>
-		<IncludeNativeLibrariesForSelfExtract Condition="'$(TargetFramework)' == 'net8.0'">true</IncludeNativeLibrariesForSelfExtract>
-		<PackageProjectUrl>https://github.com/pluto-arch/DncyComponent</PackageProjectUrl>
-		<RepositoryUrl>https://github.com/pluto-arch/DncyComponent</RepositoryUrl>
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<Version>4.0.0</Version>
 	</PropertyGroup>
 
 	<ItemGroup>

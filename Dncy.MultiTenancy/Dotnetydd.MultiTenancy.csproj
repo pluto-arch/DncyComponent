@@ -1,19 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net8.0;net7.0;net6.0;net5.0</TargetFrameworks>
-		<Nullable>enable</Nullable>
-		<LangVersion>latest</LangVersion>
-		<IsPackable>true</IsPackable>
-		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<Company>dotnetydd</Company>
-		<Authors>dotnetydd</Authors>
-		<PublishTrimmed Condition="'$(TargetFramework)' == 'net8.0'">true</PublishTrimmed>
-		<IncludeNativeLibrariesForSelfExtract Condition="'$(TargetFramework)' == 'net8.0'">true</IncludeNativeLibrariesForSelfExtract>
-		<PackageProjectUrl>https://github.com/pluto-arch/DncyComponent</PackageProjectUrl>
-		<RepositoryUrl>https://github.com/pluto-arch/DncyComponent</RepositoryUrl>
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<Version>4.0.0</Version>
+		<TargetFrameworks>$(TargetFrameworkVersion)</TargetFrameworks>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0|AnyCPU'">

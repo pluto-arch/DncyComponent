@@ -1,0 +1,18 @@
+<Project>
+	<!-- See https://aka.ms/dotnet/msbuild/customize for more details on customizing your build -->
+	<PropertyGroup>
+		<TargetFrameworkVersion>net8.0;net7.0;net6.0;net5.0</TargetFrameworkVersion>
+		<Description>一些组件模块：多租户，权限，QuartzJob，规约模式等</Description>
+		<Company>dotnetydd</Company>
+		<Authors>dotnetydd</Authors>
+		<LangVersion>latest</LangVersion>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PublishTrimmed Condition="'$(TargetFramework)' == 'net8.0'">true</PublishTrimmed>
+		<IncludeNativeLibrariesForSelfExtract Condition="'$(TargetFramework)' == 'net8.0'">true</IncludeNativeLibrariesForSelfExtract>
+		<PackageProjectUrl>https://github.com/pluto-arch/DncyComponent</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/pluto-arch/DncyComponent</RepositoryUrl>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<Version>5.0.0</Version>
+	</PropertyGroup>
+</Project>
