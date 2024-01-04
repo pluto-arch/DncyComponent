@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.FluentUI.AspNetCore.Components;
 using System.Net;
+using Dotnetydd.QuartzHost.Storage;
 
 namespace Dotnetydd.QuartzHost;
 
@@ -69,6 +70,9 @@ public class QuartzDashboardWebApplication: IHostedService
         builder.Services.AddRazorComponents()
             .AddInteractiveServerComponents();
 
+        builder.Services.AddSingleton<DataRepository>();
+        builder.Services.AddSingleton<IJobInfoStore, InMemoryJobInfoStore>();
+        
         builder.Services.AddFluentUIComponents();
         builder.Services.AddLocalization();
 

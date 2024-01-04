@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
   </PropertyGroup>
@@ -14,6 +13,15 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.2.1" />
     <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" Version="4.2.1" />
+
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" allowedVersions="[8,)" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" allowedVersions="[8,)" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" allowedVersions="[8,)" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0" allowedVersions="[8,)" />
+
+    <PackageReference Include="Quartz" Version="3.7.0" allowedVersions="[3.7.0,)" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" allowedVersions="[13.0.1,)" />
+    <PackageReference Include="System.Net.Http" Version="4.3.4" allowedVersions="[4.3.4,)" />
   </ItemGroup>
 
 
