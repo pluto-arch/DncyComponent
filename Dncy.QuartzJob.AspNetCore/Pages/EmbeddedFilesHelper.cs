@@ -48,7 +48,7 @@ namespace Dotnetydd.QuartzJob.AspNetCore.Pages
             try
             {
                 path = path.Replace("/quartzjob",string.Empty).TrimStart('/').Replace("/",".");
-                await using var inputStream = Assembly.GetManifestResourceStream($"Dncy.QuartzJob.AspNetCore.Pages.{path}");
+                await using var inputStream = Assembly.GetManifestResourceStream($"Dotnetydd.QuartzJob.AspNetCore.Pages.{path}");
                 if (inputStream == null)
                 {
                     throw new ArgumentException($@"Resource with name {path} not found in assembly {Assembly}.");
