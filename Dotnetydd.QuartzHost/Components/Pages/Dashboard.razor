@@ -1,0 +1,19 @@
+﻿@page "/"
+
+
+<PageTitle>看板</PageTitle>
+
+<h3>Dashboard</h3>
+
+<p>@count</p>
+
+<button @onclick="inc">click me !</button>
+
+@code {
+    private int count;
+
+    private void inc()
+    {
+        count++;
+    }
+}

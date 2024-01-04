@@ -1,0 +1,10 @@
+﻿ 
+
+<FluentNavMenu @bind-Expanded="@Expanded" Width="250" Collapsible="true">
+        <FluentNavLink Icon="@(new Icons.Regular.Size24.AppFolder())" Href="/" Match="NavLinkMatch.All" Tooltip="看板">看板</FluentNavLink>
+</FluentNavMenu>
+
+
+@code {
+    bool Expanded = true;
+}

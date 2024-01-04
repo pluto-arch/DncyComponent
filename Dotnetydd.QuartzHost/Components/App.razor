@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <base href="/" />
+    <link rel="icon" type="image/x-icon" href="_content/Dotnetydd.QuartzHost/favicon.ico" />
+    <link rel="stylesheet" href="_content/Dotnetydd.QuartzHost/css/app.css" />
+    <link rel="stylesheet" href="_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css" />
+    <link rel="stylesheet" href="_content/Microsoft.FluentUI.AspNetCore.Components/Microsoft.FluentUI.AspNetCore.Components.bundle.scp.css" />
+    <link rel="stylesheet" href="_content/Dotnetydd.QuartzHost/Dotnetydd.QuartzHost.bundle.scp.css" />
+    <HeadOutlet @rendermode="@(new InteractiveServerRenderMode(prerender: false))" />
+    <style>
+        @@media (prefers-color-scheme: dark) {
+            body {
+                background-color: #272727;
+            }
+        }</style>
+</head>
+
+<body class="before-upgrade">
+    <Routes @rendermode="@(new InteractiveServerRenderMode(prerender: false))" />
+    <script src="_framework/blazor.web.js"></script>
+    <script src="_content/Dotnetydd.QuartzHost/js/app.js"></script>
+    <script src="_content/Dotnetydd.QuartzHost/js/theme.js" type="module"></script>
+    <script src="_content/Dotnetydd.QuartzHost/js/plotly-2.26.0.min.js"></script>
+</body>
+</html>
