@@ -2,6 +2,8 @@ namespace Dotnetydd.QuartzHost.Models;
 
 public class JobLogModel
 {
+    public string JobKey { get; set; }
+
     public string Time { get; set; }
 
     public int RunSeconds { get; set; }

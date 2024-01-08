@@ -24,6 +24,10 @@
     <PackageReference Include="System.Net.Http" Version="4.3.4" allowedVersions="[4.3.4,)" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Utils\" />
+  </ItemGroup>
+
 
 
 </Project>

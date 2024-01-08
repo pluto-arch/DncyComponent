@@ -1,3 +1,4 @@
+using Dotnetydd.QuartzHost.Utils;
 using Quartz;
 
 namespace Dotnetydd.QuartzHost.Models;
@@ -91,5 +92,31 @@ public class JobInfoModel
     public static implicit operator string(JobInfoModel geo)
     {
         return geo.ToString();
+    }
+
+
+    public static string GetResourceName(JobInfoModel resource, IEnumerable<JobInfoModel> allResources)
+    {
+        var count = 0;
+        foreach (var item in allResources)
+        {
+            if (item.DisplayName == resource.DisplayName)
+            {
+                count++;
+                if (count >= 2)
+                {
+                    return ResourceFormatter.GetName(resource.DisplayName, resource.Id);
+                }
+            }
+        }
+        return resource.DisplayName;
+    }
+
+
+    internal static class StringComparers
+    {
+        public static StringComparer ResourceName => StringComparer.Ordinal;
+        public static StringComparer ResourceType => StringComparer.Ordinal;
+        public static StringComparer UserTextSearch => StringComparer.CurrentCultureIgnoreCase;
     }
 }

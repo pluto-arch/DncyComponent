@@ -3,8 +3,27 @@
 
 <PageTitle>看板</PageTitle>
 
-<h3>Dashboard</h3>
+<FluentDataGrid Items="@FilterJobs" ResizableColumns="true" GridTemplateColumns="1fr 2fr 1fr 2fr 2.5fr 2fr 1fr 1fr" RowClass="GetRowClass">
+    <ChildContent>
+        <PropertyColumn Property="@(c => c.Id)" Title="ID" Sortable="true" />
+                   
+        <PropertyColumn Property="@(c => c.DisplayName)" Title="名称" Sortable="true" />
+                        
+        <PropertyColumn Property="@(c => c.TaskName)" Title="任务名称"/>
+                    
+        <PropertyColumn Property="@(c => c.Interval)" Title="周期"/>
+                    
+        <PropertyColumn Property="@(c => c.Describe)" Title="描述"/>
 
-<p>job count: @count</p>
+        <PropertyColumn Property="@_typeNameExpress" Title="类型" />
 
-<button @onclick="Inc">click me !</button>
+        <PropertyColumn Property="@_statusNameExpress" Title="状态" />
+                   
+        <TemplateColumn Title="Logs">
+            <FluentAnchor Appearance="Appearance.Lightweight" Href="@($"/ConsoleLogs/{context.Id}")">查看日志</FluentAnchor>
+        </TemplateColumn>
+    </ChildContent>
+    <EmptyContent>
+        <FluentIcon Icon="Icons.Regular.Size24.AppGeneric" />&nbsp;没有job数据
+    </EmptyContent>
+</FluentDataGrid>

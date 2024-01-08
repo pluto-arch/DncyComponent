@@ -24,7 +24,7 @@ public class QuartzDashboardWebApplication: IHostedService
 
     private readonly bool _ishttps;
 
-    public QuartzDashboardWebApplication(ILogger<QuartzDashboardWebApplication> logger)
+    public QuartzDashboardWebApplication(ILogger<QuartzDashboardWebApplication> logger,Action<IServiceCollection> configureServices)
     {
         _logger = logger;
 
@@ -75,6 +75,13 @@ public class QuartzDashboardWebApplication: IHostedService
         
         builder.Services.AddFluentUIComponents();
         builder.Services.AddLocalization();
+
+
+
+        builder.Services.AddHttpClient();
+        configureServices(builder.Services);
+
+        builder.Services.AddHostedService<QuartzHostedService>();
 
         _app = builder.Build();
 

@@ -28,5 +28,6 @@ namespace Dotnetydd.QuartzJob.Stores
         /// <returns></returns>
         Task<List<JobLogModel>> GetListAsync(JobKey job, int pageNo = 1, int count = 20);
     }
+
 }
 
