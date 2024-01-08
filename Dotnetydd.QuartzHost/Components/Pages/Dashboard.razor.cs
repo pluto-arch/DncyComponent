@@ -28,6 +28,10 @@ public partial class Dashboard: ComponentBase, IDisposable
     private JobInfoModel SelectJob { get; set; }
 
 
+    private int TotalJobCount { get; set; }
+
+    private int RunningJobCount { get; set; }
+
     protected override async Task OnInitializedAsync()
     {
         await UpdateApplications();
@@ -45,6 +49,8 @@ public partial class Dashboard: ComponentBase, IDisposable
         {
             _JobByName.TryAdd(job.Id, job);
         }
+        TotalJobCount = _JobByName.Count;
+        RunningJobCount=_JobByName.Values.Count(e=>e.Status==EnumJobStates.Normal);
     }
 
 

@@ -8,25 +8,20 @@
                           Appearance="Appearance.Stealth" 
                           Href="/" 
                           Class="logo">
-                appname
+                任务看板
             </FluentAnchor>
-        </div>
-        <div class="header-right">
-            <FluentAnchor Appearance="Appearance.Stealth" 
-                          IconEnd="@(new DashboardIcons.Size24.GitHub())"
-                          Href="https://aka.ms/dotnet/aspire/repo" 
-                          Target="_blank" Rel="noreferrer noopener"
-                          Title="111" aria-label="1111" />
         </div>
     </FluentHeader>
     
-    <NavMenu />
+    @* <NavMenu /> *@
 
     <FluentBodyContent Class="custom-body-content">
-        @Body
+        <div style="padding:1.5rem">
+            @Body
+        </div>
     </FluentBodyContent>
     
-    
+    <FluentToastProvider />
     <FluentDialogProvider />
     <FluentTooltipProvider />
     <div id="blazor-error-ui">
