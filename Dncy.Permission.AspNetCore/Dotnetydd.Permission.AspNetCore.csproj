@@ -4,6 +4,7 @@
 		<TargetFrameworks>$(TargetFrameworkVersion)</TargetFrameworks>
 		<IsPackable>true</IsPackable>
 		<OutputType>Library</OutputType>
+		<Description>权限ASPNET CORE模块</Description>
 	</PropertyGroup>
 
 

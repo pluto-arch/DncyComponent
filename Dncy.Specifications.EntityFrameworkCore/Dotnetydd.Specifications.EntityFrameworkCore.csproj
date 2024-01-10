@@ -2,6 +2,7 @@
 
 	<PropertyGroup>
 		 <TargetFrameworks>$(TargetFrameworkVersion)</TargetFrameworks>
+		<Description>EF CORE规约模块</Description>
 	</PropertyGroup>
 
 	<ItemGroup>

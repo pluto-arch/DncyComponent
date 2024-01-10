@@ -4,6 +4,7 @@
 	 <TargetFrameworks>$(TargetFrameworkVersion)</TargetFrameworks>
 	  <IsPackable>true</IsPackable>
 	  <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	  <Description>规约模块</Description>
   </PropertyGroup>
 
   <ItemGroup>

@@ -2,6 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>$(TargetFrameworkVersion)</TargetFrameworks>
+		<Description>Quartz Job模块</Description>
 	</PropertyGroup>
 
 	<ItemGroup>

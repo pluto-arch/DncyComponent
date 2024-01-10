@@ -1,8 +1,7 @@
 <Project>
 	<!-- See https://aka.ms/dotnet/msbuild/customize for more details on customizing your build -->
 	<PropertyGroup>
-		<TargetFrameworkVersion>net8.0;net7.0;net6.0;net5.0</TargetFrameworkVersion>
-		<Description>一些组件模块：多租户，权限，QuartzJob，规约模式等</Description>
+		<TargetFrameworkVersion>net8.0;net7.0;net6.0;net5.0</TargetFrameworkVersion>		
 		<Company>dotnetydd</Company>
 		<Authors>dotnetydd</Authors>
 		<LangVersion>latest</LangVersion>

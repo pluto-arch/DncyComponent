@@ -3,6 +3,7 @@
 	<PropertyGroup>
 		<TargetFrameworks>$(TargetFrameworkVersion)</TargetFrameworks>
 		<IsPackable>true</IsPackable>
+		<Description>权限模块</Description>
 	</PropertyGroup>
 
 

@@ -2,6 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>net461;$(TargetFrameworkVersion)</TargetFrameworks>
+		<Description>StackExchange Redis模块</Description>
 	</PropertyGroup>
 
 	<ItemGroup>
