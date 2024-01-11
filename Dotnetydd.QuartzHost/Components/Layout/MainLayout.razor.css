@@ -71,3 +71,10 @@
     font-size: var(--type-ramp-plus-2-font-size);
     color: var(--accent-foreground-rest);
 }
+
+
+.custom-body-content .main-content {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}

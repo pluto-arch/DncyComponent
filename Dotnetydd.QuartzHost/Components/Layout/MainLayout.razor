@@ -10,14 +10,17 @@
                           Class="logo">
                 任务看板
             </FluentAnchor>
+            <FluentIcon Value="@(new Icons.Regular.Size16.AlignLeft())" OnClick="ToggleNavMenu" />
         </div>
     </FluentHeader>
     
-    @* <NavMenu /> *@
+    <NavMenu Expanded="@_expanded" />
 
-    <FluentBodyContent Class="custom-body-content">
-        <div style="padding:1.5rem">
-            @Body
+    <FluentBodyContent Class="custom-body-content"> 
+        <div class="main-content">
+            <PageViewer>
+                @Body
+            </PageViewer>
         </div>
     </FluentBodyContent>
     
@@ -25,7 +28,6 @@
     <FluentDialogProvider />
     <FluentTooltipProvider />
     <div id="blazor-error-ui">
-        @* @Loc[nameof(Layout.MainLayoutUnhandledErrorMessage)] *@
         <a href="" class="reload">something was wrong!</a>
         <a class="dismiss">🗙</a>
     </div>
