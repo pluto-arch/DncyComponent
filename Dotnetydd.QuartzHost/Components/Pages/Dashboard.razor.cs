@@ -92,6 +92,27 @@ public partial class Dashboard: ComponentBase, IDisposable
     }
 
 
+    private Func<JobInfoModel, string> _cellStyleFunc => x =>
+    {
+        return x.Status switch
+        {
+            EnumJobStates.Normal => "background-color:#8CED8C",
+            EnumJobStates.Blocked => "background-color:#8b949e66",
+            EnumJobStates.Pause => "background-color:#c9e35a66",
+            EnumJobStates.Completed => "",
+            EnumJobStates.Exception => "background-color:#f9242466",
+            EnumJobStates.Stopped => "",
+            _ => ""
+        };
+    };
+
+    private List<JobInfoModel> _selectedItems { get; set; } = new ();
+
+    public void SelectedItemsChanged(HashSet<JobInfoModel> jobs)
+    {
+        _selectedItems = jobs.ToList();
+    }
+
     private string GetRowClass(JobInfoModel job)
         => job == SelectJob ? "selected-row" : null;
 }

@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.FluentUI.AspNetCore.Components;
 using System.Net;
 using Dotnetydd.QuartzHost.Storage;
+using MudBlazor.Services;
 
 namespace Dotnetydd.QuartzHost;
 
@@ -73,7 +73,7 @@ public class QuartzDashboardWebApplication: IHostedService
         builder.Services.AddSingleton<DataRepository>();
         builder.Services.AddSingleton<IJobInfoStore, InMemoryJobInfoStore>();
         
-        builder.Services.AddFluentUIComponents();
+        builder.Services.AddMudServices();
         builder.Services.AddLocalization();
 
 

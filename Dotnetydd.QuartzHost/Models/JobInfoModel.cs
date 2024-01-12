@@ -85,6 +85,8 @@ public class JobInfoModel
     public EnumJobStates Status { get; set; } = EnumJobStates.Pause;
 
 
+    public bool Selected { get; set; }
+
     /// <summary>
     ///     隐式数据转换
     /// </summary>
