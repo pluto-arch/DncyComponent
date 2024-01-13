@@ -2,6 +2,9 @@ using Dotnetydd.QuartzHost.Models;
 using Dotnetydd.QuartzHost.Storage;
 using Microsoft.AspNetCore.Components;
 using Quartz;
+using System.Collections.Concurrent;
+using System;
+using System.Linq.Expressions;
 
 namespace Dotnetydd.QuartzHost.Components.Pages;
 
@@ -15,14 +18,24 @@ public partial class Dashboard: ComponentBase, IDisposable
     public required NavigationManager NavigationManager { get; init; }
 
     private Subscription _appSubscription;
-
     private int count = 0;
     
+
+    private readonly ConcurrentDictionary<string, JobInfoModel> _JobByName = new(JobInfoModel.StringComparers.ResourceName);
+
+    private IQueryable<JobInfoModel> FilterJobs => _JobByName.Values.OrderBy(e => e.Status).ThenBy(e => e.TaskName).AsQueryable();
+
+    private JobInfoModel SelectJob { get; set; }
+
+
+    private int TotalJobCount { get; set; }
+
+    private int RunningJobCount { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         await UpdateApplications();
-        _appSubscription = Repository.OnNewApplications(async () =>
+        _appSubscription = Repository.OnNewApplications(async (_) =>
         {
             await UpdateApplications();
             await InvokeAsync(StateHasChanged);
@@ -31,26 +44,75 @@ public partial class Dashboard: ComponentBase, IDisposable
 
     private async Task UpdateApplications()
     {
-        count = (await Repository.GetJobsAsync()).Count;
-    }
-    
-    public void Inc()
-    {
-        Repository.AddJob(new JobInfoModel
+        var jobs = await Repository.GetJobsAsync();
+        foreach (var job in jobs)
         {
-            Id = Guid.NewGuid().ToString("N"),
-            TaskType = EnumTaskType.StaticExecute,
-            TaskName = $"AAA{Random.Shared.Next(1,22)}",
-            DisplayName = $"AAA{Random.Shared.Next(1,22)}",
-            GroupName = "Default",
-            Interval = "0/2 * * * * ?",
-            Describe = $"AAA{Random.Shared.Next(1,22)}",
-            Status = EnumJobStates.Normal
-        });
+            _JobByName.TryAdd(job.Id, job);
+        }
+        TotalJobCount = _JobByName.Count;
+        RunningJobCount=_JobByName.Values.Count(e=>e.Status==EnumJobStates.Normal);
     }
-    
+
+
+    private Expression<Func<JobInfoModel,string>> _typeNameExpress = e => GetJobType(e.TaskType);
+    private Expression<Func<JobInfoModel,string>> _statusNameExpress = e => GetJobStatus(e.Status);
+    private static string GetJobStatus(EnumJobStates jobStatus)
+    {
+        return jobStatus switch
+        {
+            EnumJobStates.Normal => "正常",
+            EnumJobStates.Blocked => "冻结",
+            EnumJobStates.Pause => "暂停",
+            EnumJobStates.Completed => "完成",
+            EnumJobStates.Exception => "异常",
+            EnumJobStates.Stopped => "停止",
+            _ => "None"
+        };  
+    }
+
+    private static string GetJobType(EnumTaskType jobType)
+    {
+        return jobType switch
+        {
+            EnumTaskType.StaticExecute => "静态执行",
+            EnumTaskType.RpcExecute => "远程调用",
+            _ => "None"
+        };  
+    }
+
+    private void ClearSelectedJob()
+    {
+        SelectJob = null;
+    }
+
+
     public void Dispose()
     {
         _appSubscription.Dispose();
     }
+
+
+    private Func<JobInfoModel, string> _cellStyleFunc => x =>
+    {
+        return x.Status switch
+        {
+            EnumJobStates.Normal => "background-color:#8CED8C",
+            EnumJobStates.Blocked => "background-color:#8b949e66",
+            EnumJobStates.Pause => "background-color:#c9e35a66",
+            EnumJobStates.Completed => "",
+            EnumJobStates.Exception => "background-color:#f9242466",
+            EnumJobStates.Stopped => "",
+            _ => ""
+        };
+    };
+
+    private List<JobInfoModel> _selectedItems { get; set; } = new ();
+
+    public void SelectedItemsChanged(HashSet<JobInfoModel> jobs)
+    {
+        _selectedItems = jobs.ToList();
+    }
+
+    private string GetRowClass(JobInfoModel job)
+        => job == SelectJob ? "selected-row" : null;
 }

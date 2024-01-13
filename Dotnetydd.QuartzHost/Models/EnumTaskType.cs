@@ -10,5 +10,5 @@ public enum EnumTaskType
     /// <summary>
     ///     动态
     /// </summary>
-    DynamicExecute = 2
+    RpcExecute = 2
 }

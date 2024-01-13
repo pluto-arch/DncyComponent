@@ -34,13 +34,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiTenancyTest", "tests\M
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PermissionTest", "tests\PermissionTest\PermissionTest.csproj", "{59236B89-816F-406F-A5AA-510656D6E904}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuartzJobTest", "tests\QuartzJobTest\QuartzJobTest.csproj", "{8DD8C4E1-F78B-4F62-8FC2-9F00EF0A9F10}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuartzJobTest", "tests\QuartzJobTest\QuartzJobTest.csproj", "{8DD8C4E1-F78B-4F62-8FC2-9F00EF0A9F10}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "QuartzWithDashboard", "QuartzWithDashboard", "{7B767BA6-C27F-45F9-92FC-B0749EE78505}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnetydd.QuartzHost", "Dotnetydd.QuartzHost\Dotnetydd.QuartzHost.csproj", "{A6DB7CA7-7F60-4B5F-AE81-F2D578A90680}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnetydd.QuartzHost", "Dotnetydd.QuartzHost\Dotnetydd.QuartzHost.csproj", "{A6DB7CA7-7F60-4B5F-AE81-F2D578A90680}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuartzJobHostTest", "tests\QuartzJobHostTest\QuartzJobHostTest.csproj", "{C667662E-1CAB-4754-946F-BB4E61EEC0CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuartzJobHostTest", "tests\QuartzJobHostTest\QuartzJobHostTest.csproj", "{C667662E-1CAB-4754-946F-BB4E61EEC0CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,0 +1,17 @@
+﻿@page "/ConsoleLogs/{jobId?}"
+
+
+<PageTitle>@($"{job?.DisplayName}")日志</PageTitle>
+
+
+@if (job == null)
+{
+    <p>暂无数据</p>
+}
+
+
+
+@foreach (var l in _logs)
+{
+    <p>@l.JobKey ---  @l.Message</p>
+}

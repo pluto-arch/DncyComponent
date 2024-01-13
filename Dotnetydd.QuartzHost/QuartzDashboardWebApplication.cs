@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.FluentUI.AspNetCore.Components;
 using System.Net;
 using Dotnetydd.QuartzHost.Storage;
+using MudBlazor.Services;
 
 namespace Dotnetydd.QuartzHost;
 
@@ -24,7 +24,7 @@ public class QuartzDashboardWebApplication: IHostedService
 
     private readonly bool _ishttps;
 
-    public QuartzDashboardWebApplication(ILogger<QuartzDashboardWebApplication> logger)
+    public QuartzDashboardWebApplication(ILogger<QuartzDashboardWebApplication> logger,Action<IServiceCollection> configureServices)
     {
         _logger = logger;
 
@@ -73,8 +73,15 @@ public class QuartzDashboardWebApplication: IHostedService
         builder.Services.AddSingleton<DataRepository>();
         builder.Services.AddSingleton<IJobInfoStore, InMemoryJobInfoStore>();
         
-        builder.Services.AddFluentUIComponents();
+        builder.Services.AddMudServices();
         builder.Services.AddLocalization();
+
+
+
+        builder.Services.AddHttpClient();
+        configureServices(builder.Services);
+
+        builder.Services.AddHostedService<QuartzHostedService>();
 
         _app = builder.Build();
 

@@ -1,10 +1,61 @@
 ﻿@page "/"
-
+@using Dotnetydd.QuartzHost.Models
 
 <PageTitle>看板</PageTitle>
 
-<h3>Dashboard</h3>
 
-<p>job count: @count</p>
+<MudStack>
+    <MudPaper Elevation="30">
+        <MudToolBar>
+            <MudSpacer />
+            <MudIconButton Icon="@Icons.Material.Outlined.Add"/>
+            <MudIconButton Icon="@Icons.Material.Outlined.Edit"/>
+            <MudIconButton Icon="@Icons.Material.Outlined.Remove" Color="Color.Inherit"/>
+        </MudToolBar>
+    </MudPaper>
 
-<button @onclick="Inc">click me !</button>
+    <MudDataGrid T="JobInfoModel" Items="@FilterJobs" Filterable="false" SortMode="@SortMode.None"
+                 Groupable="false" Hover="true" Striped="true" MultiSelection="true"
+                 SelectedItemsChanged="@SelectedItemsChanged"
+                 FooterClass="hideDatagridFooter">
+
+        <Columns>
+
+            <SelectColumn T="JobInfoModel" ShowInFooter="false" />
+
+            <PropertyColumn Property="x => x.Id" Sortable="true" CellStyle="width:80px" />
+
+            <PropertyColumn Property="x => x.DisplayName" Title="名称" Sortable="true" />
+            <PropertyColumn Property="x => x.TaskName" Title="任务名称" />
+            <PropertyColumn Property="x => x.Interval" Title="周期" />
+            <PropertyColumn Property="x => x.Describe" Title="描述" />
+
+            <PropertyColumn Property="@_typeNameExpress" Title="类型" />
+            <PropertyColumn Property="@_statusNameExpress" Title="状态" CellStyleFunc="@_cellStyleFunc" />
+
+            <TemplateColumn Title="操作">
+                <CellTemplate>
+                    <MudLink Href="@($"/ConsoleLogs/{context.Item.Id}")">执行记录</MudLink>
+                </CellTemplate>
+            </TemplateColumn>
+        </Columns>
+
+        <NoRecordsContent>
+            <MudAlert Severity="Severity.Info">没有数据</MudAlert>
+        </NoRecordsContent>
+
+        <PagerContent>
+            <div style="line-height:20px;padding:10px">
+                <MudStack Row="true">
+                    <MudSpacer />
+                    <MudText>已选择 @_selectedItems.Count 条数据</MudText>
+                </MudStack>
+            </div>
+        </PagerContent>
+    </MudDataGrid>
+</MudStack>
+
+
+
+
+

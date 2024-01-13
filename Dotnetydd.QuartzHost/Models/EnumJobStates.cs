@@ -3,12 +3,10 @@ namespace Dotnetydd.QuartzHost.Models;
 public enum EnumJobStates
 {
     None,
-
     /// <summary>
     /// 正常
     /// </summary>
     Normal,
-
     /// <summary>
     /// 暂停
     /// </summary>

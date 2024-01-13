@@ -1,4 +1,5 @@
 ﻿using Dotnetydd.QuartzHost;
+using QuartzJobHostTest.Jobs;
 
 namespace QuartzJobHostTest;
 
@@ -12,7 +13,12 @@ public class DemoHostService: IHostedLifecycleService
     {
         _loggerFactory = loggerFactory;
         var dashboardLogger = _loggerFactory.CreateLogger<QuartzDashboardWebApplication>();
-        _dashboard = new QuartzDashboardWebApplication(dashboardLogger);
+        _dashboard = new QuartzDashboardWebApplication(dashboardLogger, service =>
+        {
+            service.AddDncyQuartzJobCore();
+            service.AddStaticJobDefined(typeof(UserJob).Assembly);
+            service.AddInMemoryJobInfoStore();
+        });
     }
 
 

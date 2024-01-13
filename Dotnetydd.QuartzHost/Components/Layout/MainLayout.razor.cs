@@ -1,7 +1,7 @@
 ﻿namespace Dotnetydd.QuartzHost.Components.Layout;
 
 
-public partial class MainLayout_razor
+public partial class MainLayout
 {
-    
+
 }
