@@ -22,7 +22,7 @@ public partial class ConsoleLog: ComponentBase, IDisposable
 
     private Subscription _logSubscription;
 
-    private List<JobLogModel> _logs = new();
+    private CircularBuffer<JobLogModel> _logs = new(100);
 
 
     protected override async Task OnInitializedAsync()

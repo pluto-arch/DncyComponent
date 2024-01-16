@@ -57,7 +57,7 @@ public class QuartzJobRunner: IJob
                 catch (Exception e)
                 {
                     _logger.LogError(e, "{jobType} running has an error : {@message}", jobType.Name, e.Message);
-                    await jobLogStore.RecordAsync(new JobLogModel
+                    await jobLogStore.AddAsync(new JobLogModel
                     {
                         JobKey = $"{job.Group}:{job.Name}",
                         Time = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss}",

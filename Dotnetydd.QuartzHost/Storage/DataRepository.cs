@@ -44,7 +44,7 @@ public class DataRepository
 
     internal async Task AddJobLogAsync(JobLogModel log)
     {
-        await _jobLogStore.RecordAsync(log);
+        await _jobLogStore.AddAsync(log);
         RaiseSubscriptionChanged(_loggerSubscriptions,log);
     }
 

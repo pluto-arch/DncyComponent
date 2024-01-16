@@ -9,7 +9,7 @@ public interface IJobLogStore
     ///     记录日志
     /// </summary>
     /// <returns></returns>
-    Task RecordAsync(JobLogModel model);
+    Task AddAsync(JobLogModel model);
 
     /// <summary>
     ///     获取日志
@@ -32,7 +32,7 @@ public interface IJobLogStore
 
 public class NullJobLogStore : IJobLogStore
 {
-    public Task RecordAsync(JobLogModel model)
+    public Task AddAsync(JobLogModel model)
     {
         return Task.CompletedTask;
     }
