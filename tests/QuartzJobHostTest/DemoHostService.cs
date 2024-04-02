@@ -1,23 +1,25 @@
 ﻿using Dotnetydd.QuartzHost;
+using Microsoft.Extensions.Logging.Abstractions;
 using QuartzJobHostTest.Jobs;
 
 namespace QuartzJobHostTest;
 
 public class DemoHostService: IHostedLifecycleService
 {
-    private readonly ILoggerFactory _loggerFactory;
-
     private readonly QuartzDashboardWebApplication _dashboard;
 
-    public DemoHostService(ILoggerFactory loggerFactory)
+    public DemoHostService(
+        ILoggerFactory loggerFactory=null,
+        Action<IServiceCollection> configServices=null)
     {
-        _loggerFactory = loggerFactory;
-        var dashboardLogger = _loggerFactory.CreateLogger<QuartzDashboardWebApplication>();
+        loggerFactory??=NullLoggerFactory.Instance;
+        var dashboardLogger = loggerFactory.CreateLogger<QuartzDashboardWebApplication>();
         _dashboard = new QuartzDashboardWebApplication(dashboardLogger, service =>
         {
             service.AddDncyQuartzJobCore();
             service.AddStaticJobDefined(typeof(UserJob).Assembly);
             service.AddInMemoryJobInfoStore();
+            configServices?.Invoke(service);
         });
     }
 

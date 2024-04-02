@@ -51,7 +51,7 @@ public class QuartzJobRunner: IJob
 
                         context.Put(JobExecutionContextConstants.JobExecutionContextData_JobInfo, jobModel);
                         await jobToExecute.Execute(context);
-                        _logger.LogInformation("{jobType} has been executed, ", jobType.Name);
+                        _logger.LogDebug("{jobType} has been executed, ", jobType.Name);
                     }
                 }
                 catch (Exception e)

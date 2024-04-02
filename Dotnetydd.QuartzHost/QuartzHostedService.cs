@@ -19,17 +19,15 @@ public class QuartzHostedService: IHostedService
         private readonly ISchedulerFactory _schedulerFactory;
         private readonly IServiceProvider _serviceProvider;
         private readonly IConfiguration _configuration;
-        private readonly DataRepository _dataRepository;
 
         public QuartzHostedService(ISchedulerFactory schedulerFactory, IJobInfoStore jobStore,
-            IJobFactory jobFactory, JobDefined jobDefined, IServiceProvider serviceProvider,IConfiguration configuration, DataRepository dataRepository)
+            IJobFactory jobFactory, JobDefined jobDefined, IServiceProvider serviceProvider,IConfiguration configuration)
         {
             _schedulerFactory = schedulerFactory;
             _jobFactory = jobFactory;
             _jobDefined = jobDefined;
             _serviceProvider = serviceProvider;
             _configuration = configuration;
-            _dataRepository = dataRepository;
             _jobStore = jobStore;
         }
 
@@ -41,8 +39,7 @@ public class QuartzHostedService: IHostedService
         {
             Scheduler = await _schedulerFactory.GetScheduler(cancellationToken);
             Scheduler.JobFactory = _jobFactory;
-            var jobListener = _serviceProvider.GetService<IJobListener>();
-            var triggerListener = _serviceProvider.GetService<ITriggerListener>();
+           
 
             var jobs = new List<JobInfoModel>();
             var staticJob= StaticJobs().ToList()??[];
@@ -60,9 +57,13 @@ public class QuartzHostedService: IHostedService
                 return;
             }
 
+            using var sc = _serviceProvider.CreateScope();
+            var dataRepository = sc.ServiceProvider.GetService<DataRepository>();
+            var jobListener = sc.ServiceProvider.GetService<IJobListener>();
+            var triggerListener = sc.ServiceProvider.GetService<ITriggerListener>();
             foreach (var job in jobs)
             {
-                await _dataRepository.AddJobAsync(job);
+                await dataRepository.AddJobAsync(job);
             }
 
             await SchedulerBuilderHelper.Default
@@ -101,7 +102,7 @@ public class QuartzHostedService: IHostedService
                     GroupName = job.GroupName,
                     Interval = job.Cron,
                     Describe = job.Description,
-                    Status = job.IsOpen ? EnumJobStates.Normal : EnumJobStates.Stopped
+                    Status = job.Enabled ? EnumJobStates.Normal : EnumJobStates.Stopped
                 };
             }
         }

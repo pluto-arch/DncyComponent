@@ -14,7 +14,6 @@ public interface IJobLogStore
     /// <summary>
     ///     获取日志
     /// </summary>
-    /// <param name="count"></param>
     /// <returns></returns>
     Task<List<JobLogModel>> GetListAsync(string jobKey, int count = 20);
 
@@ -22,7 +21,6 @@ public interface IJobLogStore
     /// <summary>
     ///     获取日志
     /// </summary>
-    /// <param name="count"></param>
     /// <returns></returns>
     Task<List<JobLogModel>> GetListAsync(string jobKey, int pageNo = 1, int count = 20);
 }

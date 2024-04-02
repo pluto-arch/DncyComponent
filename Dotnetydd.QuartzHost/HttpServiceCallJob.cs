@@ -4,7 +4,7 @@ using Quartz;
 
 namespace Dotnetydd.QuartzHost;
 
-public class HttpServiceCallJob: IBackgroundJob
+public class HttpServiceCallJob: IQuartzJob
 {
     private readonly IHttpClientFactory _httpClientFactory;
     private readonly ILogger<HttpServiceCallJob> _logger;
@@ -21,16 +21,14 @@ public class HttpServiceCallJob: IBackgroundJob
 
         if (jobInfo == null)
         {
-            _logger.LogError("{jobKey} : not found ", context.JobDetail.Key);
+            _logger.LogError("{@jobKey} : not found ", context.JobDetail.Key);
             return;
         }
-
-        if (!(jobInfo is JobInfoModel _))
+        if (jobInfo is not JobInfoModel model)
         {
-            _logger.LogError("{jobKey} : is not JobInfoModel ", context.JobDetail.Key);
+            _logger.LogError("{@jobKey} : is not JobInfoModel ", context.JobDetail.Key);
             return;
         }
-        JobInfoModel model = (JobInfoModel)jobInfo;
         var client = _httpClientFactory.CreateClient(model.TaskName);
         var request = new HttpRequestMessage(HttpMethod.Get, new Uri(model.ApiUrl));
         if (!string.IsNullOrEmpty(model.AuthKey))

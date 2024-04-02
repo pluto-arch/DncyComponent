@@ -4,26 +4,32 @@ using Microsoft.Extensions.Logging;
 
 namespace Dotnetydd.QuartzHost.Storage;
 
+
+internal static class AppSubscribe
+{
+    internal static readonly List<Subscription> ApplicationSubscriptions = new();
+
+    internal static readonly List<Subscription> LoggerSubscriptions = new();
+}
+
+
 public class DataRepository
 {
-    private readonly IConfiguration _configuration;
     private readonly IJobInfoStore _jobInfoStore;
     private readonly IJobLogStore _jobLogStore;
     private readonly object _lock = new();
     private readonly ILogger _logger;
 
-    private readonly List<Subscription> _applicationSubscriptions = new();
+    private readonly List<Subscription> _applicationSubscriptions = AppSubscribe.ApplicationSubscriptions;
 
-    private readonly List<Subscription> _loggerSubscriptions = new();
+    private readonly List<Subscription> _loggerSubscriptions = AppSubscribe.LoggerSubscriptions;
 
     public DataRepository(
-        IConfiguration configuration,
         IJobInfoStore jobInfoStore,
         ILoggerFactory loggerFactory,
         IJobLogStore jobLogStore = null)
     {
         _logger = loggerFactory.CreateLogger(typeof(DataRepository));
-        _configuration = configuration;
         _jobInfoStore = jobInfoStore;
         _jobLogStore = jobLogStore??NullJobLogStore.Instrance;
     }
@@ -42,11 +48,26 @@ public class DataRepository
         RaiseSubscriptionChanged(_applicationSubscriptions);
     }
 
+    /// <summary>
+    /// JOB RUNNING LOG INFORMATION
+    /// </summary>
+    /// <param name="log"></param>
+    /// <returns></returns>
     internal async Task AddJobLogAsync(JobLogModel log)
     {
         await _jobLogStore.AddAsync(log);
         RaiseSubscriptionChanged(_loggerSubscriptions,log);
     }
+
+    /// <summary>
+    /// APPLICATION LOG FROM ILogger
+    /// </summary>
+    /// <returns></returns>
+    public void AddAppRunningLogAsync(string logFormatString)
+    {
+        RaiseSubscriptionChanged(_loggerSubscriptions,logFormatString);
+    }
+
 
     public async Task<List<JobLogModel>> GetJobLogsAsync(string jobKey, int pageNo = 1, int count = 20)
     {

@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using System.Net;
 using Dotnetydd.QuartzHost.Storage;
 using MudBlazor.Services;
+using Dotnetydd.QuartzHost.Providers;
 
 namespace Dotnetydd.QuartzHost;
 
@@ -29,8 +30,16 @@ public class QuartzDashboardWebApplication: IHostedService
         _logger = logger;
 
         var builder = WebApplication.CreateBuilder();
-        builder.Logging.AddFilter("Microsoft.Hosting.Lifetime", LogLevel.None);
-        builder.Logging.AddFilter("Microsoft.AspNetCore.Server.Kestrel", LogLevel.Error);
+        builder.Host.ConfigureLogging(o =>
+        {
+            o.AddProvider(new BlazorConsoleLogProvider(cfg =>
+            {
+                cfg.LevelMap[LogLevel.Debug] = BlazorConsoleLogColor.Green;
+                cfg.LevelMap[LogLevel.Information] = BlazorConsoleLogColor.White;
+                cfg.LevelMap[LogLevel.Warning] = BlazorConsoleLogColor.Orange;
+                cfg.LevelMap[LogLevel.Error] = BlazorConsoleLogColor.Red;
+            }));
+        });
 
 
         var dashboardUris = EnvironmentHelper.GetAddressUris(DashboardUrlVariableName, DashboardUrlDefaultValue);
@@ -52,25 +61,19 @@ public class QuartzDashboardWebApplication: IHostedService
 
         if (!builder.Environment.IsDevelopment())
         {
-            // This is set up automatically by the DefaultBuilder when IsDevelopment is true
-            // But since this gets packaged up and used in another app, we need it to look for
-            // static assets on disk as if it were at development time even when it is not
             builder.WebHost.UseStaticWebAssets();
         }
 
 
         if (_ishttps)
         {
-            // Explicitly configure the HTTPS redirect port as we're possibly listening on multiple HTTPS addresses
-            // if the dashboard OTLP URL is configured to use HTTPS too
             builder.Services.Configure<HttpsRedirectionOptions>(options => options.HttpsPort = dashboardHttpsPort);
         }
 
-        // Add services to the container.
         builder.Services.AddRazorComponents()
             .AddInteractiveServerComponents();
 
-        builder.Services.AddSingleton<DataRepository>();
+        builder.Services.AddScoped<DataRepository>();
         builder.Services.AddSingleton<IJobInfoStore, InMemoryJobInfoStore>();
         
         builder.Services.AddMudServices();
@@ -85,7 +88,6 @@ public class QuartzDashboardWebApplication: IHostedService
 
         _app = builder.Build();
 
-        // Configure the HTTP request pipeline.
         if (!_app.Environment.IsDevelopment())
         {
             _app.UseExceptionHandler("/Error");
@@ -100,10 +102,6 @@ public class QuartzDashboardWebApplication: IHostedService
         {
             OnPrepareResponse = (context) =>
             {
-                // If Cache-Control isn't already set to something, set it to 'no-cache' so that the
-                // ETag and Last-Modified headers will be respected by the browser.
-                // This may be able to be removed if https://github.com/dotnet/aspnetcore/issues/44153
-                // is fixed to make this the default
                 if (context.Context.Response.Headers.CacheControl.Count == 0)
                 {
                     context.Context.Response.Headers.CacheControl = "no-cache";

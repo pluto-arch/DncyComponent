@@ -24,6 +24,8 @@ public partial class ConsoleLog: ComponentBase, IDisposable
 
     private CircularBuffer<JobLogModel> _logs = new(100);
 
+    private CircularBuffer<string> _appRunninglogs = new(5);
+
 
     protected override async Task OnInitializedAsync()
     {
@@ -53,6 +55,12 @@ public partial class ConsoleLog: ComponentBase, IDisposable
                         _logs.Add(log);
                         await InvokeAsync(StateHasChanged);
                     }
+                }
+
+                if (context.Data is string appRunningLog)
+                {
+                    _appRunninglogs.Add(appRunningLog);
+                    await InvokeAsync(StateHasChanged);
                 }
             });
         }

@@ -46,7 +46,7 @@ public static class ServiceCollectionExtensions
         };
         foreach (var assembly in staticJobAssemblys)
         {
-            var baceType = typeof(IBackgroundJob);
+            var baceType = typeof(IQuartzJob);
             var implTypes = assembly.GetTypes().Where(c => c != baceType && baceType.IsAssignableFrom(c)).ToList();
             if (!implTypes.Any())
             {
@@ -54,7 +54,7 @@ public static class ServiceCollectionExtensions
                 return;
             }
 
-            foreach (Type impltype in implTypes)
+            foreach (var impltype in implTypes)
             {
                 jobd.JobDictionary.Add(impltype.Name, impltype);
                 services.AddTransient(impltype);

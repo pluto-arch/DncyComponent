@@ -1,0 +1,208 @@
+﻿.log-overflow {
+    --console-theme-black: #0C0C0C;
+    --console-theme-blue: #0037DA;
+    --console-theme-cyan: #3A96DD;
+    --console-theme-green: #13A10E;
+    --console-theme-magenta: #CD13E8;
+    --console-theme-bg-red: #F80F24;
+    --console-theme-fg-red: #C50F1F;
+    --console-theme-white: #CCCCCC;
+    --console-theme-yellow: #C19C00;
+    --console-theme-bright-black: #767676;
+    --console-theme-bright-blue: #3B78FF;
+    --console-theme-bright-cyan: #61D6D6;
+    --console-theme-bright-green: #16C60C;
+    --console-theme-bright-magenta: #DA01FA;
+    --console-theme-bright-red: #E74856;
+    --console-theme-bright-white: #F2F2F2;
+    --console-theme-bright-yellow: #F9F1A5;
+    --line-number-color: #848484;
+    --timestamp-color: var(--line-number-color);
+    --console-background-color: var(--console-theme-black);
+    --console-background-color-hover: #1D1D1D;
+    --console-font-color: var(--console-theme-white);
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    background-color: var(--console-background-color);
+}
+
+::deep .log-container {
+    background: var(--console-background-color);
+    color: var(--console-font-color);
+    font-family: 'Cascadia Mono', Consolas, monospace;
+    font-size: 13px;
+    margin: 16px 0 0 0;
+    padding-bottom: 24px;
+    line-height: 20px;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+::deep .line-row-container {
+    width: 100%;
+    overflow: hidden;
+}
+
+::deep .line-row {
+    cursor: text;
+    padding: 0 12px 0 12px;
+    white-space: pre-wrap;
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+}
+
+    ::deep .line-row:hover {
+        background-color: var(--console-background-color-hover);
+    }
+
+::deep .line-area {
+    flex-grow: 1;
+    justify-content: flex-start;
+    display: flex;
+    flex-direction: row;
+}
+
+::deep .line-number {
+    padding-left: 10px;
+    min-width: 43px;
+    text-align: right;
+    align-self: flex-start;
+    flex-shrink: 0;
+    color: var(--line-number-color);
+    user-select: none;
+    cursor: default;
+}
+
+::deep .content {
+    word-break: break-all;
+    margin-left: 20px;
+    position: relative;
+    margin-right: 6px;
+    user-select: text;
+    cursor: text;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+    ::deep .content .timestamp {
+        color: var(--timestamp-color);
+    }
+
+    ::deep .content a,
+    ::deep .content a:active,
+    ::deep .content a:visited {
+        color: var(--console-font-color);
+        text-decoration: none;
+    }
+
+        ::deep .content a:hover {
+            text-decoration: underline;
+        }
+
+    ::deep .content > fluent-badge {
+        user-select: none;
+    }
+
+    ::deep .content > .timestamp + fluent-badge {
+        margin-left: 1ch;
+    }
+
+::deep .ansi-fg-black {
+    color: var(--console-theme-black);
+}
+
+::deep .ansi-fg-blue {
+    color: var(--console-theme-blue);
+}
+
+::deep .ansi-fg-cyan {
+    color: var(--console-theme-cyan);
+}
+
+::deep .ansi-fg-green {
+    color: var(--console-theme-green);
+}
+
+::deep .ansi-fg-magenta {
+    color: var(--console-theme-magenta);
+}
+
+::deep .ansi-fg-red {
+    color: var(--console-theme-fg-red);
+}
+
+::deep .ansi-fg-white {
+    color: var(--console-theme-white);
+}
+
+::deep .ansi-fg-yellow {
+    color: var(--console-theme-yellow);
+}
+
+::deep .ansi-fg-brightblack {
+    color: var(--console-theme-bright-black);
+}
+
+::deep .ansi-fg-brightblue {
+    color: var(--console-theme-bright-blue);
+}
+
+::deep .ansi-fg-brightcyan {
+    color: var(--console-theme-bright-cyan);
+}
+
+::deep .ansi-fg-brightgreen {
+    color: var(--console-theme-bright-green);
+}
+
+::deep .ansi-fg-brightmagenta {
+    color: var(--console-theme-bright-magenta);
+}
+
+::deep .ansi-fg-brightred {
+    color: var(--console-theme-bright-red);
+}
+
+::deep .ansi-fg-brightwhite {
+    color: var(--console-theme-bright-white);
+}
+
+::deep .ansi-fg-brightyellow {
+    color: var(--console-theme-bright-yellow);
+}
+
+::deep .ansi-bg-black {
+    background-color: var(--console-theme-black);
+}
+
+::deep .ansi-bg-blue {
+    background-color: var(--console-theme-blue);
+}
+
+::deep .ansi-bg-cyan {
+    background-color: var(--console-theme-cyan);
+}
+
+::deep .ansi-bg-green {
+    background-color: var(--console-theme-green);
+}
+
+::deep .ansi-bg-magenta {
+    background-color: var(--console-theme-magenta);
+}
+
+::deep .ansi-bg-red {
+    background-color: var(--console-theme-bg-red);
+}
+
+::deep .ansi-bg-white {
+    background-color: var(--console-theme-white);
+}
+
+::deep .ansi-bg-yellow {
+    background-color: var(--console-theme-yellow);
+}

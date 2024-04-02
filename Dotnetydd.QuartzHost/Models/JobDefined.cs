@@ -7,7 +7,7 @@ public class JobDefined
 
 public class JobSetting
 {
-    public bool IsOpen { get; set; }
+    public bool Enabled { get; set; }
 
     public string Name { get; set; }
 
