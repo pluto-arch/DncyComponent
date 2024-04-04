@@ -34,7 +34,6 @@
     font-size: 13px;
     margin: 16px 0 0 0;
     padding-bottom: 24px;
-    line-height: 20px;
     overflow: visible;
     display: flex;
     flex-direction: column;
@@ -46,163 +45,29 @@
     overflow: hidden;
 }
 
-::deep .line-row {
-    cursor: text;
-    padding: 0 12px 0 12px;
-    white-space: pre-wrap;
-    display: flex;
-    flex-direction: row;
-    flex-grow: 1;
-}
 
-    ::deep .line-row:hover {
-        background-color: var(--console-background-color-hover);
-    }
-
-::deep .line-area {
-    flex-grow: 1;
-    justify-content: flex-start;
+.line-area {
     display: flex;
     flex-direction: row;
 }
 
-::deep .line-number {
-    padding-left: 10px;
-    min-width: 43px;
-    text-align: right;
-    align-self: flex-start;
-    flex-shrink: 0;
-    color: var(--line-number-color);
-    user-select: none;
-    cursor: default;
+.line-row{
+    padding: 5px 0 5px 0;
 }
 
-::deep .content {
-    word-break: break-all;
-    margin-left: 20px;
-    position: relative;
-    margin-right: 6px;
-    user-select: text;
-    cursor: text;
-    white-space: pre-wrap;
-    overflow-wrap: anywhere;
+.line-row:hover {
+    background:#979494b2
 }
 
-    ::deep .content .timestamp {
-        color: var(--timestamp-color);
-    }
 
-    ::deep .content a,
-    ::deep .content a:active,
-    ::deep .content a:visited {
-        color: var(--console-font-color);
-        text-decoration: none;
-    }
-
-        ::deep .content a:hover {
-            text-decoration: underline;
-        }
-
-    ::deep .content > fluent-badge {
-        user-select: none;
-    }
-
-    ::deep .content > .timestamp + fluent-badge {
-        margin-left: 1ch;
-    }
-
-::deep .ansi-fg-black {
-    color: var(--console-theme-black);
+.line-number {
+    width: 20px;
 }
 
-::deep .ansi-fg-blue {
-    color: var(--console-theme-blue);
+.log-container {
+    padding: 0 20px 0 20px;
 }
 
-::deep .ansi-fg-cyan {
-    color: var(--console-theme-cyan);
-}
-
-::deep .ansi-fg-green {
-    color: var(--console-theme-green);
-}
-
-::deep .ansi-fg-magenta {
-    color: var(--console-theme-magenta);
-}
-
-::deep .ansi-fg-red {
-    color: var(--console-theme-fg-red);
-}
-
-::deep .ansi-fg-white {
-    color: var(--console-theme-white);
-}
-
-::deep .ansi-fg-yellow {
-    color: var(--console-theme-yellow);
-}
-
-::deep .ansi-fg-brightblack {
-    color: var(--console-theme-bright-black);
-}
-
-::deep .ansi-fg-brightblue {
-    color: var(--console-theme-bright-blue);
-}
-
-::deep .ansi-fg-brightcyan {
-    color: var(--console-theme-bright-cyan);
-}
-
-::deep .ansi-fg-brightgreen {
-    color: var(--console-theme-bright-green);
-}
-
-::deep .ansi-fg-brightmagenta {
-    color: var(--console-theme-bright-magenta);
-}
-
-::deep .ansi-fg-brightred {
-    color: var(--console-theme-bright-red);
-}
-
-::deep .ansi-fg-brightwhite {
-    color: var(--console-theme-bright-white);
-}
-
-::deep .ansi-fg-brightyellow {
-    color: var(--console-theme-bright-yellow);
-}
-
-::deep .ansi-bg-black {
-    background-color: var(--console-theme-black);
-}
-
-::deep .ansi-bg-blue {
-    background-color: var(--console-theme-blue);
-}
-
-::deep .ansi-bg-cyan {
-    background-color: var(--console-theme-cyan);
-}
-
-::deep .ansi-bg-green {
-    background-color: var(--console-theme-green);
-}
-
-::deep .ansi-bg-magenta {
-    background-color: var(--console-theme-magenta);
-}
-
-::deep .ansi-bg-red {
-    background-color: var(--console-theme-bg-red);
-}
-
-::deep .ansi-bg-white {
-    background-color: var(--console-theme-white);
-}
-
-::deep .ansi-bg-yellow {
-    background-color: var(--console-theme-yellow);
+.continuous-scroll-overflow {
+    height: calc(100vh - 110px) !important;
 }

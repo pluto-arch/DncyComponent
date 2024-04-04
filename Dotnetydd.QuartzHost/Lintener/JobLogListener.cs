@@ -1,5 +1,6 @@
 ﻿using Dotnetydd.QuartzHost.Models;
 using Dotnetydd.QuartzHost.Storage;
+using Microsoft.Extensions.Logging;
 using Quartz;
 
 namespace Dotnetydd.QuartzHost.Lintener;

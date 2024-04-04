@@ -2,8 +2,5 @@
 
 public class JobExecutionContextConstants
 {
-    internal const string JobExecutionContextData_JobInfo = "JobInfoModel";
-
-
-    internal const string HttpServiceCallResult_Success = "successed";
+    public const string JOBINFO_KEY = "JobInfoModel";
 }

@@ -4,7 +4,7 @@ using Quartz;
 
 namespace Dotnetydd.QuartzHost;
 
-public class HttpServiceCallJob: IQuartzJob
+public class HttpServiceCallJob: IJob
 {
     private readonly IHttpClientFactory _httpClientFactory;
     private readonly ILogger<HttpServiceCallJob> _logger;
@@ -17,7 +17,7 @@ public class HttpServiceCallJob: IQuartzJob
     /// <inheritdoc />
     public virtual async Task Execute(IJobExecutionContext context)
     {
-        var jobInfo = context.Get(JobExecutionContextConstants.JobExecutionContextData_JobInfo);
+        var jobInfo = context.Get(JobExecutionContextConstants.JOBINFO_KEY);
 
         if (jobInfo == null)
         {

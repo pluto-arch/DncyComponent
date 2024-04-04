@@ -10,6 +10,8 @@ using System.Net;
 using Dotnetydd.QuartzHost.Storage;
 using MudBlazor.Services;
 using Dotnetydd.QuartzHost.Providers;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Dotnetydd.QuartzHost;
 
@@ -25,23 +27,23 @@ public class QuartzDashboardWebApplication: IHostedService
 
     private readonly bool _ishttps;
 
-    public QuartzDashboardWebApplication(ILogger<QuartzDashboardWebApplication> logger,Action<IServiceCollection> configureServices)
+    public QuartzDashboardWebApplication(ILoggerFactory loggerFactory,Action<IServiceCollection> configureServices)
     {
-        _logger = logger;
+        _logger = loggerFactory.CreateLogger<QuartzDashboardWebApplication>()??NullLogger<QuartzDashboardWebApplication>.Instance;
 
         var builder = WebApplication.CreateBuilder();
-        builder.Host.ConfigureLogging(o =>
+        
+        configureServices(builder.Services);
+        loggerFactory.AddProvider(new BlazorConsoleLogProvider(cfg =>
         {
-            o.AddProvider(new BlazorConsoleLogProvider(cfg =>
-            {
-                cfg.LevelMap[LogLevel.Debug] = BlazorConsoleLogColor.Green;
-                cfg.LevelMap[LogLevel.Information] = BlazorConsoleLogColor.White;
-                cfg.LevelMap[LogLevel.Warning] = BlazorConsoleLogColor.Orange;
-                cfg.LevelMap[LogLevel.Error] = BlazorConsoleLogColor.Red;
-            }));
-        });
+            cfg.LevelMap[LogLevel.Debug] = BlazorConsoleLogColor.Gray;
+            cfg.LevelMap[LogLevel.Information] = BlazorConsoleLogColor.Green;
+            cfg.LevelMap[LogLevel.Warning] = BlazorConsoleLogColor.Orange;
+            cfg.LevelMap[LogLevel.Error] = BlazorConsoleLogColor.Red;
+        }));
 
-
+        builder.Services.AddSingleton<ILoggerFactory>(loggerFactory);
+        
         var dashboardUris = EnvironmentHelper.GetAddressUris(DashboardUrlVariableName, DashboardUrlDefaultValue);
 
         if (dashboardUris.FirstOrDefault() is { } reportedDashboardUri)
@@ -71,18 +73,24 @@ public class QuartzDashboardWebApplication: IHostedService
         }
 
         builder.Services.AddRazorComponents()
-            .AddInteractiveServerComponents();
+            .AddInteractiveServerComponents()
+            .AddCircuitOptions(options =>
+            {
+#if DEBUG
+                options.DetailedErrors = true;
+#endif
+            });
+
+
+            
 
         builder.Services.AddScoped<DataRepository>();
         builder.Services.AddSingleton<IJobInfoStore, InMemoryJobInfoStore>();
         
         builder.Services.AddMudServices();
         builder.Services.AddLocalization();
-
-
-
         builder.Services.AddHttpClient();
-        configureServices(builder.Services);
+       
 
         builder.Services.AddHostedService<QuartzHostedService>();
 

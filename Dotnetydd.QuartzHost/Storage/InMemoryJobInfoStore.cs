@@ -33,6 +33,12 @@ public class InMemoryJobInfoStore : IJobInfoStore
         return await Task.FromResult(model);
     }
 
+    public JobInfoModel Get(JobKey job)
+    {
+        JobInfoModel model = jobs.FirstOrDefault(x => x.GroupName == job.Group && x.TaskName == job.Name);
+        return model;
+    }
+
     public async Task AddAsync(JobInfoModel job)
     {
         if (jobs.Any(x => x.GroupName == job.GroupName && x.TaskName == job.TaskName))

@@ -4,21 +4,21 @@ using QuartzJobHostTest.Services;
 
 namespace QuartzJobHostTest.Jobs;
 
-public class UserJob: IQuartzJob
+public class UserJob: QuartzJob<UserJob>
 {
     private readonly DemoService _service;
 
-    public UserJob(DemoService service)
+    public UserJob(DemoService service):base(null)
     {
         _service = service;
     }
 
 
-    /// <inheritdoc />
-    public async Task Execute(IJobExecutionContext context)
+    public override async Task ExecuteAsync(IJobExecutionContext context)
     {
         await Task.Yield();
         context.Result = "UserJob执行完毕";
         _service.OutPutHash();
     }
+
 }

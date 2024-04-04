@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Collections;
+using System.Reflection;
 using Dotnetydd.QuartzHost.Lintener;
 using Dotnetydd.QuartzHost.Models;
 using Dotnetydd.QuartzHost.Storage;
@@ -10,11 +11,10 @@ using Quartz.Spi;
 
 namespace Dotnetydd.QuartzHost;
 
-public static class ServiceCollectionExtensions
+public static class Extensions
 {
     public static IServiceCollection AddDncyQuartzJobCore(this IServiceCollection services)
     {
-        services.AddSingleton<QuartzJobRunner>();
         services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
         services.AddTransient<IJobStore, RAMJobStore>();
         services.AddSingleton<IJobFactory, SingletonJobFactory>();
@@ -61,5 +61,42 @@ public static class ServiceCollectionExtensions
             }
             services.AddSingleton(jobd);
         }
+    }
+
+    public static JobInfoModel GetJobInfo(this IJobExecutionContext ctx)
+    {
+        if (ctx.JobDetail.JobDataMap.ContainsKey(JobExecutionContextConstants.JOBINFO_KEY))
+        {
+            return ctx.JobDetail.JobDataMap.Get(JobExecutionContextConstants.JOBINFO_KEY) as JobInfoModel;
+        }
+        return null;
+    }
+
+    /// <summary>
+    /// 将对象转换成字典
+    /// </summary>
+    /// <param name="value"></param>
+    internal static Dictionary<string, object> ToDictionary(this object value)
+    {
+        var dictionary = new Dictionary<string, object>();
+        if (value != null)
+        {
+            if (value is IDictionary dic)
+            {
+                foreach (DictionaryEntry e in dic)
+                {
+                    dictionary.Add(e.Key.ToString()!, e.Value);
+                }
+                return dictionary;
+            }
+
+            foreach (var property in value.GetType().GetProperties())
+            {
+                var obj = property.GetValue(value, null);
+                dictionary.Add(property.Name, obj);
+            }
+        }
+
+        return dictionary;
     }
 }

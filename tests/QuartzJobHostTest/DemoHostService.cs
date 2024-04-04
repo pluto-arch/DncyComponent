@@ -13,8 +13,7 @@ public class DemoHostService: IHostedLifecycleService
         Action<IServiceCollection> configServices=null)
     {
         loggerFactory??=NullLoggerFactory.Instance;
-        var dashboardLogger = loggerFactory.CreateLogger<QuartzDashboardWebApplication>();
-        _dashboard = new QuartzDashboardWebApplication(dashboardLogger, service =>
+        _dashboard = new QuartzDashboardWebApplication(loggerFactory, service =>
         {
             service.AddDncyQuartzJobCore();
             service.AddStaticJobDefined(typeof(UserJob).Assembly);
