@@ -1,48 +1,39 @@
 ﻿using Dotnetydd.QuartzHost;
 using Quartz;
+using QuartzJobHostTest.Etl.DataSources;
+using QuartzJobHostTest.Etl.Fetcher;
+using QuartzJobHostTest.Etl.Models;
 
 namespace QuartzJobHostTest.Jobs;
 
+[DisallowConcurrentExecution]
 public class DemoJob:QuartzJob<DemoJob>
 {
     private readonly ILogger<DemoJob> _logger;
+    private readonly FetcherContextAccessor _contextAccessor;
 
-    public DemoJob(ILogger<DemoJob> logger): base(logger)
+
+    public DemoJob(ILogger<DemoJob> logger,FetcherContextAccessor contextAccessor): base(logger)
     {
         _logger = logger;
+        _contextAccessor = contextAccessor;
     }
 
-    private static string[] log = new string[]
-    {
-        "E","I","W","D","T","C"
-    };
-    private  Random random = new Random();
+    
     /// <inheritdoc />
     public override async Task ExecuteAsync(IJobExecutionContext context)
     {
-        _logger.LogInformation("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-        var jobInfo = context.GetJobInfo();
-        await Task.Delay(5000);
-        var e = GetRandomLog();
-        switch (e)
+        var paramters =new Dictionary<string, dynamic>
         {
-            case "E":
-                throw new ArgumentException(nameof(jobInfo));
-            case "I":
-                _logger.LogInformation("{Name} - 11111 {@JobInfo}", context?.FireInstanceId, jobInfo);
-                break;
-            case "W":
-                _logger.LogWarning("{Name} - 22222 {@JobInfo}", context?.FireInstanceId, jobInfo);
-                break;
-            case "D":
-                _logger.LogDebug("{Name} - 33333 {@JobInfo}", context?.FireInstanceId, jobInfo);
-                break;
-        }
-    }
+            { "files", new string[] { "202404181000", "202404181010" } },
+            { "start", DateTime.UtcNow },
+            { "end", DateTime.UtcNow.AddMinutes(10) }
+        };
 
-    string GetRandomLog()
-    {
-        int index = random.Next(0,99999)%log.Length;
-        return log[index];
+        using (_contextAccessor.Begin("ICTS3LOG",paramters))
+        {
+            var dateSource = _contextAccessor.CurrentFetcherContext.Resolve<IDataSource<List<ICTS3LogDataModel>>>();
+            _ = await dateSource.FetcherDataAsync();
+        }
     }
 }

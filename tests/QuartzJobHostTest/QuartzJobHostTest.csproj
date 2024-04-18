@@ -14,4 +14,9 @@
     <ProjectReference Include="..\..\Dotnetydd.QuartzHost\Dotnetydd.QuartzHost.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Etl\Transformers\" />
+    <Folder Include="Etl\Fetcher\" />
+  </ItemGroup>
+
 </Project>
