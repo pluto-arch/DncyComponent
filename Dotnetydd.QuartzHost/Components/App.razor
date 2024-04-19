@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <base href="/" />
+    <link rel="icon" type="image/x-icon" href="_content/Dotnetydd.QuartzHost/favicon.ico" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <link href="_content/MudBlazor/MudBlazor.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="_content/Dotnetydd.QuartzHost/css/app.css" />
+    <link rel="stylesheet" href="_content/Dotnetydd.QuartzHost/Dotnetydd.QuartzHost.bundle.scp.css" />
+    <link href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" rel="stylesheet">
+    <HeadOutlet @rendermode="@(new InteractiveServerRenderMode(prerender: false))" />
+    <style>
+        @@media (prefers-color-scheme: dark) {
+            body {
+                background-color: #272727;
+            }
+        }</style>
+</head>
+
+<body class="before-upgrade">
+    <Routes @rendermode="@(new InteractiveServerRenderMode(prerender: false))" />
+    <script src="_framework/blazor.web.js"></script>
+    <script src="_content/Dotnetydd.QuartzHost/js/app.js"></script>
+    <script src="_content/Dotnetydd.QuartzHost/js/plotly-2.26.0.min.js"></script>
+    <script src="_content/MudBlazor/MudBlazor.min.js"></script>
+</body>
+</html>

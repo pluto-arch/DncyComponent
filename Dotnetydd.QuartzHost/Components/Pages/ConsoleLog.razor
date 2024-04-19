@@ -1,0 +1,32 @@
+﻿@page "/ConsoleLogs/{jobId?}"
+
+
+@inject IJSRuntime JS
+
+<PageTitle>@($"{job?.DisplayName}")日志</PageTitle>
+
+
+@if (job == null)
+{
+    <p>暂无数据</p>
+}
+else
+{
+    <div class="log-overflow continuous-scroll-overflow">
+        <div class="log-container" id="logContainer">
+            <Virtualize Items="_appRunninglogs" ItemSize="20" OverscanCount="5" Context="flight">
+                <div class="line-row-container">
+                    <div class="line-row">
+                        <span class="line-area" role="log">
+                            <span class="line-number">-</span>
+                            <span class="content">
+                                @((MarkupString)(flight ?? string.Empty))
+                            </span>
+                        </span>
+                    </div>
+                </div>
+            </Virtualize>
+        </div>
+    </div>
+
+}

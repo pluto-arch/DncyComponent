@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="5.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Dotnetydd.QuartzHost\Dotnetydd.QuartzHost.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Etl\Transformers\" />
+    <Folder Include="Etl\Fetcher\" />
+  </ItemGroup>
+
+</Project>
