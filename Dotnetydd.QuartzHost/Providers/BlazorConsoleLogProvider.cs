@@ -84,7 +84,7 @@ public partial class BlazorConsoleLogger : ILogger
             }
             _ = _colorMap.TryGetValue(value, out var color);
             
-            RaiseSubscriptionChanged(AppSubscribe.LoggerSubscriptions, 
+            RaiseSubscriptionChanged(AppSubscribe.ApplicationSubscriptions, 
                 $"<section> <span>[{DateTimeOffset.Now:MM-dd HH:mm:ss.fff}] </span> <b>  [<span style='color:{color}'>{logLevel.ToString()[..4]} </span>:{_categoryName}] </b> {message}  </section>");
         }
         catch
@@ -94,7 +94,6 @@ public partial class BlazorConsoleLogger : ILogger
     }
 
     const string OriginalFormatPropertyName = "{OriginalFormat}";
-    static Regex regex = new Regex(@"\{.*?\}");
     private string Formatter<TState>(TState state)
     {
         string temp = "";
@@ -133,18 +132,6 @@ public partial class BlazorConsoleLogger : ILogger
     [GeneratedRegex( @"\{.*?\}", RegexOptions.IgnorePatternWhitespace|RegexOptions.Compiled)]
     private static partial Regex LogTemplatePropertyRegex();
 
-
-    static string ReplaceWith(Span<char> input, char oldChar, char newChar)
-    {
-        for (int i = 0; i < input.Length; i++)
-        {
-            if (input[i] == oldChar)
-            {
-                input[i] = newChar;
-            }
-        }
-        return new string(input);
-    }
 
 
     private void RaiseSubscriptionChanged(List<Subscription> subscriptions, string value)

@@ -12,6 +12,12 @@ using MudBlazor.Services;
 using Dotnetydd.QuartzHost.Providers;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.Extensions.Options;
+using System.Security.Claims;
+using Dotnetydd.QuartzHost.Auth;
 
 namespace Dotnetydd.QuartzHost;
 
@@ -71,7 +77,7 @@ public class QuartzDashboardWebApplication: IHostedService
         {
             builder.Services.Configure<HttpsRedirectionOptions>(options => options.HttpsPort = dashboardHttpsPort);
         }
-
+        builder.Services.AddCascadingAuthenticationState();
         builder.Services.AddRazorComponents()
             .AddInteractiveServerComponents()
             .AddCircuitOptions(options =>
@@ -81,8 +87,7 @@ public class QuartzDashboardWebApplication: IHostedService
 #endif
             });
 
-
-            
+        ConfigureAuthentication(builder);
 
         builder.Services.AddScoped<DataRepository>();
         builder.Services.AddSingleton<IJobInfoStore, InMemoryJobInfoStore>();
@@ -95,6 +100,9 @@ public class QuartzDashboardWebApplication: IHostedService
         builder.Services.AddHostedService<QuartzHostedService>();
 
         _app = builder.Build();
+
+
+        _app.UseMiddleware<ValidateTokenMiddleware>();
 
         if (!_app.Environment.IsDevelopment())
         {
@@ -117,10 +125,18 @@ public class QuartzDashboardWebApplication: IHostedService
             }
         });
 
+
+        _app.UseAuthentication();
+        _app.UseAuthorization();
+
+
         _app.UseAntiforgery();
 
         _app.MapRazorComponents<App>()
             .AddInteractiveServerRenderMode();
+
+        _app.MapPost("/api/validatetoken", async (string token, HttpContext httpContext) => await ValidateTokenMiddleware.TryAuthenticateAsync(token, httpContext).ConfigureAwait(false));
+
     }
 
 
@@ -166,6 +182,44 @@ public class QuartzDashboardWebApplication: IHostedService
                 options.Protocols = httpProtocols.Value;
             }
         }
+    }
+
+
+    private static void ConfigureAuthentication(WebApplicationBuilder builder)
+    {
+        var authentication = builder.Services
+            .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme);
+
+        authentication.AddCookie(o=>
+        {
+            o.AccessDeniedPath="/AccessDenied";
+            o.Cookie.Name= "dncy_quartz_dashboard_key";
+            o.Cookie.HttpOnly=true;
+            o.Cookie.SameSite=SameSiteMode.Strict;
+            o.LoginPath="/login";
+            o.ExpireTimeSpan=TimeSpan.FromDays(10);
+        });
+
+        builder.Services.AddAuthorization(options =>
+        {
+        });
+
+    }
+
+
+    public static async Task<bool> TryAuthenticateAsync(string incomingBrowserToken, HttpContext httpContext)
+    {
+        if (string.IsNullOrEmpty(incomingBrowserToken))
+        {
+            return false;
+        }
+        var claimsIdentity = new ClaimsIdentity(
+            [new Claim(ClaimTypes.NameIdentifier, "Local")],
+            authenticationType: CookieAuthenticationDefaults.AuthenticationScheme);
+        var claims = new ClaimsPrincipal(claimsIdentity);
+
+        await httpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claims).ConfigureAwait(false);
+        return true;
     }
 
 

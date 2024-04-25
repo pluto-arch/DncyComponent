@@ -65,7 +65,7 @@ public class DataRepository
     /// <returns></returns>
     public void AddAppRunningLogAsync(string logFormatString)
     {
-        RaiseSubscriptionChanged(_loggerSubscriptions,logFormatString);
+        RaiseSubscriptionChanged(_applicationSubscriptions,logFormatString);
     }
 
 

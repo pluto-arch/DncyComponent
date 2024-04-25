@@ -1,0 +1,17 @@
+﻿@page "/login"
+@using Dotnetydd.QuartzHost.Components.Layout
+@layout NullLayout
+@inherits LayoutComponentBase
+
+    <EditForm Model="_formModel" OnValidSubmit="SubmitAsync">
+        <MudPaper Class="pa-4">
+            <MudTextField T="string" Label="Token"
+                          @bind-Value="_formModel.Token"
+                          InputType="InputType.Password"
+                          Placeholder="输入token"
+                          RequiredError="Token is required!" />
+        </MudPaper>
+        <MudPaper Class="pa-4 mt-4">
+            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary">确认</MudButton>
+        </MudPaper>
+    </EditForm>
