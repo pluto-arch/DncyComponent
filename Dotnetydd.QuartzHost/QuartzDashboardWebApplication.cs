@@ -18,6 +18,9 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Options;
 using System.Security.Claims;
 using Dotnetydd.QuartzHost.Auth;
+using Dotnetydd.QuartzHost.Utils;
+using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json.Linq;
 
 namespace Dotnetydd.QuartzHost;
 
@@ -38,7 +41,17 @@ public class QuartzDashboardWebApplication: IHostedService
         _logger = loggerFactory.CreateLogger<QuartzDashboardWebApplication>()??NullLogger<QuartzDashboardWebApplication>.Instance;
 
         var builder = WebApplication.CreateBuilder();
-        
+        var token=TokenGenerator.GenerateToken();
+        var configurationBuilder = new ConfigurationBuilder();
+        configurationBuilder.AddInMemoryCollection(
+            new Dictionary<string, string>
+            {
+                ["AppHost:Token"] = token
+            }
+        );
+        var configuration= configurationBuilder.Build();
+        builder.Services.AddSingleton<InnerIConfiguration>(s=>new InnerIConfiguration{InnerConfiguration = configuration});
+
         configureServices(builder.Services);
         loggerFactory.AddProvider(new BlazorConsoleLogProvider(cfg =>
         {
@@ -54,7 +67,7 @@ public class QuartzDashboardWebApplication: IHostedService
 
         if (dashboardUris.FirstOrDefault() is { } reportedDashboardUri)
         {
-            _logger.LogInformation("Now listening on for dashboard: {dashboardUri}", reportedDashboardUri.AbsoluteUri.TrimEnd('/'));
+            _logger.LogInformation("Now listening on for dashboard: {dashboardUri}. access_token is {Token}", reportedDashboardUri.AbsoluteUri.TrimEnd('/'),token);
         }
 
         var dashboardHttpsPort = dashboardUris.FirstOrDefault(IsHttps)?.Port;
@@ -65,7 +78,6 @@ public class QuartzDashboardWebApplication: IHostedService
         {
             ConfigureListenAddresses(kestrelOptions, dashboardUris);
         });
-
 
         if (!builder.Environment.IsDevelopment())
         {
@@ -100,7 +112,7 @@ public class QuartzDashboardWebApplication: IHostedService
         builder.Services.AddHostedService<QuartzHostedService>();
 
         _app = builder.Build();
-
+        
 
         _app.UseMiddleware<ValidateTokenMiddleware>();
 
@@ -124,6 +136,7 @@ public class QuartzDashboardWebApplication: IHostedService
                 }
             }
         });
+
 
 
         _app.UseAuthentication();
@@ -225,4 +238,9 @@ public class QuartzDashboardWebApplication: IHostedService
 
 
     private static bool IsHttps(Uri uri) => string.Equals(uri.Scheme, "https", StringComparison.Ordinal);
+}
+
+public class InnerIConfiguration
+{
+    public IConfiguration InnerConfiguration { get; set; }
 }

@@ -7,6 +7,7 @@ using static Quartz.Logging.OperationName;
 
 namespace Dotnetydd.QuartzHost.Components.Pages;
 
+[Authorize]
 public sealed partial class ConsoleLog: ComponentBase, IDisposable
 {
     private bool _applicationChanged;

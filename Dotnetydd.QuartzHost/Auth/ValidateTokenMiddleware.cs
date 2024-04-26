@@ -4,9 +4,12 @@ using System.Security.Claims;
 using System.Web;
 using System;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System.Text;
+using Dotnetydd.QuartzHost.Utils;
 
 namespace Dotnetydd.QuartzHost.Auth;
 
@@ -50,6 +53,18 @@ public class ValidateTokenMiddleware
     public static async Task<bool> TryAuthenticateAsync(string incomingBrowserToken, HttpContext httpContext)
     {
         if (string.IsNullOrEmpty(incomingBrowserToken))
+        {
+            return false;
+        }
+
+        var config=httpContext.RequestServices.GetRequiredService<InnerIConfiguration>();
+        var token = config.InnerConfiguration["AppHost:Token"];
+
+        if (string.IsNullOrEmpty(incomingBrowserToken))
+        {
+            return false;
+        }
+        if (!CompareHelpers.CompareKey(Encoding.UTF8.GetBytes(token??""), incomingBrowserToken))
         {
             return false;
         }
